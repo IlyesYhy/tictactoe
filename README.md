@@ -1,17 +1,49 @@
-# tictactoe
+# TicTacToe Flutter Challenge
 
-A new Flutter project.
+A Flutter Tic-Tac-Toe application ready to scale.
 
-## Getting Started
+The goal of this project is to showcase a production-oriented Flutter architecture with a clean separation of concerns, testable business logic, and a maintainable codebase.
 
-This project is a starting point for a Flutter application.
+## Technical Choices
 
-A few resources to get you started if this is your first Flutter project:
+### Feature-first architecture
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+The app is organized by feature to make the codebase scalable and easier to maintain as new functionality is added.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Clean Architecture
+
+Business logic is isolated from the presentation layer so it can be tested independently from Flutter.
+
+### Riverpod v2
+
+Riverpod is used for dependency injection and state management, aligned with modern Flutter development practices.
+
+### Bootstrap layer
+
+The app startup logic is centralized in bootstrap.dart to keep main.dart minimal and prepare the project for production concerns such as error reporting or environment configuration.
+
+### Theme system
+
+The project uses Flutter’s ThemeData and TextTheme to keep the UI consistent and aligned with the Flutter ecosystem.
+
+## Getting started
+
+```bash
+flutter pub get
+flutter run
+```
+
+## Quality
+
+The project uses:
+
+- Flutter analysis options
+- Commitlint
+- Husky Git hooks
+
+The project follows conventional commits rules, making it compatible with automated changelog and release workflows if needed.
+
+```bash
+flutter analyze
+dart format .
+```
