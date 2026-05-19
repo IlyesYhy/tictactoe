@@ -10,8 +10,10 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.8
+  equatable: ^2.0.8
   flutter:
     sdk: flutter
+  flutter_riverpod: ^3.3.1
 
 dev_dependencies:
   flutter_lints: ^6.0.0
