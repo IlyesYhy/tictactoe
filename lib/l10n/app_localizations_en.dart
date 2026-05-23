@@ -10,4 +10,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appTitle => 'TicTacToe';
+
+  @override
+  String get yourTurn => 'Your turn';
+
+  @override
+  String get cpuThinking => 'CPU is thinking';
+
+  @override
+  String get youWon => 'You won!';
+
+  @override
+  String get cpuWon => 'The CPU won!';
+
+  @override
+  String get draw => 'Draw!';
+
+  @override
+  String get you => 'You';
+
+  @override
+  String get cpu => 'CPU';
+
+  @override
+  String get restartGame => 'Restart';
 }

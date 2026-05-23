@@ -1,4 +1,12 @@
 {
   "@@locale": "fr",
-  "appTitle": "TicTacToe"
+  "appTitle": "TicTacToe",
+  "yourTurn": "À vous de jouer",
+  "cpuThinking": "L'ordinateur réfléchit",
+  "youWon": "Vous avez gagné !",
+  "cpuWon": "L'ordinateur a gagné !",
+  "draw": "Match nul !",
+  "you": "Vous",
+  "cpu": "Ordinateur",
+  "restartGame": "Recommencer"
 }

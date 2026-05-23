@@ -103,6 +103,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'TicTacToe'**
   String get appTitle;
+
+  /// Status message displayed when it is the human player's turn.
+  ///
+  /// In en, this message translates to:
+  /// **'Your turn'**
+  String get yourTurn;
+
+  /// Status message displayed while the CPU is computing its next move.
+  ///
+  /// In en, this message translates to:
+  /// **'CPU is thinking'**
+  String get cpuThinking;
+
+  /// Result message displayed when the human player wins the game.
+  ///
+  /// In en, this message translates to:
+  /// **'You won!'**
+  String get youWon;
+
+  /// Result message displayed when the CPU wins the game.
+  ///
+  /// In en, this message translates to:
+  /// **'The CPU won!'**
+  String get cpuWon;
+
+  /// Result message displayed when the game ends without a winner.
+  ///
+  /// In en, this message translates to:
+  /// **'Draw!'**
+  String get draw;
+
+  /// Label used to identify the human player.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get you;
+
+  /// Label used to identify the computer-controlled opponent.
+  ///
+  /// In en, this message translates to:
+  /// **'CPU'**
+  String get cpu;
+
+  /// Button label used to restart the current game.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart'**
+  String get restartGame;
 }
 
 class _AppLocalizationsDelegate
