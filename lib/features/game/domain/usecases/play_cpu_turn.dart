@@ -1,5 +1,5 @@
+import '../entities/game_roles.dart';
 import '../entities/game_session.dart';
-import '../entities/player.dart';
 import '../repositories/ai_repository.dart';
 import '../services/game_engine.dart';
 
@@ -18,20 +18,20 @@ final class PlayCpuTurn {
       throw StateError('Cannot play a move after the game is finished.');
     }
 
-    if (session.currentPlayer != Player.o) {
+    if (session.currentPlayer != cpuPlayer) {
       throw StateError('It is not the CPU player turn.');
     }
 
     final cellIndex = await _aiRepository.chooseMove(session.board);
     final updatedBoard = session.board.placeMove(
       index: cellIndex,
-      player: Player.o,
+      player: cpuPlayer,
     );
     final result = _gameEngine.evaluate(updatedBoard);
 
     return GameSession(
       board: updatedBoard,
-      currentPlayer: Player.x,
+      currentPlayer: humanPlayer,
       result: result,
     );
   }

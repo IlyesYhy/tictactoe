@@ -1,6 +1,6 @@
 import '../../entities/board.dart';
 import '../../entities/game_result.dart';
-import '../../entities/player.dart';
+import '../../entities/game_roles.dart';
 import '../game_engine.dart';
 import 'ai_strategy.dart';
 
@@ -8,15 +8,12 @@ import 'ai_strategy.dart';
 ///
 /// TicTacToe is deterministic and has a small state space, making Minimax
 /// a good fit to provide optimal local gameplay without external dependencies.
-/// The CPU plays as [Player.o] and evaluates the human as [Player.x].
+/// The CPU plays as [cpuPlayer] and evaluates the human as [humanPlayer].
 ///
 /// Scores are adjusted by search depth so the CPU prefers faster wins and
 /// delays unavoidable losses.
 final class MinimaxAiStrategy implements AiStrategy {
   const MinimaxAiStrategy(this._gameEngine);
-
-  static const _aiPlayer = Player.o;
-  static const _humanPlayer = Player.x;
 
   final GameEngine _gameEngine;
 
@@ -36,7 +33,7 @@ final class MinimaxAiStrategy implements AiStrategy {
     var bestScore = _minScore;
 
     for (final move in availableMoves) {
-      final nextBoard = board.placeMove(index: move, player: _aiPlayer);
+      final nextBoard = board.placeMove(index: move, player: cpuPlayer);
       final score = _minimax(board: nextBoard, depth: 1, isAiTurn: false);
 
       if (score > bestScore) {
@@ -56,7 +53,7 @@ final class MinimaxAiStrategy implements AiStrategy {
     final result = _gameEngine.evaluate(board);
 
     if (result is GameWinner) {
-      return result.player == _aiPlayer ? 10 - depth : depth - 10;
+      return result.player == cpuPlayer ? 10 - depth : depth - 10;
     }
 
     if (result is GameDraw) {
@@ -69,7 +66,7 @@ final class MinimaxAiStrategy implements AiStrategy {
       var bestScore = _minScore;
 
       for (final move in moves) {
-        final nextBoard = board.placeMove(index: move, player: _aiPlayer);
+        final nextBoard = board.placeMove(index: move, player: cpuPlayer);
         final score = _minimax(
           board: nextBoard,
           depth: depth + 1,
@@ -87,7 +84,7 @@ final class MinimaxAiStrategy implements AiStrategy {
     var bestScore = _maxScore;
 
     for (final move in moves) {
-      final nextBoard = board.placeMove(index: move, player: _humanPlayer);
+      final nextBoard = board.placeMove(index: move, player: humanPlayer);
       final score = _minimax(
         board: nextBoard,
         depth: depth + 1,
