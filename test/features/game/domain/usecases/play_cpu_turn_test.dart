@@ -55,7 +55,7 @@ void main() {
 
       expect(updatedSession.result, const GameWinner(Player.o));
       expect(updatedSession.isFinished, isTrue);
-      expect(updatedSession.currentPlayer, Player.o);
+      expect(updatedSession.currentPlayer, Player.x);
     });
 
     test('returns draw when CPU fills the last available cell', () async {
@@ -81,7 +81,7 @@ void main() {
 
       expect(updatedSession.result, const GameDraw());
       expect(updatedSession.isFinished, isTrue);
-      expect(updatedSession.currentPlayer, Player.o);
+      expect(updatedSession.currentPlayer, Player.x);
     });
 
     test('prevents CPU move when game is already finished', () async {

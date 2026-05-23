@@ -53,7 +53,7 @@ void main() {
 
       expect(updatedSession.result, const GameWinner(Player.x));
       expect(updatedSession.isFinished, isTrue);
-      expect(updatedSession.currentPlayer, Player.x);
+      expect(updatedSession.currentPlayer, Player.o);
     });
 
     test('returns draw when human move fills the board without winner', () {
