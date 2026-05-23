@@ -29,6 +29,13 @@ void main() {
       expect(updatedBoard.cells[0], Cell.x);
     });
 
+    test('does not consider boards with different cells equal', () {
+      final board = Board.empty();
+      final updatedBoard = board.placeMove(index: 0, player: Player.x);
+
+      expect(updatedBoard, isNot(board));
+    });
+
     test('prevents placing a move on an occupied cell', () {
       final board = Board.empty().placeMove(index: 0, player: Player.x);
 
