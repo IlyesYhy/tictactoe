@@ -15,6 +15,9 @@ import 'ai_strategy.dart';
 final class MinimaxAiStrategy implements AiStrategy {
   const MinimaxAiStrategy(this._gameEngine);
 
+  static const _minScore = -1000;
+  static const _maxScore = 1000;
+
   final GameEngine _gameEngine;
 
   @override
@@ -99,6 +102,3 @@ final class MinimaxAiStrategy implements AiStrategy {
     return bestScore;
   }
 }
-
-const _minScore = -1000;
-const _maxScore = 1000;
