@@ -14,8 +14,8 @@ final class LocalAiRepository implements AiRepository {
   const LocalAiRepository();
 
   @override
-  Future<int> chooseMove(Board board) {
+  Future<int> chooseMove(Board board) async {
     const strategy = MinimaxAiStrategy(GameEngine());
-    return Future.value(strategy.chooseMove(board));
+    return strategy.chooseMove(board);
   }
 }
