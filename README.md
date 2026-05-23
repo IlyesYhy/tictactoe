@@ -4,7 +4,7 @@ A Flutter Tic-Tac-Toe application ready to scale.
 
 The goal of this project is to showcase a production-oriented Flutter architecture with a clean separation of concerns, testable business logic, and a maintainable codebase.
 
-## Technical Choices
+## Technical Decisions
 
 ### Feature-first architecture
 
@@ -25,6 +25,22 @@ The app startup logic is centralized in bootstrap.dart to keep main.dart minimal
 ### Theme system
 
 The project uses Flutter’s ThemeData and TextTheme to keep the UI consistent and aligned with the Flutter ecosystem.
+
+### Localization
+
+The app supports English and French using Flutter's official localization system.
+
+Translations are defined with ARB files under `lib/l10n/` and accessed through a `BuildContext` extension:
+
+```dart
+context.l10n.appTitle
+```
+
+Generated localization files are committed to the repository on purpose.
+
+For this technical test, this keeps the project immediately usable after cloning, makes localization API changes explicit in pull requests, and keeps the review process straightforward.
+
+When ARB files change, `flutter pub get` regenerates the Dart files automatically thanks to `generate: true` in `pubspec.yaml`.
 
 ## Getting started
 

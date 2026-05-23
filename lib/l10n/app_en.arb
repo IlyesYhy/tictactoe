@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "appTitle": "TicTacToe",
+  "@appTitle": {
+    "description": "Application title used in the OS task bar and on the home screen."
+  }
+}
