@@ -1,4 +1,3 @@
-import '../entities/game_result.dart';
 import '../entities/game_session.dart';
 import '../entities/player.dart';
 import '../repositories/ai_repository.dart';
@@ -32,7 +31,7 @@ final class PlayCpuTurn {
 
     return GameSession(
       board: updatedBoard,
-      currentPlayer: result is GameInProgress ? Player.x : Player.o,
+      currentPlayer: Player.x,
       result: result,
     );
   }

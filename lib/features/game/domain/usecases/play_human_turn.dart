@@ -1,4 +1,3 @@
-import '../entities/game_result.dart';
 import '../entities/game_session.dart';
 import '../entities/player.dart';
 import '../services/game_engine.dart';
@@ -30,7 +29,7 @@ final class PlayHumanTurn {
 
     return GameSession(
       board: updatedBoard,
-      currentPlayer: result is GameInProgress ? Player.o : Player.x,
+      currentPlayer: Player.o,
       result: result,
     );
   }
