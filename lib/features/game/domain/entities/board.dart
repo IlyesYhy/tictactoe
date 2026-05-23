@@ -18,9 +18,16 @@ final class Board extends Equatable {
   final List<Cell> cells;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [cells];
 
   bool get isFull => !cells.contains(Cell.empty);
+
+  List<int> get availableMoves {
+    return [
+      for (var index = minIndex; index <= maxIndex; index++)
+        if (isCellEmpty(index)) index,
+    ];
+  }
 
   bool isCellEmpty(int index) {
     _validateIndex(index);
