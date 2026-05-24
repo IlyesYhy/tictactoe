@@ -4,14 +4,18 @@ import 'package:tictactoe/app/theme/app_theme.dart';
 import 'package:tictactoe/l10n/app_localizations.dart';
 
 extension PumpTestApp on WidgetTester {
-  Future<void> pumpTestApp(Widget child, {Locale locale = const Locale('en')}) {
+  Future<void> pumpTestApp(
+    Widget child, {
+    Locale locale = const Locale('en'),
+    bool wrapWithScaffold = true,
+  }) {
     return pumpWidget(
       MaterialApp(
         theme: AppTheme.light,
         locale: locale,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        home: Scaffold(body: Center(child: child)),
+        home: wrapWithScaffold ? Scaffold(body: Center(child: child)) : child,
       ),
     );
   }
