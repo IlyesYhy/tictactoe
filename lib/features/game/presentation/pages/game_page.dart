@@ -20,45 +20,87 @@ class GamePage extends ConsumerWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: AppSpacing.gamePagePadding,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 420),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    context.l10n.appTitle,
-                    style: context.textTheme.headlineLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
-                    ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final layout = _GamePageLayout.fromConstraints(constraints);
+
+            return Padding(
+              padding: AppSpacing.gamePagePadding,
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: _GamePageLayout.maxContentWidth,
                   ),
-                  AppSpacing.h32,
-                  GameStatusBadge(
-                    result: state.session.result,
-                    isCpuThinking: state.isCpuThinking,
+                  child: Column(
+                    children: [
+                      Text(
+                        context.l10n.appTitle,
+                        style: context.textTheme.headlineLarge?.copyWith(
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      layout.titleStatusGap,
+                      GameStatusBadge(
+                        result: state.session.result,
+                        isCpuThinking: state.isCpuThinking,
+                      ),
+                      layout.statusBoardGap,
+                      Expanded(
+                        child: Center(
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: GameBoard(
+                              board: state.session.board,
+                              isDisabled: isBoardDisabled,
+                              onCellTap: controller.playHumanTurn,
+                            ),
+                          ),
+                        ),
+                      ),
+                      layout.boardLegendGap,
+                      const GamePlayersLegend(),
+                      layout.legendButtonGap,
+                      RestartGameButton(
+                        onPressed: state.isCpuThinking
+                            ? null
+                            : controller.resetGame,
+                      ),
+                    ],
                   ),
-                  AppSpacing.h32,
-                  GameBoard(
-                    board: state.session.board,
-                    isDisabled: isBoardDisabled,
-                    onCellTap: controller.playHumanTurn,
-                  ),
-                  AppSpacing.h24,
-                  const GamePlayersLegend(),
-                  AppSpacing.h32,
-                  RestartGameButton(
-                    onPressed: state.isCpuThinking
-                        ? null
-                        : controller.resetGame,
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
   }
+}
+
+class _GamePageLayout {
+  const _GamePageLayout({
+    required this.titleStatusGap,
+    required this.statusBoardGap,
+    required this.boardLegendGap,
+    required this.legendButtonGap,
+  });
+
+  factory _GamePageLayout.fromConstraints(BoxConstraints constraints) {
+    final isSpaciousHeight = constraints.maxHeight >= _spaciousHeightThreshold;
+
+    return _GamePageLayout(
+      titleStatusGap: isSpaciousHeight ? AppSpacing.h40 : AppSpacing.h16,
+      statusBoardGap: isSpaciousHeight ? AppSpacing.h40 : AppSpacing.h16,
+      boardLegendGap: isSpaciousHeight ? AppSpacing.h24 : AppSpacing.h12,
+      legendButtonGap: isSpaciousHeight ? AppSpacing.h32 : AppSpacing.h16,
+    );
+  }
+
+  static const maxContentWidth = 420.0;
+  static const _spaciousHeightThreshold = 700.0;
+
+  final SizedBox titleStatusGap;
+  final SizedBox statusBoardGap;
+  final SizedBox boardLegendGap;
+  final SizedBox legendButtonGap;
 }
