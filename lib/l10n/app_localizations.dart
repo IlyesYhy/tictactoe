@@ -103,6 +103,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'TicTacToe'**
   String get appTitle;
+
+  /// Status message displayed when it is the human player's turn.
+  ///
+  /// In en, this message translates to:
+  /// **'Your turn'**
+  String get yourTurn;
+
+  /// Status message displayed while the CPU is computing its next move.
+  ///
+  /// In en, this message translates to:
+  /// **'CPU is thinking'**
+  String get cpuThinking;
+
+  /// Result message displayed when the human player wins the game.
+  ///
+  /// In en, this message translates to:
+  /// **'You won!'**
+  String get youWon;
+
+  /// Result message displayed when the CPU wins the game.
+  ///
+  /// In en, this message translates to:
+  /// **'The CPU won!'**
+  String get cpuWon;
+
+  /// Result message displayed when the game ends without a winner.
+  ///
+  /// In en, this message translates to:
+  /// **'Draw!'**
+  String get draw;
+
+  /// Label used to identify the human player.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get you;
+
+  /// Label used to identify the computer-controlled opponent.
+  ///
+  /// In en, this message translates to:
+  /// **'CPU'**
+  String get cpu;
+
+  /// Button label used to restart the current game while it is still in progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart'**
+  String get restartGame;
+
+  /// Button label used to start a new game once the current one has ended.
+  ///
+  /// In en, this message translates to:
+  /// **'Play again'**
+  String get playAgain;
+
+  /// Accessibility label for a board cell, identifying its 1-based position (1 to 9).
+  ///
+  /// In en, this message translates to:
+  /// **'Cell {position}'**
+  String cellSemanticLabel(int position);
+
+  /// Accessibility value spoken when a board cell has not been played yet.
+  ///
+  /// In en, this message translates to:
+  /// **'empty'**
+  String get cellStateEmpty;
 }
 
 class _AppLocalizationsDelegate

@@ -3,5 +3,54 @@
   "appTitle": "TicTacToe",
   "@appTitle": {
     "description": "Application title used in the OS task bar and on the home screen."
+  },
+  "yourTurn": "Your turn",
+  "@yourTurn": {
+    "description": "Status message displayed when it is the human player's turn."
+  },
+  "cpuThinking": "CPU is thinking",
+  "@cpuThinking": {
+    "description": "Status message displayed while the CPU is computing its next move."
+  },
+  "youWon": "You won!",
+  "@youWon": {
+    "description": "Result message displayed when the human player wins the game."
+  },
+  "cpuWon": "The CPU won!",
+  "@cpuWon": {
+    "description": "Result message displayed when the CPU wins the game."
+  },
+  "draw": "Draw!",
+  "@draw": {
+    "description": "Result message displayed when the game ends without a winner."
+  },
+  "you": "You",
+  "@you": {
+    "description": "Label used to identify the human player."
+  },
+  "cpu": "CPU",
+  "@cpu": {
+    "description": "Label used to identify the computer-controlled opponent."
+  },
+  "restartGame": "Restart",
+  "@restartGame": {
+    "description": "Button label used to restart the current game while it is still in progress."
+  },
+  "playAgain": "Play again",
+  "@playAgain": {
+    "description": "Button label used to start a new game once the current one has ended."
+  },
+  "cellSemanticLabel": "Cell {position}",
+  "@cellSemanticLabel": {
+    "description": "Accessibility label for a board cell, identifying its 1-based position (1 to 9).",
+    "placeholders": {
+      "position": {
+        "type": "int"
+      }
+    }
+  },
+  "cellStateEmpty": "empty",
+  "@cellStateEmpty": {
+    "description": "Accessibility value spoken when a board cell has not been played yet."
   }
 }

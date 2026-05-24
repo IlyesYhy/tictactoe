@@ -11,9 +11,15 @@ import 'package:tictactoe/features/game/presentation/controllers/game_controller
 import 'package:tictactoe/features/game/presentation/providers/game_providers.dart';
 
 void main() {
-  ProviderContainer createContainer({required AiRepository aiRepository}) {
+  ProviderContainer createContainer({
+    required AiRepository aiRepository,
+    Duration cpuThinkingDelay = Duration.zero,
+  }) {
     final container = ProviderContainer(
-      overrides: [aiRepositoryProvider.overrideWithValue(aiRepository)],
+      overrides: [
+        aiRepositoryProvider.overrideWithValue(aiRepository),
+        cpuThinkingDelayProvider.overrideWithValue(cpuThinkingDelay),
+      ],
     );
     addTearDown(container.dispose);
     return container;
@@ -47,6 +53,25 @@ void main() {
       expect(state.session.currentPlayer, humanPlayer);
       expect(state.session.result, const GameInProgress());
       expect(state.isCpuThinking, isFalse);
+    });
+
+    test('keeps the CPU thinking badge visible for at least the configured '
+        'delay', () async {
+      final container = createContainer(
+        aiRepository: const _SequenceAiRepository([4]),
+        cpuThinkingDelay: const Duration(milliseconds: 100),
+      );
+      final controller = container.read(gameControllerProvider.notifier);
+      final stopwatch = Stopwatch()..start();
+
+      await controller.playHumanTurn(0);
+
+      expect(stopwatch.elapsedMilliseconds, greaterThanOrEqualTo(100));
+      expect(container.read(gameControllerProvider).isCpuThinking, isFalse);
+      expect(
+        container.read(gameControllerProvider).session.board.cells[4],
+        Cell.o,
+      );
     });
 
     test('flags isCpuThinking while the CPU turn is in flight', () async {

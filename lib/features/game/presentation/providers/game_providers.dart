@@ -25,3 +25,7 @@ final playCpuTurnProvider = Provider<PlayCpuTurn>(
     ref.watch(gameEngineProvider),
   ),
 );
+
+final cpuThinkingDelayProvider = Provider<Duration>(
+  (ref) => const Duration(milliseconds: 450),
+);
