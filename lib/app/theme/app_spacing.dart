@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 
 abstract final class AppSpacing {
   static const pagePadding = EdgeInsets.fromLTRB(16, 12, 16, 24);
+  static const gamePagePadding = EdgeInsets.all(24);
 
   // Height spacers
   static const h4 = SizedBox(height: 4);
@@ -10,6 +11,7 @@ abstract final class AppSpacing {
   static const h16 = SizedBox(height: 16);
   static const h24 = SizedBox(height: 24);
   static const h32 = SizedBox(height: 32);
+  static const h40 = SizedBox(height: 40);
 
   // Widths spacers
   static const w4 = SizedBox(width: 4);

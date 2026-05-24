@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tictactoe/app/app.dart';
 
@@ -10,7 +11,7 @@ void main() {
       tester.platformDispatcher.platformBrightnessTestValue = Brightness.dark;
       addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
 
-      await tester.pumpWidget(const App());
+      await tester.pumpWidget(const ProviderScope(child: App()));
 
       final scaffoldContext = tester.element(find.byType(Scaffold));
       expect(Theme.of(scaffoldContext).brightness, Brightness.dark);
@@ -22,7 +23,7 @@ void main() {
       tester.platformDispatcher.platformBrightnessTestValue = Brightness.light;
       addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
 
-      await tester.pumpWidget(const App());
+      await tester.pumpWidget(const ProviderScope(child: App()));
 
       final scaffoldContext = tester.element(find.byType(Scaffold));
       expect(Theme.of(scaffoldContext).brightness, Brightness.light);
