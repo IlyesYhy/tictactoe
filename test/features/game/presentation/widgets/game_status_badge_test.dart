@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tictactoe/features/game/domain/entities/game_result.dart';
 import 'package:tictactoe/features/game/domain/entities/game_roles.dart';
@@ -53,6 +54,50 @@ void main() {
       );
 
       expect(find.text('Draw!'), findsOneWidget);
+    });
+
+    testWidgets('renders French CPU thinking label without overflow', (
+      tester,
+    ) async {
+      await tester.pumpTestApp(
+        const GameStatusBadge(result: GameInProgress(), isCpuThinking: true),
+        locale: const Locale('fr'),
+      );
+
+      expect(find.text("L'ordinateur réfléchit"), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('renders French CPU win label without overflow', (
+      tester,
+    ) async {
+      await tester.pumpTestApp(
+        const GameStatusBadge(
+          result: GameWinner(cpuPlayer),
+          isCpuThinking: false,
+        ),
+        locale: const Locale('fr'),
+      );
+
+      expect(find.text("L'ordinateur a gagné !"), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+    testWidgets('renders French CPU win label on narrow width', (tester) async {
+      await tester.pumpTestApp(
+        const SizedBox(
+          width: 272,
+          child: Center(
+            child: GameStatusBadge(
+              result: GameWinner(cpuPlayer),
+              isCpuThinking: false,
+            ),
+          ),
+        ),
+        locale: const Locale('fr'),
+      );
+
+      expect(find.text("L'ordinateur a gagné !"), findsOneWidget);
+      expect(tester.takeException(), isNull);
     });
   });
 }

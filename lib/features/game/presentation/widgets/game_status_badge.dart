@@ -57,11 +57,15 @@ class GameStatusBadge extends StatelessWidget {
         children: [
           Icon(descriptor.icon, color: descriptor.color, size: _iconSize),
           const SizedBox(width: _iconGap),
-          Text(
-            descriptor.label,
-            style: context.textTheme.titleMedium?.copyWith(
-              color: descriptor.color,
-              fontWeight: FontWeight.w700,
+          Flexible(
+            child: Text(
+              descriptor.label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: context.textTheme.titleMedium?.copyWith(
+                color: descriptor.color,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ],
