@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tictactoe/app/theme/app_theme.dart';
 import 'package:tictactoe/features/game/domain/entities/board.dart';
 import 'package:tictactoe/features/game/presentation/widgets/game_board.dart';
 import 'package:tictactoe/features/game/presentation/widgets/game_cell.dart';
 
+import '../../../../helpers/pump_test_app.dart';
+
 void main() {
-  Widget wrap(Widget child) {
-    return MaterialApp(
-      theme: AppTheme.light,
-      home: Scaffold(body: SizedBox(width: 300, height: 300, child: child)),
-    );
-  }
+  Widget sized(Widget child) => SizedBox.square(dimension: 300, child: child);
 
   group('GameBoard', () {
     testWidgets('renders nine cells', (tester) async {
-      await tester.pumpWidget(
-        wrap(GameBoard(board: Board.empty(), onCellTap: (_) {})),
+      await tester.pumpTestApp(
+        sized(GameBoard(board: Board.empty(), onCellTap: (_) {})),
       );
 
       expect(find.byType(GameCell), findsNWidgets(9));
@@ -24,8 +20,8 @@ void main() {
 
     testWidgets('propagates the tapped index', (tester) async {
       final taps = <int>[];
-      await tester.pumpWidget(
-        wrap(GameBoard(board: Board.empty(), onCellTap: taps.add)),
+      await tester.pumpTestApp(
+        sized(GameBoard(board: Board.empty(), onCellTap: taps.add)),
       );
 
       final cells = find.byType(GameCell);
@@ -39,8 +35,8 @@ void main() {
     testWidgets('ignores taps when the board is disabled', (tester) async {
       final taps = <int>[];
 
-      await tester.pumpWidget(
-        wrap(
+      await tester.pumpTestApp(
+        sized(
           GameBoard(
             board: Board.empty(),
             isDisabled: true,

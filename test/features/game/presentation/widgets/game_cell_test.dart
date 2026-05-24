@@ -1,35 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tictactoe/app/theme/app_theme.dart';
 import 'package:tictactoe/features/game/domain/entities/cell.dart';
 import 'package:tictactoe/features/game/presentation/widgets/game_cell.dart';
 
+import '../../../../helpers/pump_test_app.dart';
+
 void main() {
-  Widget wrap(Widget child) {
-    return MaterialApp(
-      theme: AppTheme.light,
-      home: Scaffold(
-        body: Center(child: SizedBox(width: 100, child: child)),
-      ),
-    );
-  }
+  Widget sized(Widget child) => SizedBox.square(dimension: 100, child: child);
 
   group('GameCell', () {
     testWidgets('renders no symbol for an empty cell', (tester) async {
-      await tester.pumpWidget(wrap(GameCell(cell: Cell.empty, onTap: () {})));
+      await tester.pumpTestApp(sized(GameCell(cell: Cell.empty, onTap: () {})));
 
       expect(find.text('X'), findsNothing);
       expect(find.text('O'), findsNothing);
     });
 
     testWidgets('renders X for Cell.x', (tester) async {
-      await tester.pumpWidget(wrap(GameCell(cell: Cell.x, onTap: () {})));
+      await tester.pumpTestApp(sized(GameCell(cell: Cell.x, onTap: () {})));
 
       expect(find.text('X'), findsOneWidget);
     });
 
     testWidgets('renders O for Cell.o', (tester) async {
-      await tester.pumpWidget(wrap(GameCell(cell: Cell.o, onTap: () {})));
+      await tester.pumpTestApp(sized(GameCell(cell: Cell.o, onTap: () {})));
 
       expect(find.text('O'), findsOneWidget);
     });
@@ -38,8 +32,8 @@ void main() {
       tester,
     ) async {
       var taps = 0;
-      await tester.pumpWidget(
-        wrap(GameCell(cell: Cell.empty, onTap: () => taps++)),
+      await tester.pumpTestApp(
+        sized(GameCell(cell: Cell.empty, onTap: () => taps++)),
       );
 
       await tester.tap(find.byType(GameCell));
@@ -49,8 +43,8 @@ void main() {
 
     testWidgets('ignores taps on an occupied cell', (tester) async {
       var taps = 0;
-      await tester.pumpWidget(
-        wrap(GameCell(cell: Cell.x, onTap: () => taps++)),
+      await tester.pumpTestApp(
+        sized(GameCell(cell: Cell.x, onTap: () => taps++)),
       );
 
       await tester.tap(find.byType(GameCell));
@@ -60,8 +54,10 @@ void main() {
 
     testWidgets('ignores taps when the cell is disabled', (tester) async {
       var taps = 0;
-      await tester.pumpWidget(
-        wrap(GameCell(cell: Cell.empty, isDisabled: true, onTap: () => taps++)),
+      await tester.pumpTestApp(
+        sized(
+          GameCell(cell: Cell.empty, isDisabled: true, onTap: () => taps++),
+        ),
       );
 
       await tester.tap(find.byType(GameCell));
