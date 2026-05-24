@@ -51,70 +51,71 @@ class _GameCellState extends State<GameCell> {
     final gameTheme = context.gameTheme;
     final l10n = context.l10n;
 
-    return Semantics(
-      button: true,
-      enabled: _isInteractive,
-      label: l10n.cellSemanticLabel(widget.index + 1),
-      value: widget.cell.semanticValueFrom(l10n),
-      onTap: _isInteractive ? _handleTap : null,
-      excludeSemantics: true,
-      child: GestureDetector(
-        onTapDown: (_) => _setPressed(true),
-        onTapUp: (_) => _setPressed(false),
-        onTapCancel: () => _setPressed(false),
+    return RepaintBoundary(
+      child: Semantics(
+        button: true,
+        enabled: _isInteractive,
+        label: l10n.cellSemanticLabel(widget.index + 1),
+        value: widget.cell.semanticValueFrom(l10n),
         onTap: _isInteractive ? _handleTap : null,
-        child: AnimatedScale(
-          scale: _isPressed ? _pressedScale : 1.0,
-          duration: _pressDuration,
-          curve: Curves.easeOut,
-          child: AnimatedContainer(
-            duration: _animationDuration,
+        excludeSemantics: true,
+        child: GestureDetector(
+          onTapDown: (_) => _setPressed(true),
+          onTapUp: (_) => _setPressed(false),
+          onTapCancel: () => _setPressed(false),
+          onTap: _isInteractive ? _handleTap : null,
+          child: AnimatedScale(
+            scale: _isPressed ? _pressedScale : 1.0,
+            duration: _pressDuration,
             curve: Curves.easeOut,
-            decoration: BoxDecoration(
-              color: gameTheme.cellBackgroundColor,
-              borderRadius: BorderRadius.circular(_borderRadius),
-              boxShadow: [
-                BoxShadow(
-                  color: gameTheme.cellDarkShadowColor,
-                  offset: const Offset(_shadowOffset, _shadowOffset),
-                  blurRadius: _shadowBlur,
-                ),
-                BoxShadow(
-                  color: gameTheme.cellLightShadowColor,
-                  offset: const Offset(-_shadowOffset, -_shadowOffset),
-                  blurRadius: _shadowBlur,
-                ),
-              ],
-            ),
-            child: Center(
-              child: AnimatedSwitcher(
-                duration: _animationDuration,
-                transitionBuilder: (child, animation) {
-                  return ScaleTransition(
-                    scale: CurvedAnimation(
-                      parent: animation,
-                      curve: Curves.easeOutBack,
-                    ),
-                    child: FadeTransition(opacity: animation, child: child),
-                  );
-                },
-                child: widget.cell.isEmpty
-                    ? const SizedBox.shrink()
-                    : FractionallySizedBox(
-                        key: ValueKey(widget.cell),
-                        widthFactor: 0.5,
-                        heightFactor: 0.5,
-                        child: FittedBox(
-                          fit: BoxFit.contain,
-                          child: Text(
-                            widget.cell.symbol,
-                            style: context.textTheme.displaySmall?.copyWith(
-                              fontWeight: FontWeight.w800,
-                              color: widget.cell.colorFrom(gameTheme),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: gameTheme.cellBackgroundColor,
+                borderRadius: BorderRadius.circular(_borderRadius),
+                boxShadow: [
+                  BoxShadow(
+                    color: gameTheme.cellDarkShadowColor,
+                    offset: const Offset(_shadowOffset, _shadowOffset),
+                    blurRadius: _shadowBlur,
+                  ),
+                  BoxShadow(
+                    color: gameTheme.cellLightShadowColor,
+                    offset: const Offset(-_shadowOffset, -_shadowOffset),
+                    blurRadius: _shadowBlur,
+                  ),
+                ],
+              ),
+
+              child: Center(
+                child: AnimatedSwitcher(
+                  duration: _animationDuration,
+                  transitionBuilder: (child, animation) {
+                    return ScaleTransition(
+                      scale: CurvedAnimation(
+                        parent: animation,
+                        curve: Curves.easeOutBack,
+                      ),
+                      child: FadeTransition(opacity: animation, child: child),
+                    );
+                  },
+                  child: widget.cell.isEmpty
+                      ? const SizedBox.shrink()
+                      : FractionallySizedBox(
+                          key: ValueKey(widget.cell),
+                          widthFactor: 0.5,
+                          heightFactor: 0.5,
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Text(
+                              widget.cell.symbol,
+                              style: context.textTheme.displaySmall?.copyWith(
+                                fontWeight: FontWeight.w800,
+                                color: widget.cell.colorFrom(gameTheme),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                ),
               ),
             ),
           ),
