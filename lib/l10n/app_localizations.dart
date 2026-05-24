@@ -151,6 +151,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Restart'**
   String get restartGame;
+
+  /// Accessibility label for a board cell, identifying its 1-based position (1 to 9).
+  ///
+  /// In en, this message translates to:
+  /// **'Cell {position}'**
+  String cellSemanticLabel(int position);
+
+  /// Accessibility value spoken when a board cell has not been played yet.
+  ///
+  /// In en, this message translates to:
+  /// **'empty'**
+  String get cellStateEmpty;
 }
 
 class _AppLocalizationsDelegate

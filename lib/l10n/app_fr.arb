@@ -8,5 +8,7 @@
   "draw": "Match nul !",
   "you": "Vous",
   "cpu": "Ordinateur",
-  "restartGame": "Recommencer"
+  "restartGame": "Recommencer",
+  "cellSemanticLabel": "Case {position}",
+  "cellStateEmpty": "vide"
 }

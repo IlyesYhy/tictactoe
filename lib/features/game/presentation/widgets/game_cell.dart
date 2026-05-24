@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tictactoe/app/theme/extensions/game_theme_extension.dart';
+import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
 import 'package:tictactoe/features/game/domain/entities/cell.dart';
+import 'package:tictactoe/l10n/app_localizations.dart';
 
 class GameCell extends StatefulWidget {
   const GameCell({
     required this.cell,
+    required this.index,
     required this.onTap,
     this.isDisabled = false,
     super.key,
   });
 
   final Cell cell;
+  final int index;
   final VoidCallback onTap;
   final bool isDisabled;
 
@@ -45,64 +49,73 @@ class _GameCellState extends State<GameCell> {
   @override
   Widget build(BuildContext context) {
     final gameTheme = context.gameTheme;
+    final l10n = context.l10n;
 
-    return GestureDetector(
-      onTapDown: (_) => _setPressed(true),
-      onTapUp: (_) => _setPressed(false),
-      onTapCancel: () => _setPressed(false),
+    return Semantics(
+      button: true,
+      enabled: _isInteractive,
+      label: l10n.cellSemanticLabel(widget.index + 1),
+      value: widget.cell.semanticValueFrom(l10n),
       onTap: _isInteractive ? _handleTap : null,
-      child: AnimatedScale(
-        scale: _isPressed ? _pressedScale : 1.0,
-        duration: _pressDuration,
-        curve: Curves.easeOut,
-        child: AnimatedContainer(
-          duration: _animationDuration,
+      excludeSemantics: true,
+      child: GestureDetector(
+        onTapDown: (_) => _setPressed(true),
+        onTapUp: (_) => _setPressed(false),
+        onTapCancel: () => _setPressed(false),
+        onTap: _isInteractive ? _handleTap : null,
+        child: AnimatedScale(
+          scale: _isPressed ? _pressedScale : 1.0,
+          duration: _pressDuration,
           curve: Curves.easeOut,
-          decoration: BoxDecoration(
-            color: gameTheme.cellBackgroundColor,
-            borderRadius: BorderRadius.circular(_borderRadius),
-            boxShadow: [
-              BoxShadow(
-                color: gameTheme.cellDarkShadowColor,
-                offset: const Offset(_shadowOffset, _shadowOffset),
-                blurRadius: _shadowBlur,
-              ),
-              BoxShadow(
-                color: gameTheme.cellLightShadowColor,
-                offset: const Offset(-_shadowOffset, -_shadowOffset),
-                blurRadius: _shadowBlur,
-              ),
-            ],
-          ),
-          child: Center(
-            child: AnimatedSwitcher(
-              duration: _animationDuration,
-              transitionBuilder: (child, animation) {
-                return ScaleTransition(
-                  scale: CurvedAnimation(
-                    parent: animation,
-                    curve: Curves.easeOutBack,
-                  ),
-                  child: FadeTransition(opacity: animation, child: child),
-                );
-              },
-              child: widget.cell.isEmpty
-                  ? const SizedBox.shrink()
-                  : FractionallySizedBox(
-                      key: ValueKey(widget.cell),
-                      widthFactor: 0.5,
-                      heightFactor: 0.5,
-                      child: FittedBox(
-                        fit: BoxFit.contain,
-                        child: Text(
-                          widget.cell.symbol,
-                          style: context.textTheme.displaySmall?.copyWith(
-                            fontWeight: FontWeight.w800,
-                            color: widget.cell.colorFrom(gameTheme),
+          child: AnimatedContainer(
+            duration: _animationDuration,
+            curve: Curves.easeOut,
+            decoration: BoxDecoration(
+              color: gameTheme.cellBackgroundColor,
+              borderRadius: BorderRadius.circular(_borderRadius),
+              boxShadow: [
+                BoxShadow(
+                  color: gameTheme.cellDarkShadowColor,
+                  offset: const Offset(_shadowOffset, _shadowOffset),
+                  blurRadius: _shadowBlur,
+                ),
+                BoxShadow(
+                  color: gameTheme.cellLightShadowColor,
+                  offset: const Offset(-_shadowOffset, -_shadowOffset),
+                  blurRadius: _shadowBlur,
+                ),
+              ],
+            ),
+            child: Center(
+              child: AnimatedSwitcher(
+                duration: _animationDuration,
+                transitionBuilder: (child, animation) {
+                  return ScaleTransition(
+                    scale: CurvedAnimation(
+                      parent: animation,
+                      curve: Curves.easeOutBack,
+                    ),
+                    child: FadeTransition(opacity: animation, child: child),
+                  );
+                },
+                child: widget.cell.isEmpty
+                    ? const SizedBox.shrink()
+                    : FractionallySizedBox(
+                        key: ValueKey(widget.cell),
+                        widthFactor: 0.5,
+                        heightFactor: 0.5,
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: Text(
+                            widget.cell.symbol,
+                            style: context.textTheme.displaySmall?.copyWith(
+                              fontWeight: FontWeight.w800,
+                              color: widget.cell.colorFrom(gameTheme),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+              ),
             ),
           ),
         ),
@@ -125,6 +138,14 @@ extension _CellUiX on Cell {
       Cell.empty => Colors.transparent,
       Cell.x => gameTheme.xColor,
       Cell.o => gameTheme.oColor,
+    };
+  }
+
+  String semanticValueFrom(AppLocalizations l10n) {
+    return switch (this) {
+      Cell.empty => l10n.cellStateEmpty,
+      Cell.x => l10n.you,
+      Cell.o => l10n.cpu,
     };
   }
 }

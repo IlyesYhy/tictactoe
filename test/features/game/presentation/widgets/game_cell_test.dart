@@ -10,20 +10,20 @@ void main() {
 
   group('GameCell', () {
     testWidgets('renders no symbol for an empty cell', (tester) async {
-      await tester.pumpTestApp(sized(GameCell(cell: Cell.empty, onTap: () {})));
+      await tester.pumpTestApp(sized(GameCell(cell: Cell.empty, index: 0, onTap: () {})));
 
       expect(find.text('X'), findsNothing);
       expect(find.text('O'), findsNothing);
     });
 
     testWidgets('renders X for Cell.x', (tester) async {
-      await tester.pumpTestApp(sized(GameCell(cell: Cell.x, onTap: () {})));
+      await tester.pumpTestApp(sized(GameCell(cell: Cell.x, index: 0, onTap: () {})));
 
       expect(find.text('X'), findsOneWidget);
     });
 
     testWidgets('renders O for Cell.o', (tester) async {
-      await tester.pumpTestApp(sized(GameCell(cell: Cell.o, onTap: () {})));
+      await tester.pumpTestApp(sized(GameCell(cell: Cell.o, index: 0, onTap: () {})));
 
       expect(find.text('O'), findsOneWidget);
     });
@@ -33,7 +33,7 @@ void main() {
     ) async {
       var taps = 0;
       await tester.pumpTestApp(
-        sized(GameCell(cell: Cell.empty, onTap: () => taps++)),
+        sized(GameCell(cell: Cell.empty, index: 0, onTap: () => taps++)),
       );
 
       await tester.tap(find.byType(GameCell));
@@ -44,7 +44,7 @@ void main() {
     testWidgets('ignores taps on an occupied cell', (tester) async {
       var taps = 0;
       await tester.pumpTestApp(
-        sized(GameCell(cell: Cell.x, onTap: () => taps++)),
+        sized(GameCell(cell: Cell.x, index: 0, onTap: () => taps++)),
       );
 
       await tester.tap(find.byType(GameCell));
@@ -56,7 +56,12 @@ void main() {
       var taps = 0;
       await tester.pumpTestApp(
         sized(
-          GameCell(cell: Cell.empty, isDisabled: true, onTap: () => taps++),
+          GameCell(
+            cell: Cell.empty,
+            index: 0,
+            isDisabled: true,
+            onTap: () => taps++,
+          ),
         ),
       );
 

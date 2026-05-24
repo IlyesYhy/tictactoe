@@ -32,43 +32,49 @@ class GameStatusBadge extends StatelessWidget {
     final gameTheme = context.gameTheme;
     final descriptor = _descriptorFor(context.l10n, gameTheme);
 
-    return AnimatedContainer(
-      duration: _animationDuration,
-      padding: const EdgeInsets.symmetric(
-        horizontal: _paddingH,
-        vertical: _paddingV,
-      ),
-      decoration: BoxDecoration(
-        color: gameTheme.statusBackgroundColor,
-        borderRadius: BorderRadius.circular(_borderRadius),
-        border: Border.all(color: descriptor.color, width: _borderWidth),
-        boxShadow: [
-          BoxShadow(
-            color: gameTheme.cellDarkShadowColor.withValues(
-              alpha: _shadowAlpha,
+    return Semantics(
+      liveRegion: true,
+      container: true,
+      label: descriptor.label,
+      excludeSemantics: true,
+      child: AnimatedContainer(
+        duration: _animationDuration,
+        padding: const EdgeInsets.symmetric(
+          horizontal: _paddingH,
+          vertical: _paddingV,
+        ),
+        decoration: BoxDecoration(
+          color: gameTheme.statusBackgroundColor,
+          borderRadius: BorderRadius.circular(_borderRadius),
+          border: Border.all(color: descriptor.color, width: _borderWidth),
+          boxShadow: [
+            BoxShadow(
+              color: gameTheme.cellDarkShadowColor.withValues(
+                alpha: _shadowAlpha,
+              ),
+              blurRadius: _shadowBlur,
+              offset: _shadowOffset,
             ),
-            blurRadius: _shadowBlur,
-            offset: _shadowOffset,
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(descriptor.icon, color: descriptor.color, size: _iconSize),
-          const SizedBox(width: _iconGap),
-          Flexible(
-            child: Text(
-              descriptor.label,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: context.textTheme.titleMedium?.copyWith(
-                color: descriptor.color,
-                fontWeight: FontWeight.w700,
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(descriptor.icon, color: descriptor.color, size: _iconSize),
+            const SizedBox(width: _iconGap),
+            Flexible(
+              child: Text(
+                descriptor.label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: context.textTheme.titleMedium?.copyWith(
+                  color: descriptor.color,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

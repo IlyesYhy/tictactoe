@@ -31,6 +31,7 @@ class GameBoard extends StatelessWidget {
         itemBuilder: (context, index) {
           return GameCell(
             cell: board.cells[index],
+            index: index,
             isDisabled: isDisabled,
             onTap: () => onCellTap(index),
           );

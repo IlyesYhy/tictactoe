@@ -34,4 +34,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get restartGame => 'Recommencer';
+
+  @override
+  String cellSemanticLabel(int position) {
+    return 'Case $position';
+  }
+
+  @override
+  String get cellStateEmpty => 'vide';
 }

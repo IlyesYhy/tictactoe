@@ -35,5 +35,18 @@
   "restartGame": "Restart",
   "@restartGame": {
     "description": "Button label used to restart the current game."
+  },
+  "cellSemanticLabel": "Cell {position}",
+  "@cellSemanticLabel": {
+    "description": "Accessibility label for a board cell, identifying its 1-based position (1 to 9).",
+    "placeholders": {
+      "position": {
+        "type": "int"
+      }
+    }
+  },
+  "cellStateEmpty": "empty",
+  "@cellStateEmpty": {
+    "description": "Accessibility value spoken when a board cell has not been played yet."
   }
 }
