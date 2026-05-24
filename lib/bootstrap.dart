@@ -5,15 +5,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app/app.dart';
 
-Future<void> bootstrap() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  FlutterError.onError = (details) {
-    FlutterError.presentError(details);
-  };
-
+void bootstrap() {
   runZonedGuarded(
     () {
+      WidgetsFlutterBinding.ensureInitialized();
+
+      FlutterError.onError = (details) {
+        FlutterError.presentError(details);
+      };
+
       runApp(const ProviderScope(child: App()));
     },
     (error, stackTrace) {
