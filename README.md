@@ -26,6 +26,10 @@ The app startup logic is centralized in bootstrap.dart to keep main.dart minimal
 
 The project uses Flutter’s ThemeData and TextTheme to keep the UI consistent and aligned with the Flutter ecosystem.
 
+`AppColors` is an internal design-system palette and should only be used inside `lib/app/theme/`.
+
+Feature widgets must consume colors through `ThemeData`, `ColorScheme`, or dedicated `ThemeExtension`s.
+
 ### Localization
 
 The app supports English and French using Flutter's official localization system.
