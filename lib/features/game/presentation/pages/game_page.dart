@@ -5,6 +5,9 @@ import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
 import 'package:tictactoe/features/game/presentation/controllers/game_controller.dart';
 import 'package:tictactoe/features/game/presentation/widgets/game_board.dart';
+import 'package:tictactoe/features/game/presentation/widgets/game_players_legend.dart';
+import 'package:tictactoe/features/game/presentation/widgets/game_status_badge.dart';
+import 'package:tictactoe/features/game/presentation/widgets/restart_game_button.dart';
 
 class GamePage extends ConsumerWidget {
   const GamePage({super.key});
@@ -31,11 +34,24 @@ class GamePage extends ConsumerWidget {
                       fontWeight: FontWeight.w800,
                     ),
                   ),
-                  AppSpacing.h40,
+                  AppSpacing.h32,
+                  GameStatusBadge(
+                    result: state.session.result,
+                    isCpuThinking: state.isCpuThinking,
+                  ),
+                  AppSpacing.h32,
                   GameBoard(
                     board: state.session.board,
                     isDisabled: isBoardDisabled,
                     onCellTap: controller.playHumanTurn,
+                  ),
+                  AppSpacing.h24,
+                  const GamePlayersLegend(),
+                  AppSpacing.h32,
+                  RestartGameButton(
+                    onPressed: state.isCpuThinking
+                        ? null
+                        : controller.resetGame,
                   ),
                 ],
               ),
