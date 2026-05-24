@@ -50,12 +50,19 @@ class GameCell extends StatelessWidget {
             duration: _animationDuration,
             child: cell.isEmpty
                 ? const SizedBox.shrink()
-                : Text(
-                    cell.symbol,
+                : FractionallySizedBox(
                     key: ValueKey(cell),
-                    style: context.textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.w800,
-                      color: cell.colorFrom(gameTheme),
+                    widthFactor: 0.5,
+                    heightFactor: 0.5,
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(
+                        cell.symbol,
+                        style: context.textTheme.displaySmall?.copyWith(
+                          fontWeight: FontWeight.w800,
+                          color: cell.colorFrom(gameTheme),
+                        ),
+                      ),
                     ),
                   ),
           ),
