@@ -4,9 +4,24 @@ import 'package:tictactoe/app/theme/extensions/game_theme_extension.dart';
 import 'package:tictactoe/app/theme/src/app_colors.dart';
 
 abstract final class AppTheme {
-  static ThemeData get light {
-    final colorScheme = ColorScheme.fromSeed(
+  static ColorScheme _colorScheme({
+    required Brightness brightness,
+    required Color surface,
+  }) {
+    return ColorScheme.fromSeed(
       seedColor: AppColors.purple,
+      brightness: brightness,
+      surface: surface,
+    ).copyWith(
+      primary: AppColors.purple,
+      onPrimary: AppColors.onPurple,
+      secondary: AppColors.pink,
+      onSecondary: AppColors.onPink,
+    );
+  }
+
+  static ThemeData get light {
+    final colorScheme = _colorScheme(
       brightness: Brightness.light,
       surface: AppColors.lightSurface,
     );
@@ -42,8 +57,7 @@ abstract final class AppTheme {
   }
 
   static ThemeData get dark {
-    final colorScheme = ColorScheme.fromSeed(
-      seedColor: AppColors.purple,
+    final colorScheme = _colorScheme(
       brightness: Brightness.dark,
       surface: AppColors.darkSurface,
     );

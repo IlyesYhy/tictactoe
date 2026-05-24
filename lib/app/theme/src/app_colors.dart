@@ -20,7 +20,9 @@ abstract final class AppColors {
   static const lightTextSecondary = Color(0xFF64748B);
 
   static const purple = Color(0xFF7C3AED);
+  static const onPurple = Colors.white;
   static const pink = Color(0xFFF43F5E);
+  static const onPink = Colors.white;
   static const green = Color(0xFF22C55E);
   static const red = Color(0xFFE53935);
 
