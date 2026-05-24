@@ -77,6 +77,15 @@ class _GameCellState extends State<GameCell> {
           child: Center(
             child: AnimatedSwitcher(
               duration: _animationDuration,
+              transitionBuilder: (child, animation) {
+                return ScaleTransition(
+                  scale: CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.easeOutBack,
+                  ),
+                  child: FadeTransition(opacity: animation, child: child),
+                );
+              },
               child: widget.cell.isEmpty
                   ? const SizedBox.shrink()
                   : FractionallySizedBox(
