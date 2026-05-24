@@ -9,6 +9,7 @@
   "you": "Vous",
   "cpu": "Ordinateur",
   "restartGame": "Recommencer",
+  "playAgain": "Rejouer",
   "cellSemanticLabel": "Case {position}",
   "cellStateEmpty": "vide"
 }

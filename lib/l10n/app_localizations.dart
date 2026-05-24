@@ -146,11 +146,17 @@ abstract class AppLocalizations {
   /// **'CPU'**
   String get cpu;
 
-  /// Button label used to restart the current game.
+  /// Button label used to restart the current game while it is still in progress.
   ///
   /// In en, this message translates to:
   /// **'Restart'**
   String get restartGame;
+
+  /// Button label used to start a new game once the current one has ended.
+  ///
+  /// In en, this message translates to:
+  /// **'Play again'**
+  String get playAgain;
 
   /// Accessibility label for a board cell, identifying its 1-based position (1 to 9).
   ///

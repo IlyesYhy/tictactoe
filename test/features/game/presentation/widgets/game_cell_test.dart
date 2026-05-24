@@ -10,20 +10,26 @@ void main() {
 
   group('GameCell', () {
     testWidgets('renders no symbol for an empty cell', (tester) async {
-      await tester.pumpTestApp(sized(GameCell(cell: Cell.empty, index: 0, onTap: () {})));
+      await tester.pumpTestApp(
+        sized(GameCell(cell: Cell.empty, index: 0, onTap: () {})),
+      );
 
       expect(find.text('X'), findsNothing);
       expect(find.text('O'), findsNothing);
     });
 
     testWidgets('renders X for Cell.x', (tester) async {
-      await tester.pumpTestApp(sized(GameCell(cell: Cell.x, index: 0, onTap: () {})));
+      await tester.pumpTestApp(
+        sized(GameCell(cell: Cell.x, index: 0, onTap: () {})),
+      );
 
       expect(find.text('X'), findsOneWidget);
     });
 
     testWidgets('renders O for Cell.o', (tester) async {
-      await tester.pumpTestApp(sized(GameCell(cell: Cell.o, index: 0, onTap: () {})));
+      await tester.pumpTestApp(
+        sized(GameCell(cell: Cell.o, index: 0, onTap: () {})),
+      );
 
       expect(find.text('O'), findsOneWidget);
     });

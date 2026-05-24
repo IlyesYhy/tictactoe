@@ -5,46 +5,73 @@ import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
 const _buttonHeight = 56.0;
 const _borderRadius = 18.0;
 const _borderWidth = 1.5;
+const _disabledOpacity = 0.38;
 
 class RestartGameButton extends StatelessWidget {
-  const RestartGameButton({required this.onPressed, super.key});
+  const RestartGameButton({
+    required this.onPressed,
+    this.isGameOver = false,
+    super.key,
+  });
+
+  static const _icon = Icon(Icons.refresh);
 
   final VoidCallback? onPressed;
+  final bool isGameOver;
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = context.colorScheme;
-    final disabledColor = context.gameTheme.disabledColor;
+    final label = Text(
+      isGameOver ? context.l10n.playAgain : context.l10n.restartGame,
+    );
+    final style = _buttonStyle(context);
 
     return SizedBox(
       width: double.infinity,
       height: _buttonHeight,
-      child: OutlinedButton.icon(
-        onPressed: onPressed,
-        icon: const Icon(Icons.refresh),
-        label: Text(context.l10n.restartGame),
-        style: ButtonStyle(
-          textStyle: WidgetStatePropertyAll(context.textTheme.labelLarge),
-          foregroundColor: WidgetStateProperty.resolveWith((states) {
-            if (states.contains(WidgetState.disabled)) {
-              return disabledColor;
-            }
-
-            return colorScheme.primary;
-          }),
-          side: WidgetStateProperty.resolveWith((states) {
-            final color = states.contains(WidgetState.disabled)
-                ? disabledColor
-                : colorScheme.primary;
-
-            return BorderSide(color: color, width: _borderWidth);
-          }),
-          shape: WidgetStatePropertyAll(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(_borderRadius),
+      child: isGameOver
+          ? FilledButton.icon(
+              onPressed: onPressed,
+              icon: _icon,
+              label: label,
+              style: style,
+            )
+          : OutlinedButton.icon(
+              onPressed: onPressed,
+              icon: _icon,
+              label: label,
+              style: style.merge(_outlinedStyle(context)),
             ),
-          ),
+    );
+  }
+
+  ButtonStyle _buttonStyle(BuildContext context) {
+    return ButtonStyle(
+      textStyle: WidgetStatePropertyAll(context.textTheme.labelLarge),
+      shape: WidgetStatePropertyAll(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(_borderRadius),
         ),
+      ),
+    );
+  }
+
+  ButtonStyle _outlinedStyle(BuildContext context) {
+    final primary = context.colorScheme.primary;
+
+    Color resolveColor(Set<WidgetState> states) {
+      if (states.contains(WidgetState.disabled)) {
+        return primary.withValues(alpha: _disabledOpacity);
+      }
+
+      return primary;
+    }
+
+    return ButtonStyle(
+      foregroundColor: WidgetStateProperty.resolveWith(resolveColor),
+      side: WidgetStateProperty.resolveWith(
+        (states) =>
+            BorderSide(color: resolveColor(states), width: _borderWidth),
       ),
     );
   }

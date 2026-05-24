@@ -36,6 +36,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get restartGame => 'Recommencer';
 
   @override
+  String get playAgain => 'Rejouer';
+
+  @override
   String cellSemanticLabel(int position) {
     return 'Case $position';
   }

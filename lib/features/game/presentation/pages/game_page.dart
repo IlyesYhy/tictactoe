@@ -64,6 +64,7 @@ class GamePage extends ConsumerWidget {
                         onPressed: state.isCpuThinking
                             ? null
                             : controller.resetGame,
+                        isGameOver: state.session.isFinished,
                       ),
                     ],
                   ),

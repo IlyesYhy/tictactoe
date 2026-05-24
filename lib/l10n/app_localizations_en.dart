@@ -36,6 +36,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get restartGame => 'Restart';
 
   @override
+  String get playAgain => 'Play again';
+
+  @override
   String cellSemanticLabel(int position) {
     return 'Cell $position';
   }

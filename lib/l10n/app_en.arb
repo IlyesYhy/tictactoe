@@ -34,7 +34,11 @@
   },
   "restartGame": "Restart",
   "@restartGame": {
-    "description": "Button label used to restart the current game."
+    "description": "Button label used to restart the current game while it is still in progress."
+  },
+  "playAgain": "Play again",
+  "@playAgain": {
+    "description": "Button label used to start a new game once the current one has ended."
   },
   "cellSemanticLabel": "Cell {position}",
   "@cellSemanticLabel": {

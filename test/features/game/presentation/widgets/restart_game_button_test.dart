@@ -34,5 +34,30 @@ void main() {
 
       expect(find.text('Recommencer'), findsOneWidget);
     });
+
+    testWidgets(
+      'renders as FilledButton with play again label when the game is over',
+      (tester) async {
+        await tester.pumpTestApp(
+          RestartGameButton(onPressed: () {}, isGameOver: true),
+        );
+
+        expect(find.byType(FilledButton), findsOneWidget);
+        expect(find.byType(OutlinedButton), findsNothing);
+        expect(find.text('Play again'), findsOneWidget);
+        expect(find.text('Restart'), findsNothing);
+      },
+    );
+
+    testWidgets('shows the French play again label when the game is over', (
+      tester,
+    ) async {
+      await tester.pumpTestApp(
+        RestartGameButton(onPressed: () {}, isGameOver: true),
+        locale: const Locale('fr'),
+      );
+
+      expect(find.text('Rejouer'), findsOneWidget);
+    });
   });
 }
