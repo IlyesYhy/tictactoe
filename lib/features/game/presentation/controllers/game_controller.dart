@@ -39,7 +39,10 @@ final class GameController extends Notifier<GameControllerState> {
 
     state = state.copyWith(session: humanSession, isCpuThinking: true);
 
-    final cpuSession = await playCpuTurn(session: humanSession);
+    final (cpuSession, _) = await (
+      playCpuTurn(session: humanSession),
+      Future<void>.delayed(ref.read(cpuThinkingDelayProvider)),
+    ).wait;
 
     state = state.copyWith(session: cpuSession, isCpuThinking: false);
   }
