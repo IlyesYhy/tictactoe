@@ -87,16 +87,29 @@ class SettingsPage extends ConsumerWidget {
                   ),
                 ),
                 const _SettingsDivider(),
-                SwitchListTile(
+                _SettingsTile(
                   key: const Key('settings_haptic_feedback'),
-                  secondary: Icon(
-                    Icons.vibration_rounded,
-                    color: context.colorScheme.onSurfaceVariant,
+                  icon: Icons.vibration_rounded,
+                  title: context.l10n.settingsHapticFeedback,
+                  trailing: SizedBox(
+                    width: 48,
+                    child: Transform.scale(
+                      scale: 0.85,
+                      alignment: Alignment.centerRight,
+                      child: Switch(
+                        value: settings.isHapticFeedbackEnabled,
+                        onChanged: (enabled) {
+                          unawaited(controller.setHapticFeedback(enabled));
+                        },
+                      ),
+                    ),
                   ),
-                  title: Text(context.l10n.settingsHapticFeedback),
-                  value: settings.isHapticFeedbackEnabled,
-                  onChanged: (enabled) {
-                    unawaited(controller.setHapticFeedback(enabled));
+                  onTap: () {
+                    unawaited(
+                      controller.setHapticFeedback(
+                        !settings.isHapticFeedbackEnabled,
+                      ),
+                    );
                   },
                 ),
               ],
@@ -180,7 +193,7 @@ class SettingsPage extends ConsumerWidget {
 class _PlayerCard extends StatelessWidget {
   const _PlayerCard();
 
-  static const _robotSize = 92.0;
+  static const _robotSize = 104.0;
   static const _lightRobotAssetPath = 'assets/bot-light-settings.png';
   static const _darkRobotAssetPath = 'assets/bot-dark-settings.png';
 
@@ -221,8 +234,8 @@ class _PlayerCard extends StatelessWidget {
                 ),
                 Image.asset(
                   _robotAssetPath(context),
-                  width: 82,
-                  height: 82,
+                  width: 94,
+                  height: 94,
                   fit: BoxFit.contain,
                   gaplessPlayback: true,
                 ),
