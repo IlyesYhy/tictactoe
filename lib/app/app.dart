@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
-import 'package:tictactoe/features/game/presentation/pages/game_page.dart';
 import 'package:tictactoe/l10n/app_localizations.dart';
 
+import 'router/app_router.dart';
 import 'theme/app_theme.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
+  static const _fallbackLocale = Locale('en');
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.system,
@@ -21,10 +23,10 @@ class App extends StatelessWidget {
       localeResolutionCallback: (locale, supportedLocales) {
         return supportedLocales.firstWhere(
           (supported) => supported.languageCode == locale?.languageCode,
-          orElse: () => const Locale('en'),
+          orElse: () => _fallbackLocale,
         );
       },
-      home: const GamePage(),
+      routerConfig: appRouter,
     );
   }
 }
