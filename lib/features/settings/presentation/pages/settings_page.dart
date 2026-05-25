@@ -181,8 +181,8 @@ class _PlayerCard extends StatelessWidget {
   const _PlayerCard();
 
   static const _robotSize = 92.0;
-  static const _lightRobotAssetPath = 'assets/bot-light-happy.png';
-  static const _darkRobotAssetPath = 'assets/bot-dark-happy.png';
+  static const _lightRobotAssetPath = 'assets/bot-light-settings.png';
+  static const _darkRobotAssetPath = 'assets/bot-dark-settings.png';
 
   String _robotAssetPath(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
