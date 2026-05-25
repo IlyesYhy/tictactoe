@@ -5,8 +5,8 @@ import 'cpu_strategy.dart';
 
 /// CPU strategy that picks a uniformly random empty cell.
 ///
-/// Used to back the easy difficulty: predictable behavior, no foresight,
-/// easy to beat for a human player.
+/// Used to back the easy difficulty: no foresight, no blocking strategy,
+/// and easy to beat for a human player.
 ///
 /// The [Random] source can be injected to make tests deterministic.
 final class RandomCpuStrategy implements CpuStrategy {
