@@ -67,5 +67,39 @@ void main() {
       expect(find.text('Facile'), findsOneWidget);
       expect(find.text('Difficile'), findsOneWidget);
     });
+
+    group('compact mode', () {
+      testWidgets('renders both cards and the section title', (tester) async {
+        await tester.pumpTestApp(
+          HomeDifficultySelector(
+            selected: GameDifficulty.easy,
+            isCompact: true,
+            onSelected: (_) {},
+          ),
+        );
+
+        expect(find.byKey(const Key('home_difficulty_easy')), findsOneWidget);
+        expect(find.byKey(const Key('home_difficulty_hard')), findsOneWidget);
+        expect(find.text('Difficulty'), findsOneWidget);
+        expect(find.text('Easy'), findsOneWidget);
+        expect(find.text('Hard'), findsOneWidget);
+        expect(tester.takeException(), isNull);
+      });
+
+      testWidgets('propagates selection on tap', (tester) async {
+        GameDifficulty? selected;
+        await tester.pumpTestApp(
+          HomeDifficultySelector(
+            selected: GameDifficulty.easy,
+            isCompact: true,
+            onSelected: (value) => selected = value,
+          ),
+        );
+
+        await tester.tap(find.byKey(const Key('home_difficulty_hard')));
+
+        expect(selected, GameDifficulty.hard);
+      });
+    });
   });
 }
