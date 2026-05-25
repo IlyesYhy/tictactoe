@@ -2,7 +2,7 @@ import '../../entities/board.dart';
 import '../../entities/game_result.dart';
 import '../../entities/game_roles.dart';
 import '../game_engine.dart';
-import 'ai_strategy.dart';
+import 'cpu_strategy.dart';
 
 /// CPU strategy based on the Minimax algorithm.
 ///
@@ -12,8 +12,8 @@ import 'ai_strategy.dart';
 ///
 /// Scores are adjusted by search depth so the CPU prefers faster wins and
 /// delays unavoidable losses.
-final class MinimaxAiStrategy implements AiStrategy {
-  const MinimaxAiStrategy(this._gameEngine);
+final class MinimaxCpuStrategy implements CpuStrategy {
+  const MinimaxCpuStrategy(this._gameEngine);
 
   static const _minScore = -1000;
   static const _maxScore = 1000;
@@ -37,7 +37,7 @@ final class MinimaxAiStrategy implements AiStrategy {
 
     for (final move in availableMoves) {
       final nextBoard = board.placeMove(index: move, player: cpuPlayer);
-      final score = _minimax(board: nextBoard, depth: 1, isAiTurn: false);
+      final score = _minimax(board: nextBoard, depth: 1, isCpuTurn: false);
 
       if (score > bestScore) {
         bestScore = score;
@@ -51,7 +51,7 @@ final class MinimaxAiStrategy implements AiStrategy {
   int _minimax({
     required Board board,
     required int depth,
-    required bool isAiTurn,
+    required bool isCpuTurn,
   }) {
     final result = _gameEngine.evaluate(board);
 
@@ -65,7 +65,7 @@ final class MinimaxAiStrategy implements AiStrategy {
 
     final moves = board.availableMoves;
 
-    if (isAiTurn) {
+    if (isCpuTurn) {
       var bestScore = _minScore;
 
       for (final move in moves) {
@@ -73,7 +73,7 @@ final class MinimaxAiStrategy implements AiStrategy {
         final score = _minimax(
           board: nextBoard,
           depth: depth + 1,
-          isAiTurn: false,
+          isCpuTurn: false,
         );
 
         if (score > bestScore) {
@@ -91,7 +91,7 @@ final class MinimaxAiStrategy implements AiStrategy {
       final score = _minimax(
         board: nextBoard,
         depth: depth + 1,
-        isAiTurn: true,
+        isCpuTurn: true,
       );
 
       if (score < bestScore) {

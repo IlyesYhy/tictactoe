@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tictactoe/features/game/domain/entities/board.dart';
 import 'package:tictactoe/features/game/domain/entities/player.dart';
-import 'package:tictactoe/features/game/domain/services/ai/minimax_ai_strategy.dart';
+import 'package:tictactoe/features/game/domain/services/cpu/minimax_cpu_strategy.dart';
 import 'package:tictactoe/features/game/domain/services/game_engine.dart';
 
 void main() {
-  group('MinimaxAiStrategy', () {
-    const strategy = MinimaxAiStrategy(GameEngine());
+  group('MinimaxCpuStrategy', () {
+    const strategy = MinimaxCpuStrategy(GameEngine());
 
     test('chooses a winning move when one is available', () {
       final board = Board.empty()

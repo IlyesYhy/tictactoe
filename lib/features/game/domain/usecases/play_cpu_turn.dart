@@ -1,6 +1,6 @@
 import '../entities/game_roles.dart';
 import '../entities/game_session.dart';
-import '../repositories/ai_repository.dart';
+import '../repositories/cpu_repository.dart';
 import '../services/game_engine.dart';
 
 /// Handles the CPU player turn.
@@ -8,9 +8,9 @@ import '../services/game_engine.dart';
 /// This use case asks the AI repository for the next move,
 /// applies it to the board and evaluates the updated game result.
 final class PlayCpuTurn {
-  const PlayCpuTurn(this._aiRepository, this._gameEngine);
+  const PlayCpuTurn(this._cpuRepository, this._gameEngine);
 
-  final AiRepository _aiRepository;
+  final CpuRepository _cpuRepository;
   final GameEngine _gameEngine;
 
   Future<GameSession> call({required GameSession session}) async {
@@ -22,7 +22,7 @@ final class PlayCpuTurn {
       throw StateError('It is not the CPU player turn.');
     }
 
-    final cellIndex = await _aiRepository.chooseMove(session.board);
+    final cellIndex = await _cpuRepository.chooseMove(session.board);
     final updatedBoard = session.board.placeMove(
       index: cellIndex,
       player: cpuPlayer,
