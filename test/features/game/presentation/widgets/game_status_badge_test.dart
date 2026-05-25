@@ -99,5 +99,80 @@ void main() {
       expect(find.text("L'ordinateur a gagné !"), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
+
+    group('Semantics', () {
+      testWidgets('announces the in-progress state via a live region', (
+        tester,
+      ) async {
+        final handle = tester.ensureSemantics();
+
+        await tester.pumpTestApp(
+          const GameStatusBadge(result: GameInProgress(), isCpuThinking: false),
+        );
+
+        final finder = find.bySemanticsLabel('Your turn');
+        expect(finder, findsOneWidget);
+        expect(
+          tester.getSemantics(finder).flagsCollection.isLiveRegion,
+          isTrue,
+        );
+
+        handle.dispose();
+      });
+
+      testWidgets('announces the cpu-thinking state', (tester) async {
+        final handle = tester.ensureSemantics();
+
+        await tester.pumpTestApp(
+          const GameStatusBadge(result: GameInProgress(), isCpuThinking: true),
+        );
+
+        expect(find.bySemanticsLabel('CPU is thinking'), findsOneWidget);
+
+        handle.dispose();
+      });
+
+      testWidgets('announces the human-won state', (tester) async {
+        final handle = tester.ensureSemantics();
+
+        await tester.pumpTestApp(
+          const GameStatusBadge(
+            result: GameWinner(humanPlayer),
+            isCpuThinking: false,
+          ),
+        );
+
+        expect(find.bySemanticsLabel('You won!'), findsOneWidget);
+
+        handle.dispose();
+      });
+
+      testWidgets('announces the cpu-won state', (tester) async {
+        final handle = tester.ensureSemantics();
+
+        await tester.pumpTestApp(
+          const GameStatusBadge(
+            result: GameWinner(cpuPlayer),
+            isCpuThinking: false,
+          ),
+        );
+
+        expect(find.bySemanticsLabel('The CPU won!'), findsOneWidget);
+
+        handle.dispose();
+      });
+
+      testWidgets('announces the draw state', (tester) async {
+        final handle = tester.ensureSemantics();
+
+        await tester.pumpTestApp(
+          const GameStatusBadge(result: GameDraw(), isCpuThinking: false),
+        );
+
+        expect(find.bySemanticsLabel('Draw!'), findsOneWidget);
+
+        handle.dispose();
+      });
+    });
   });
 }
