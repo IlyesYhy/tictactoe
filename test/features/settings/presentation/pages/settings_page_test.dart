@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tictactoe/app/theme/app_theme.dart';
 import 'package:tictactoe/features/settings/di/settings_providers.dart';
 import 'package:tictactoe/features/settings/domain/entities/app_language.dart';
@@ -11,6 +12,15 @@ import 'package:tictactoe/features/settings/presentation/controllers/settings_co
 import 'package:tictactoe/features/settings/presentation/pages/settings_page.dart';
 import 'package:tictactoe/l10n/app_localizations.dart';
 
+PackageInfo _fakePackageInfo({String version = '1.0.0'}) {
+  return PackageInfo(
+    appName: 'TicTacToe',
+    packageName: 'com.example.tictactoe',
+    version: version,
+    buildNumber: '1',
+  );
+}
+
 void main() {
   Future<(ProviderContainer, _RecordingSettingsRepository)> pumpSettingsPage(
     WidgetTester tester, {
@@ -19,15 +29,26 @@ void main() {
       themeMode: AppThemeMode.system,
     ),
     Locale locale = const Locale('en'),
+    PackageInfo? packageInfo,
   }) async {
     final repository = _RecordingSettingsRepository();
     final container = ProviderContainer(
       overrides: [
         initialSettingsProvider.overrideWithValue(initial),
         settingsRepositoryProvider.overrideWithValue(repository),
+        packageInfoProvider.overrideWithValue(
+          packageInfo ?? _fakePackageInfo(),
+        ),
       ],
     );
     addTearDown(container.dispose);
+
+    tester.view.physicalSize = const Size(600, 1600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(() {
+      tester.view.resetPhysicalSize();
+      tester.view.resetDevicePixelRatio();
+    });
 
     await tester.pumpWidget(
       UncontrolledProviderScope(
@@ -46,9 +67,7 @@ void main() {
   }
 
   group('SettingsPage', () {
-    testWidgets('renders title, both sections and the five radio tiles', (
-      tester,
-    ) async {
+    testWidgets('renders all settings sections', (tester) async {
       await pumpSettingsPage(tester);
 
       expect(find.text('Settings'), findsOneWidget);
@@ -83,6 +102,25 @@ void main() {
       expect(find.text('Preferences'), findsOneWidget);
       expect(find.text('Haptic feedback'), findsOneWidget);
       expect(find.byKey(const Key('settings_haptic_feedback')), findsOneWidget);
+
+      expect(find.text('About'), findsOneWidget);
+      expect(find.text('Game rules'), findsOneWidget);
+      expect(find.text('Version'), findsOneWidget);
+      expect(find.byKey(const Key('settings_game_rules')), findsOneWidget);
+      expect(find.byKey(const Key('settings_version')), findsOneWidget);
+      expect(find.byIcon(Icons.chevron_right), findsOneWidget);
+    });
+
+    testWidgets('renders the app version from PackageInfo', (tester) async {
+      await pumpSettingsPage(
+        tester,
+        packageInfo: _fakePackageInfo(version: '4.2.0'),
+      );
+
+      final versionTile = tester.widget<ListTile>(
+        find.byKey(const Key('settings_version')),
+      );
+      expect((versionTile.trailing! as Text).data, '4.2.0');
     });
 
     testWidgets('tap on French language radio updates state and persists fr', (
@@ -144,6 +182,9 @@ void main() {
       expect(find.text('Système'), findsOneWidget);
       expect(find.text('Préférences'), findsOneWidget);
       expect(find.text('Vibrations'), findsOneWidget);
+      expect(find.text('À propos'), findsOneWidget);
+      expect(find.text('Règles du jeu'), findsOneWidget);
+      expect(find.text('Version'), findsOneWidget);
     });
   });
 }

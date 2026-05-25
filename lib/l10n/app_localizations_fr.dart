@@ -125,4 +125,13 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get gameRulesHard =>
       'Difficile — l\'ordinateur joue de façon optimale et ne perd jamais.';
+
+  @override
+  String get settingsAbout => 'À propos';
+
+  @override
+  String get settingsGameRules => 'Règles du jeu';
+
+  @override
+  String get settingsVersion => 'Version';
 }

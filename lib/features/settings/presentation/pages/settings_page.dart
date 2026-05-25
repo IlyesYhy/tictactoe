@@ -2,8 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tictactoe/app/router/app_routes.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
+import 'package:tictactoe/features/settings/di/settings_providers.dart';
 import 'package:tictactoe/features/settings/domain/entities/app_language.dart';
 import 'package:tictactoe/features/settings/domain/entities/app_theme_mode.dart';
 import 'package:tictactoe/features/settings/presentation/controllers/settings_controller.dart';
@@ -16,6 +19,7 @@ class SettingsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsControllerProvider);
     final controller = ref.read(settingsControllerProvider.notifier);
+    final packageInfo = ref.watch(packageInfoProvider);
 
     return Scaffold(
       appBar: AppBar(title: Text(context.l10n.settingsTitle)),
@@ -66,6 +70,22 @@ class SettingsPage extends ConsumerWidget {
             onChanged: (enabled) {
               unawaited(controller.setHapticFeedback(enabled));
             },
+          ),
+          _SectionHeader(label: context.l10n.settingsAbout),
+          ListTile(
+            key: const Key('settings_game_rules'),
+            title: Text(context.l10n.settingsGameRules),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => context.pushNamed(AppRouteNames.gameRules),
+          ),
+          ListTile(
+            key: const Key('settings_version'),
+            title: Text(context.l10n.settingsVersion),
+            trailing: Text(
+              packageInfo.version,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),

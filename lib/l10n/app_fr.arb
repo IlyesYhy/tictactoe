@@ -36,5 +36,8 @@
   "gameRulesDraw": "Si le plateau se remplit sans gagnant, la partie se termine par un match nul.",
   "gameRulesDifficulty": "Difficulté",
   "gameRulesEasy": "Facile — l'ordinateur joue au hasard.",
-  "gameRulesHard": "Difficile — l'ordinateur joue de façon optimale et ne perd jamais."
+  "gameRulesHard": "Difficile — l'ordinateur joue de façon optimale et ne perd jamais.",
+  "settingsAbout": "À propos",
+  "settingsGameRules": "Règles du jeu",
+  "settingsVersion": "Version"
 }

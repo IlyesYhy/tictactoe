@@ -319,6 +319,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hard — the CPU plays optimally and never loses.'**
   String get gameRulesHard;
+
+  /// Section header for the about block on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get settingsAbout;
+
+  /// Tile title opening the game rules page from the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Game rules'**
+  String get settingsGameRules;
+
+  /// Tile title displaying the installed app version on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get settingsVersion;
 }
 
 class _AppLocalizationsDelegate

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app/app.dart';
@@ -30,11 +31,14 @@ Future<void> bootstrap() {
                 (await repository.getHapticFeedback()) ?? true,
           );
 
+          final packageInfo = await PackageInfo.fromPlatform();
+
           runApp(
             ProviderScope(
               overrides: [
                 sharedPreferencesProvider.overrideWithValue(sharedPreferences),
                 initialSettingsProvider.overrideWithValue(initialSettings),
+                packageInfoProvider.overrideWithValue(packageInfo),
               ],
               child: const App(),
             ),

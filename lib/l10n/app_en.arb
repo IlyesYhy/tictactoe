@@ -152,5 +152,17 @@
   "gameRulesHard": "Hard — the CPU plays optimally and never loses.",
   "@gameRulesHard": {
     "description": "Bullet describing the Hard difficulty behavior on the game rules page."
+  },
+  "settingsAbout": "About",
+  "@settingsAbout": {
+    "description": "Section header for the about block on the settings page."
+  },
+  "settingsGameRules": "Game rules",
+  "@settingsGameRules": {
+    "description": "Tile title opening the game rules page from the settings page."
+  },
+  "settingsVersion": "Version",
+  "@settingsVersion": {
+    "description": "Tile title displaying the installed app version on the settings page."
   }
 }

@@ -123,4 +123,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get gameRulesHard => 'Hard — the CPU plays optimally and never loses.';
+
+  @override
+  String get settingsAbout => 'About';
+
+  @override
+  String get settingsGameRules => 'Game rules';
+
+  @override
+  String get settingsVersion => 'Version';
 }

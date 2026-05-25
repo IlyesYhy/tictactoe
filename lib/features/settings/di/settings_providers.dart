@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/repositories/local_settings_repository.dart';
@@ -26,5 +27,15 @@ final settingsRepositoryProvider = Provider<SettingsRepository>((ref) {
 final initialSettingsProvider = Provider<AppSettings>((ref) {
   throw UnimplementedError(
     'initialSettingsProvider must be overridden at app startup.',
+  );
+});
+
+/// Bootstrapped at app launch with the resolved [PackageInfo] instance.
+///
+/// Reads will crash by design if it has not been overridden before `runApp`,
+/// so missing wiring fails fast rather than silently.
+final packageInfoProvider = Provider<PackageInfo>((ref) {
+  throw UnimplementedError(
+    'packageInfoProvider must be overridden at app startup.',
   );
 });
