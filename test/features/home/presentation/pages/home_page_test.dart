@@ -165,6 +165,46 @@ void main() {
     });
   });
 
+  group('HomePage compact layout', () {
+    void setNarrowViewport(WidgetTester tester) {
+      tester.view.physicalSize = const Size(320, 568);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+    }
+
+    testWidgets('renders all key elements without overflow exception', (
+      tester,
+    ) async {
+      setNarrowViewport(tester);
+
+      await pumpHome(tester);
+
+      expect(find.text('TicTacToe'), findsOneWidget);
+      expect(find.text('Play against the computer'), findsOneWidget);
+      expect(find.byKey(const Key('home_mascot')), findsOneWidget);
+      expect(find.byKey(const Key('home_difficulty_easy')), findsOneWidget);
+      expect(find.byKey(const Key('home_difficulty_hard')), findsOneWidget);
+      expect(find.byKey(const Key('home_new_game_button')), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('renders French copy without overflow exception', (
+      tester,
+    ) async {
+      setNarrowViewport(tester);
+
+      await pumpHome(tester, locale: const Locale('fr'));
+
+      expect(find.text("Jouez contre l'ordinateur"), findsOneWidget);
+      expect(find.text('Difficulté'), findsOneWidget);
+      expect(find.text('Nouvelle partie'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+  });
+
   group('HomePage ↔ GamePage navigation', () {
     testWidgets('returns to HomePage when back is tapped on GamePage', (
       tester,

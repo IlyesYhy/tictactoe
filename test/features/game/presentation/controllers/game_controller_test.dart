@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:tictactoe/features/game/di/game_providers.dart';
 import 'package:tictactoe/features/game/domain/entities/board.dart';
 import 'package:tictactoe/features/game/domain/entities/cell.dart';
+import 'package:tictactoe/features/game/domain/entities/game_difficulty.dart';
 import 'package:tictactoe/features/game/domain/entities/game_result.dart';
 import 'package:tictactoe/features/game/domain/entities/game_roles.dart';
 import 'package:tictactoe/features/game/domain/repositories/cpu_repository.dart';
@@ -200,6 +201,75 @@ void main() {
       expect(state.session.currentPlayer, humanPlayer);
       expect(state.session.result, const GameInProgress());
       expect(state.isCpuThinking, isFalse);
+    });
+
+    group('difficulty capture', () {
+      ProviderContainer createContainerWithPerDifficultyRepositories() {
+        const easyRepository = _SequenceCpuRepository([4]);
+        const hardRepository = _SequenceCpuRepository([7]);
+
+        final container = ProviderContainer(
+          overrides: [
+            cpuRepositoryProvider.overrideWith(
+              (ref, difficulty) => difficulty == GameDifficulty.easy
+                  ? easyRepository
+                  : hardRepository,
+            ),
+            cpuThinkingDelayProvider.overrideWithValue(Duration.zero),
+          ],
+        );
+        addTearDown(container.dispose);
+        return container;
+      }
+
+      test(
+        'keeps the captured difficulty stable when difficultyProvider changes '
+        'mid-game',
+        () async {
+          final container = createContainerWithPerDifficultyRepositories();
+
+          expect(
+            container.read(gameControllerProvider).difficulty,
+            GameDifficulty.easy,
+          );
+
+          container
+              .read(difficultyProvider.notifier)
+              .select(GameDifficulty.hard);
+
+          await container
+              .read(gameControllerProvider.notifier)
+              .playHumanTurn(0);
+
+          final state = container.read(gameControllerProvider);
+          expect(state.difficulty, GameDifficulty.easy);
+          expect(state.session.board.cells[4], Cell.o);
+          expect(state.session.board.cells[7], Cell.empty);
+        },
+      );
+
+      test('resetGame captures the latest selected difficulty', () async {
+        final container = createContainerWithPerDifficultyRepositories();
+
+        expect(
+          container.read(gameControllerProvider).difficulty,
+          GameDifficulty.easy,
+        );
+
+        container.read(difficultyProvider.notifier).select(GameDifficulty.hard);
+        container.read(gameControllerProvider.notifier).resetGame();
+
+        expect(
+          container.read(gameControllerProvider).difficulty,
+          GameDifficulty.hard,
+        );
+
+        await container.read(gameControllerProvider.notifier).playHumanTurn(0);
+
+        final state = container.read(gameControllerProvider);
+        expect(state.session.board.cells[7], Cell.o);
+        expect(state.session.board.cells[4], Cell.empty);
+      });
     });
   });
 }

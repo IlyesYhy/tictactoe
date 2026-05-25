@@ -110,4 +110,14 @@ void main() {
       });
     }
   });
+
+  group('GamePage accessibility', () {
+    testWidgets('renders the back button with the localized Back tooltip', (
+      tester,
+    ) async {
+      await tester.pumpWidget(wrap(const GamePage()));
+
+      expect(find.byTooltip('Back'), findsOneWidget);
+    });
+  });
 }
