@@ -90,4 +90,39 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get settingsHapticFeedback => 'Vibrations';
+
+  @override
+  String get gameRulesTitle => 'Règles du jeu';
+
+  @override
+  String get gameRulesObjective => 'Objectif';
+
+  @override
+  String get gameRulesObjectiveDescription =>
+      'Alignez trois de vos symboles en ligne, colonne ou diagonale pour gagner.';
+
+  @override
+  String get gameRulesHowToPlay => 'Comment jouer';
+
+  @override
+  String get gameRulesStart =>
+      'Vous jouez X et commencez toujours. L\'ordinateur joue O.';
+
+  @override
+  String get gameRulesWin =>
+      'Trois symboles alignés en ligne, colonne ou diagonale gagnent la partie.';
+
+  @override
+  String get gameRulesDraw =>
+      'Si le plateau se remplit sans gagnant, la partie se termine par un match nul.';
+
+  @override
+  String get gameRulesDifficulty => 'Difficulté';
+
+  @override
+  String get gameRulesEasy => 'Facile — l\'ordinateur joue au hasard.';
+
+  @override
+  String get gameRulesHard =>
+      'Difficile — l\'ordinateur joue de façon optimale et ne perd jamais.';
 }

@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 
 import '../../features/game/presentation/pages/game_page.dart';
+import '../../features/game/presentation/pages/game_rules_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import 'app_routes.dart';
@@ -28,6 +29,11 @@ final appRouter = GoRouter(
       path: AppRoutes.settings,
       name: AppRouteNames.settings,
       builder: (context, state) => const SettingsPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.gameRules,
+      name: AppRouteNames.gameRules,
+      builder: (context, state) => const GameRulesPage(),
     ),
   ],
 );

@@ -90,4 +90,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsHapticFeedback => 'Haptic feedback';
+
+  @override
+  String get gameRulesTitle => 'Game rules';
+
+  @override
+  String get gameRulesObjective => 'Objective';
+
+  @override
+  String get gameRulesObjectiveDescription =>
+      'Align three of your marks in a row, column, or diagonal to win.';
+
+  @override
+  String get gameRulesHowToPlay => 'How to play';
+
+  @override
+  String get gameRulesStart => 'You play X and always start. The CPU plays O.';
+
+  @override
+  String get gameRulesWin =>
+      'Three marks in a row, column, or diagonal wins the match.';
+
+  @override
+  String get gameRulesDraw =>
+      'If the board fills up without a winner, the match ends in a draw.';
+
+  @override
+  String get gameRulesDifficulty => 'Difficulty';
+
+  @override
+  String get gameRulesEasy => 'Easy — the CPU picks moves at random.';
+
+  @override
+  String get gameRulesHard => 'Hard — the CPU plays optimally and never loses.';
 }

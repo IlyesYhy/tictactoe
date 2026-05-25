@@ -259,6 +259,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Haptic feedback'**
   String get settingsHapticFeedback;
+
+  /// AppBar title on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'Game rules'**
+  String get gameRulesTitle;
+
+  /// Section header introducing the goal of the game on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'Objective'**
+  String get gameRulesObjective;
+
+  /// Sentence describing how to win a game on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'Align three of your marks in a row, column, or diagonal to win.'**
+  String get gameRulesObjectiveDescription;
+
+  /// Section header listing the basic gameplay rules on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'How to play'**
+  String get gameRulesHowToPlay;
+
+  /// Bullet describing player turn order on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'You play X and always start. The CPU plays O.'**
+  String get gameRulesStart;
+
+  /// Bullet describing the winning condition on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'Three marks in a row, column, or diagonal wins the match.'**
+  String get gameRulesWin;
+
+  /// Bullet describing the draw condition on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'If the board fills up without a winner, the match ends in a draw.'**
+  String get gameRulesDraw;
+
+  /// Section header introducing the difficulty levels on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'Difficulty'**
+  String get gameRulesDifficulty;
+
+  /// Bullet describing the Easy difficulty behavior on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'Easy — the CPU picks moves at random.'**
+  String get gameRulesEasy;
+
+  /// Bullet describing the Hard difficulty behavior on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'Hard — the CPU plays optimally and never loses.'**
+  String get gameRulesHard;
 }
 
 class _AppLocalizationsDelegate

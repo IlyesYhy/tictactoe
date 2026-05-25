@@ -26,5 +26,15 @@
   "settingsThemeDark": "Sombre",
   "settingsThemeSystem": "Système",
   "settingsPreferences": "Préférences",
-  "settingsHapticFeedback": "Vibrations"
+  "settingsHapticFeedback": "Vibrations",
+  "gameRulesTitle": "Règles du jeu",
+  "gameRulesObjective": "Objectif",
+  "gameRulesObjectiveDescription": "Alignez trois de vos symboles en ligne, colonne ou diagonale pour gagner.",
+  "gameRulesHowToPlay": "Comment jouer",
+  "gameRulesStart": "Vous jouez X et commencez toujours. L'ordinateur joue O.",
+  "gameRulesWin": "Trois symboles alignés en ligne, colonne ou diagonale gagnent la partie.",
+  "gameRulesDraw": "Si le plateau se remplit sans gagnant, la partie se termine par un match nul.",
+  "gameRulesDifficulty": "Difficulté",
+  "gameRulesEasy": "Facile — l'ordinateur joue au hasard.",
+  "gameRulesHard": "Difficile — l'ordinateur joue de façon optimale et ne perd jamais."
 }
