@@ -20,9 +20,7 @@ void main() {
     test('updates the state when select is called', () {
       final container = createContainer();
 
-      container
-          .read(difficultyProvider.notifier)
-          .select(GameDifficulty.hard);
+      container.read(difficultyProvider.notifier).select(GameDifficulty.hard);
 
       expect(container.read(difficultyProvider), GameDifficulty.hard);
     });

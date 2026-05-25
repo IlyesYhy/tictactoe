@@ -10,6 +10,7 @@
   "cpu": "Ordinateur",
   "restartGame": "Recommencer",
   "playAgain": "Rejouer",
+  "newGame": "Nouvelle partie",
   "cellSemanticLabel": "Case {position}",
   "cellStateEmpty": "vide"
 }

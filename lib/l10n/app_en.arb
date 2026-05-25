@@ -40,6 +40,10 @@
   "@playAgain": {
     "description": "Button label used to start a new game once the current one has ended."
   },
+  "newGame": "New game",
+  "@newGame": {
+    "description": "Primary call-to-action used to start a new game from the home page."
+  },
   "cellSemanticLabel": "Cell {position}",
   "@cellSemanticLabel": {
     "description": "Accessibility label for a board cell, identifying its 1-based position (1 to 9).",

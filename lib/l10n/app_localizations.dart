@@ -158,6 +158,12 @@ abstract class AppLocalizations {
   /// **'Play again'**
   String get playAgain;
 
+  /// Primary call-to-action used to start a new game from the home page.
+  ///
+  /// In en, this message translates to:
+  /// **'New game'**
+  String get newGame;
+
   /// Accessibility label for a board cell, identifying its 1-based position (1 to 9).
   ///
   /// In en, this message translates to:

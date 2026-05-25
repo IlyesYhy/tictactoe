@@ -31,17 +31,19 @@ final difficultyProvider =
 ///
 /// Reading [difficultyProvider] reactively here would let the CPU swap
 /// strategies mid-match if the user changed difficulty during a game.
-final cpuRepositoryProvider =
-    Provider.family<CpuRepository, GameDifficulty>((ref, difficulty) {
-      final gameEngine = ref.watch(gameEngineProvider);
+final cpuRepositoryProvider = Provider.family<CpuRepository, GameDifficulty>((
+  ref,
+  difficulty,
+) {
+  final gameEngine = ref.watch(gameEngineProvider);
 
-      final strategy = switch (difficulty) {
-        GameDifficulty.easy => RandomCpuStrategy(),
-        GameDifficulty.hard => MinimaxCpuStrategy(gameEngine),
-      };
+  final strategy = switch (difficulty) {
+    GameDifficulty.easy => RandomCpuStrategy(),
+    GameDifficulty.hard => MinimaxCpuStrategy(gameEngine),
+  };
 
-      return LocalCpuRepository(strategy);
-    });
+  return LocalCpuRepository(strategy);
+});
 
 final startGameProvider = Provider<StartGame>((ref) => const StartGame());
 
@@ -49,13 +51,15 @@ final playHumanTurnProvider = Provider<PlayHumanTurn>(
   (ref) => PlayHumanTurn(ref.watch(gameEngineProvider)),
 );
 
-final playCpuTurnProvider =
-    Provider.family<PlayCpuTurn, GameDifficulty>((ref, difficulty) {
-      return PlayCpuTurn(
-        ref.watch(cpuRepositoryProvider(difficulty)),
-        ref.watch(gameEngineProvider),
-      );
-    });
+final playCpuTurnProvider = Provider.family<PlayCpuTurn, GameDifficulty>((
+  ref,
+  difficulty,
+) {
+  return PlayCpuTurn(
+    ref.watch(cpuRepositoryProvider(difficulty)),
+    ref.watch(gameEngineProvider),
+  );
+});
 
 final cpuThinkingDelayProvider = Provider<Duration>(
   (ref) => const Duration(milliseconds: 450),
