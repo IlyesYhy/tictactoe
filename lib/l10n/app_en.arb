@@ -44,6 +44,22 @@
   "@newGame": {
     "description": "Primary call-to-action used to start a new game from the home page."
   },
+  "homeSubtitle": "Play against the computer",
+  "@homeSubtitle": {
+    "description": "Tagline shown on the home page below the app title."
+  },
+  "difficultyTitle": "Difficulty",
+  "@difficultyTitle": {
+    "description": "Section heading above the difficulty selector on the home page."
+  },
+  "difficultyEasy": "Easy",
+  "@difficultyEasy": {
+    "description": "Label for the easy difficulty option (random CPU strategy)."
+  },
+  "difficultyHard": "Hard",
+  "@difficultyHard": {
+    "description": "Label for the hard difficulty option (minimax CPU strategy)."
+  },
   "cellSemanticLabel": "Cell {position}",
   "@cellSemanticLabel": {
     "description": "Accessibility label for a board cell, identifying its 1-based position (1 to 9).",

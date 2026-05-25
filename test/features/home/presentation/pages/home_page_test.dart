@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tictactoe/app/router/app_routes.dart';
+import 'package:tictactoe/app/theme/app_theme.dart';
+import 'package:tictactoe/features/game/di/game_providers.dart';
+import 'package:tictactoe/features/game/domain/entities/game_difficulty.dart';
 import 'package:tictactoe/features/home/presentation/pages/home_page.dart';
+import 'package:tictactoe/features/home/presentation/widgets/home_difficulty_selector.dart';
 import 'package:tictactoe/l10n/app_localizations.dart';
 
 void main() {
@@ -24,33 +29,74 @@ void main() {
     );
   }
 
-  Future<void> pumpAppWithRouter(WidgetTester tester) async {
+  Future<ProviderContainer> pumpHome(
+    WidgetTester tester, {
+    Locale locale = const Locale('en'),
+  }) async {
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+
     await tester.pumpWidget(
-      MaterialApp.router(
-        routerConfig: buildTestRouter(),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
+      UncontrolledProviderScope(
+        container: container,
+        child: MaterialApp.router(
+          routerConfig: buildTestRouter(),
+          theme: AppTheme.light,
+          darkTheme: AppTheme.dark,
+          locale: locale,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+        ),
       ),
     );
+
+    return container;
   }
 
   group('HomePage', () {
-    testWidgets('renders the app title', (tester) async {
-      await pumpAppWithRouter(tester);
+    testWidgets('renders title, subtitle, mascot, selector and CTA', (
+      tester,
+    ) async {
+      await pumpHome(tester);
 
       expect(find.text('TicTacToe'), findsOneWidget);
+      expect(find.text('Play against the computer'), findsOneWidget);
+      expect(find.byKey(const Key('home_mascot')), findsOneWidget);
+      expect(find.byType(HomeDifficultySelector), findsOneWidget);
+      expect(find.byKey(const Key('home_new_game_button')), findsOneWidget);
+      expect(find.text('New game'), findsOneWidget);
+    });
+
+    testWidgets('updates difficultyProvider when a card is selected', (
+      tester,
+    ) async {
+      final container = await pumpHome(tester);
+
+      expect(container.read(difficultyProvider), GameDifficulty.easy);
+
+      await tester.tap(find.byKey(const Key('home_difficulty_hard')));
+      await tester.pump();
+
+      expect(container.read(difficultyProvider), GameDifficulty.hard);
     });
 
     testWidgets('navigates to the game route on new game button tap', (
       tester,
     ) async {
-      await pumpAppWithRouter(tester);
+      await pumpHome(tester);
 
       await tester.tap(find.byKey(const Key('home_new_game_button')));
       await tester.pumpAndSettle();
 
       expect(find.text('Game route'), findsOneWidget);
       expect(find.byType(HomePage), findsNothing);
+    });
+
+    testWidgets('renders localized French copy', (tester) async {
+      await pumpHome(tester, locale: const Locale('fr'));
+
+      expect(find.text("Jouez contre l'ordinateur"), findsOneWidget);
+      expect(find.text('Nouvelle partie'), findsOneWidget);
     });
   });
 }

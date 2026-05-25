@@ -164,6 +164,30 @@ abstract class AppLocalizations {
   /// **'New game'**
   String get newGame;
 
+  /// Tagline shown on the home page below the app title.
+  ///
+  /// In en, this message translates to:
+  /// **'Play against the computer'**
+  String get homeSubtitle;
+
+  /// Section heading above the difficulty selector on the home page.
+  ///
+  /// In en, this message translates to:
+  /// **'Difficulty'**
+  String get difficultyTitle;
+
+  /// Label for the easy difficulty option (random CPU strategy).
+  ///
+  /// In en, this message translates to:
+  /// **'Easy'**
+  String get difficultyEasy;
+
+  /// Label for the hard difficulty option (minimax CPU strategy).
+  ///
+  /// In en, this message translates to:
+  /// **'Hard'**
+  String get difficultyHard;
+
   /// Accessibility label for a board cell, identifying its 1-based position (1 to 9).
   ///
   /// In en, this message translates to:

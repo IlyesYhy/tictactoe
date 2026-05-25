@@ -11,6 +11,10 @@
   "restartGame": "Recommencer",
   "playAgain": "Rejouer",
   "newGame": "Nouvelle partie",
+  "homeSubtitle": "Jouez contre l'ordinateur",
+  "difficultyTitle": "Difficulté",
+  "difficultyEasy": "Facile",
+  "difficultyHard": "Difficile",
   "cellSemanticLabel": "Case {position}",
   "cellStateEmpty": "vide"
 }
