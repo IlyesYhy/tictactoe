@@ -60,115 +60,133 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       backgroundColor: context.colorScheme.surface,
       body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final isCompact = constraints.maxHeight < _compactBreakpoint;
+        child: Stack(
+          children: [
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final isCompact = constraints.maxHeight < _compactBreakpoint;
 
-            final topSpacing = isCompact
-                ? _compactTopSpacing
-                : _regularTopSpacing;
-            final subtitleHeroGap = isCompact
-                ? _compactSubtitleHeroGap
-                : _regularSubtitleHeroGap;
-            final heroHeight = isCompact
-                ? _compactHeroHeight
-                : _regularHeroHeight;
-            final robotSize = isCompact ? _compactRobotSize : _regularRobotSize;
-            final selectorGap = isCompact
-                ? _compactSelectorGap
-                : _regularSelectorGap;
-            final ctaGap = isCompact ? _compactCtaGap : _regularCtaGap;
-            final buttonHeight = isCompact
-                ? _compactButtonHeight
-                : _regularButtonHeight;
-            final bottomSpacing = isCompact
-                ? _compactBottomSpacing
-                : _regularBottomSpacing;
+                final topSpacing = isCompact
+                    ? _compactTopSpacing
+                    : _regularTopSpacing;
+                final subtitleHeroGap = isCompact
+                    ? _compactSubtitleHeroGap
+                    : _regularSubtitleHeroGap;
+                final heroHeight = isCompact
+                    ? _compactHeroHeight
+                    : _regularHeroHeight;
+                final robotSize = isCompact
+                    ? _compactRobotSize
+                    : _regularRobotSize;
+                final selectorGap = isCompact
+                    ? _compactSelectorGap
+                    : _regularSelectorGap;
+                final ctaGap = isCompact ? _compactCtaGap : _regularCtaGap;
+                final buttonHeight = isCompact
+                    ? _compactButtonHeight
+                    : _regularButtonHeight;
+                final bottomSpacing = isCompact
+                    ? _compactBottomSpacing
+                    : _regularBottomSpacing;
 
-            final titleStyle = isCompact
-                ? context.textTheme.headlineLarge
-                : context.textTheme.displaySmall;
+                final titleStyle = isCompact
+                    ? context.textTheme.headlineLarge
+                    : context.textTheme.displaySmall;
 
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: Center(
+                return SingleChildScrollView(
                   child: ConstrainedBox(
-                    constraints: const BoxConstraints(
-                      maxWidth: _maxContentWidth,
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: _horizontalPadding,
-                      ),
-                      child: Column(
-                        children: [
-                          SizedBox(height: topSpacing),
-                          Text(
-                            context.l10n.appTitle,
-                            textAlign: TextAlign.center,
-                            style: titleStyle?.copyWith(
-                              fontWeight: FontWeight.w900,
-                              color: context.colorScheme.onSurface,
-                              letterSpacing: -1.2,
-                            ),
+                    child: Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxWidth: _maxContentWidth,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: _horizontalPadding,
                           ),
-                          const SizedBox(height: _titleSubtitleGap),
-                          Text(
-                            context.l10n.homeSubtitle,
-                            textAlign: TextAlign.center,
-                            style: context.textTheme.titleMedium?.copyWith(
-                              color: context.colorScheme.onSurfaceVariant,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(height: subtitleHeroGap),
-                          _HomeHero(
-                            key: const Key('home_mascot'),
-                            difficulty: selected,
-                            height: heroHeight,
-                            robotSize: robotSize,
-                          ),
-                          SizedBox(height: selectorGap),
-                          _HomeCard(
-                            isCompact: isCompact,
-                            child: HomeDifficultySelector(
-                              selected: selected,
-                              isCompact: isCompact,
-                              onSelected: (difficulty) => ref
-                                  .read(difficultyProvider.notifier)
-                                  .select(difficulty),
-                            ),
-                          ),
-                          SizedBox(height: ctaGap),
-                          SizedBox(
-                            width: double.infinity,
-                            height: buttonHeight,
-                            child: FilledButton.icon(
-                              key: const Key('home_new_game_button'),
-                              onPressed: () => _startNewGame(context, ref),
-                              icon: const Icon(Icons.play_circle_rounded),
-                              label: Text(context.l10n.newGame),
-                              style: FilledButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    _buttonRadius,
+                          child: Column(
+                            children: [
+                              SizedBox(height: topSpacing),
+                              Text(
+                                context.l10n.appTitle,
+                                textAlign: TextAlign.center,
+                                style: titleStyle?.copyWith(
+                                  fontWeight: FontWeight.w900,
+                                  color: context.colorScheme.onSurface,
+                                  letterSpacing: -1.2,
+                                ),
+                              ),
+                              const SizedBox(height: _titleSubtitleGap),
+                              Text(
+                                context.l10n.homeSubtitle,
+                                textAlign: TextAlign.center,
+                                style: context.textTheme.titleMedium?.copyWith(
+                                  color: context.colorScheme.onSurfaceVariant,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              SizedBox(height: subtitleHeroGap),
+                              _HomeHero(
+                                key: const Key('home_mascot'),
+                                difficulty: selected,
+                                height: heroHeight,
+                                robotSize: robotSize,
+                              ),
+                              SizedBox(height: selectorGap),
+                              _HomeCard(
+                                isCompact: isCompact,
+                                child: HomeDifficultySelector(
+                                  selected: selected,
+                                  isCompact: isCompact,
+                                  onSelected: (difficulty) => ref
+                                      .read(difficultyProvider.notifier)
+                                      .select(difficulty),
+                                ),
+                              ),
+                              SizedBox(height: ctaGap),
+                              SizedBox(
+                                width: double.infinity,
+                                height: buttonHeight,
+                                child: FilledButton.icon(
+                                  key: const Key('home_new_game_button'),
+                                  onPressed: () => _startNewGame(context, ref),
+                                  icon: const Icon(Icons.play_circle_rounded),
+                                  label: Text(context.l10n.newGame),
+                                  style: FilledButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        _buttonRadius,
+                                      ),
+                                    ),
+                                    textStyle: context.textTheme.titleMedium
+                                        ?.copyWith(fontWeight: FontWeight.w800),
                                   ),
                                 ),
-                                textStyle: context.textTheme.titleMedium
-                                    ?.copyWith(fontWeight: FontWeight.w800),
                               ),
-                            ),
+                              SizedBox(height: bottomSpacing),
+                            ],
                           ),
-                          SizedBox(height: bottomSpacing),
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                ),
+                );
+              },
+            ),
+            Positioned(
+              top: 8,
+              right: 8,
+              child: IconButton(
+                key: const Key('home_settings_button'),
+                tooltip: context.l10n.settingsTitle,
+                icon: const Icon(Icons.settings_outlined),
+                onPressed: () => context.pushNamed(AppRouteNames.settings),
               ),
-            );
-          },
+            ),
+          ],
         ),
       ),
     );

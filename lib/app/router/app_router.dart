@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/game/presentation/pages/game_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
+import '../../features/settings/presentation/pages/settings_page.dart';
 import 'app_routes.dart';
 
 /// Static navigation configuration for the app.
@@ -22,6 +23,11 @@ final appRouter = GoRouter(
       path: AppRoutes.game,
       name: AppRouteNames.game,
       builder: (context, state) => const GamePage(),
+    ),
+    GoRoute(
+      path: AppRoutes.settings,
+      name: AppRouteNames.settings,
+      builder: (context, state) => const SettingsPage(),
     ),
   ],
 );

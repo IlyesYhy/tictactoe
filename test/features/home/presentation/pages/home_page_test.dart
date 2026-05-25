@@ -26,6 +26,12 @@ void main() {
           name: AppRouteNames.game,
           builder: (context, state) => const Scaffold(body: Text('Game route')),
         ),
+        GoRoute(
+          path: AppRoutes.settings,
+          name: AppRouteNames.settings,
+          builder: (context, state) =>
+              const Scaffold(body: Text('Settings route')),
+        ),
       ],
     );
   }
@@ -109,6 +115,19 @@ void main() {
       expect(find.byType(HomeDifficultySelector), findsOneWidget);
       expect(find.byKey(const Key('home_new_game_button')), findsOneWidget);
       expect(find.text('New game'), findsOneWidget);
+      expect(find.byKey(const Key('home_settings_button')), findsOneWidget);
+    });
+
+    testWidgets('navigates to the settings route on settings icon tap', (
+      tester,
+    ) async {
+      await pumpHome(tester);
+
+      await tester.tap(find.byKey(const Key('home_settings_button')));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Settings route'), findsOneWidget);
+      expect(find.byType(HomePage), findsNothing);
     });
 
     testWidgets('updates difficultyProvider when a card is selected', (
