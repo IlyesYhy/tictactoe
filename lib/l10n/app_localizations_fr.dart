@@ -134,4 +134,16 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get settingsVersion => 'Version';
+
+  @override
+  String get settingsPlayer => 'Joueur';
+
+  @override
+  String get settingsPlayerSubtitle => 'Personnalisez votre expérience';
+
+  @override
+  String get settingsPlayerName => 'Nom du joueur';
+
+  @override
+  String get settingsPreferredSymbol => 'Symbole préféré';
 }

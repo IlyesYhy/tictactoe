@@ -39,5 +39,9 @@
   "gameRulesHard": "Difficile — l'ordinateur joue de façon optimale et ne perd jamais.",
   "settingsAbout": "À propos",
   "settingsGameRules": "Règles du jeu",
-  "settingsVersion": "Version"
+  "settingsVersion": "Version",
+  "settingsPlayer": "Joueur",
+  "settingsPlayerSubtitle": "Personnalisez votre expérience",
+  "settingsPlayerName": "Nom du joueur",
+  "settingsPreferredSymbol": "Symbole préféré"
 }

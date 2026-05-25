@@ -71,44 +71,27 @@ void main() {
       await pumpSettingsPage(tester);
 
       expect(find.text('Settings'), findsOneWidget);
-      expect(find.text('Language'), findsOneWidget);
+
+      // Theme section
       expect(find.text('Theme'), findsOneWidget);
+      expect(find.byKey(const Key('settings_theme_light')), findsOneWidget);
+      expect(find.byKey(const Key('settings_theme_dark')), findsOneWidget);
+      expect(find.byKey(const Key('settings_theme_system')), findsOneWidget);
 
-      final englishTile = tester.widget<RadioListTile<AppLanguage>>(
-        find.byKey(const Key('settings_language_en')),
-      );
-      expect(englishTile.value, AppLanguage.en);
-
-      final frenchTile = tester.widget<RadioListTile<AppLanguage>>(
-        find.byKey(const Key('settings_language_fr')),
-      );
-      expect(frenchTile.value, AppLanguage.fr);
-
-      final lightTile = tester.widget<RadioListTile<AppThemeMode>>(
-        find.byKey(const Key('settings_theme_light')),
-      );
-      expect(lightTile.value, AppThemeMode.light);
-
-      final darkTile = tester.widget<RadioListTile<AppThemeMode>>(
-        find.byKey(const Key('settings_theme_dark')),
-      );
-      expect(darkTile.value, AppThemeMode.dark);
-
-      final systemTile = tester.widget<RadioListTile<AppThemeMode>>(
-        find.byKey(const Key('settings_theme_system')),
-      );
-      expect(systemTile.value, AppThemeMode.system);
-
+      // Preferences section
       expect(find.text('Preferences'), findsOneWidget);
-      expect(find.text('Haptic feedback'), findsOneWidget);
+      expect(find.byKey(const Key('settings_language')), findsOneWidget);
+      expect(find.text('Language'), findsOneWidget);
+      expect(find.text('EN'), findsOneWidget);
       expect(find.byKey(const Key('settings_haptic_feedback')), findsOneWidget);
+      expect(find.text('Haptic feedback'), findsOneWidget);
 
+      // About section
       expect(find.text('About'), findsOneWidget);
-      expect(find.text('Game rules'), findsOneWidget);
-      expect(find.text('Version'), findsOneWidget);
       expect(find.byKey(const Key('settings_game_rules')), findsOneWidget);
+      expect(find.text('Game rules'), findsOneWidget);
       expect(find.byKey(const Key('settings_version')), findsOneWidget);
-      expect(find.byIcon(Icons.chevron_right), findsOneWidget);
+      expect(find.text('Version'), findsOneWidget);
     });
 
     testWidgets('renders the app version from PackageInfo', (tester) async {
@@ -117,16 +100,17 @@ void main() {
         packageInfo: _fakePackageInfo(version: '4.2.0'),
       );
 
-      final versionTile = tester.widget<ListTile>(
-        find.byKey(const Key('settings_version')),
-      );
-      expect((versionTile.trailing! as Text).data, '4.2.0');
+      expect(find.byKey(const Key('settings_version')), findsOneWidget);
+      expect(find.text('4.2.0'), findsOneWidget);
     });
 
     testWidgets('tap on French language radio updates state and persists fr', (
       tester,
     ) async {
       final (container, repository) = await pumpSettingsPage(tester);
+
+      await tester.tap(find.byKey(const Key('settings_language')));
+      await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const Key('settings_language_fr')));
       await tester.pumpAndSettle();
@@ -136,6 +120,18 @@ void main() {
         AppLanguage.fr,
       );
       expect(repository.savedLanguages, [AppLanguage.fr]);
+    });
+
+    testWidgets('renders French language options in language picker', (
+      tester,
+    ) async {
+      await pumpSettingsPage(tester, locale: const Locale('fr'));
+
+      await tester.tap(find.byKey(const Key('settings_language')));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Anglais'), findsOneWidget);
+      expect(find.text('Français'), findsOneWidget);
     });
 
     testWidgets('tap on Dark theme radio updates state and persists dark', (
@@ -175,8 +171,6 @@ void main() {
       expect(find.text('Paramètres'), findsOneWidget);
       expect(find.text('Langue'), findsOneWidget);
       expect(find.text('Thème'), findsOneWidget);
-      expect(find.text('Anglais'), findsOneWidget);
-      expect(find.text('Français'), findsOneWidget);
       expect(find.text('Clair'), findsOneWidget);
       expect(find.text('Sombre'), findsOneWidget);
       expect(find.text('Système'), findsOneWidget);

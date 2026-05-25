@@ -337,6 +337,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version'**
   String get settingsVersion;
+
+  /// Section header for the player block on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Player'**
+  String get settingsPlayer;
+
+  /// Subtitle shown under the player section header inviting customization.
+  ///
+  /// In en, this message translates to:
+  /// **'Customize your experience'**
+  String get settingsPlayerSubtitle;
+
+  /// Label for the player name row on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Player name'**
+  String get settingsPlayerName;
+
+  /// Label for the preferred symbol row on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferred symbol'**
+  String get settingsPreferredSymbol;
 }
 
 class _AppLocalizationsDelegate

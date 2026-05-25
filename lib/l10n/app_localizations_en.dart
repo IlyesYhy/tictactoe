@@ -132,4 +132,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsVersion => 'Version';
+
+  @override
+  String get settingsPlayer => 'Player';
+
+  @override
+  String get settingsPlayerSubtitle => 'Customize your experience';
+
+  @override
+  String get settingsPlayerName => 'Player name';
+
+  @override
+  String get settingsPreferredSymbol => 'Preferred symbol';
 }

@@ -164,5 +164,21 @@
   "settingsVersion": "Version",
   "@settingsVersion": {
     "description": "Tile title displaying the installed app version on the settings page."
+  },
+  "settingsPlayer": "Player",
+  "@settingsPlayer": {
+    "description": "Section header for the player block on the settings page."
+  },
+  "settingsPlayerSubtitle": "Customize your experience",
+  "@settingsPlayerSubtitle": {
+    "description": "Subtitle shown under the player section header inviting customization."
+  },
+  "settingsPlayerName": "Player name",
+  "@settingsPlayerName": {
+    "description": "Label for the player name row on the settings page."
+  },
+  "settingsPreferredSymbol": "Preferred symbol",
+  "@settingsPreferredSymbol": {
+    "description": "Label for the preferred symbol row on the settings page."
   }
 }
