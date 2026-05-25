@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tictactoe/app/router/app_routes.dart';
 import 'package:tictactoe/app/theme/app_spacing.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
@@ -33,6 +35,19 @@ class GamePage extends ConsumerWidget {
                   ),
                   child: Column(
                     children: [
+                      Row(
+                        children: [
+                          IconButton(
+                            tooltip: MaterialLocalizations.of(
+                              context,
+                            ).backButtonTooltip,
+                            onPressed: () => _goBack(context),
+
+                            icon: const Icon(Icons.arrow_back_rounded),
+                          ),
+                          const Spacer(),
+                        ],
+                      ),
                       Text(
                         context.l10n.appTitle,
                         style: context.textTheme.headlineLarge?.copyWith(
@@ -75,6 +90,15 @@ class GamePage extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  void _goBack(BuildContext context) {
+    if (context.canPop()) {
+      context.pop();
+      return;
+    }
+
+    context.goNamed(AppRouteNames.home);
   }
 }
 

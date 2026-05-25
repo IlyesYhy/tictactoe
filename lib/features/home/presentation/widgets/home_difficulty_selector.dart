@@ -12,24 +12,28 @@ class HomeDifficultySelector extends StatelessWidget {
   const HomeDifficultySelector({
     required this.selected,
     required this.onSelected,
+    this.isCompact = false,
     super.key,
   });
 
   final GameDifficulty selected;
   final ValueChanged<GameDifficulty> onSelected;
+  final bool isCompact;
 
   @override
   Widget build(BuildContext context) {
+    final titleStyle = isCompact
+        ? context.textTheme.titleSmall
+        : context.textTheme.titleMedium;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           context.l10n.difficultyTitle,
-          style: context.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w700,
-          ),
+          style: titleStyle?.copyWith(fontWeight: FontWeight.w700),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: isCompact ? 10 : 12),
         Row(
           children: [
             Expanded(
@@ -38,16 +42,18 @@ class HomeDifficultySelector extends StatelessWidget {
                 icon: Icons.sentiment_satisfied_rounded,
                 label: context.l10n.difficultyEasy,
                 isSelected: selected == GameDifficulty.easy,
+                isCompact: isCompact,
                 onTap: () => onSelected(GameDifficulty.easy),
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: isCompact ? 10 : 12),
             Expanded(
               child: _DifficultyCard(
                 key: const Key('home_difficulty_hard'),
                 icon: Icons.local_fire_department_rounded,
                 label: context.l10n.difficultyHard,
                 isSelected: selected == GameDifficulty.hard,
+                isCompact: isCompact,
                 onTap: () => onSelected(GameDifficulty.hard),
               ),
             ),
@@ -63,6 +69,7 @@ class _DifficultyCard extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.isSelected,
+    required this.isCompact,
     required this.onTap,
     super.key,
   });
@@ -70,12 +77,11 @@ class _DifficultyCard extends StatelessWidget {
   static const _borderRadius = 16.0;
   static const _selectedBorderWidth = 2.0;
   static const _unselectedBorderWidth = 1.0;
-  static const _verticalPadding = 16.0;
-  static const _iconLabelGap = 8.0;
 
   final IconData icon;
   final String label;
   final bool isSelected;
+  final bool isCompact;
   final VoidCallback onTap;
 
   @override
@@ -88,6 +94,13 @@ class _DifficultyCard extends StatelessWidget {
         ? colorScheme.primary
         : colorScheme.outlineVariant;
 
+    final verticalPadding = isCompact ? 12.0 : 16.0;
+    final iconSize = isCompact ? 22.0 : 24.0;
+    final iconLabelGap = isCompact ? 6.0 : 8.0;
+    final textStyle = isCompact
+        ? context.textTheme.titleSmall
+        : context.textTheme.titleMedium;
+
     return Material(
       color: colorScheme.surface,
       borderRadius: BorderRadius.circular(_borderRadius),
@@ -95,7 +108,7 @@ class _DifficultyCard extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(_borderRadius),
         child: Ink(
-          padding: const EdgeInsets.symmetric(vertical: _verticalPadding),
+          padding: EdgeInsets.symmetric(vertical: verticalPadding),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(_borderRadius),
             border: Border.all(
@@ -106,14 +119,14 @@ class _DifficultyCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, color: foreground),
-              const SizedBox(width: _iconLabelGap),
+              Icon(icon, color: foreground, size: iconSize),
+              SizedBox(width: iconLabelGap),
               Flexible(
                 child: Text(
                   label,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: context.textTheme.titleMedium?.copyWith(
+                  style: textStyle?.copyWith(
                     color: foreground,
                     fontWeight: FontWeight.w600,
                   ),
