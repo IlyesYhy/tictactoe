@@ -1,25 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tictactoe/app/theme/app_spacing.dart';
-import 'package:tictactoe/app/theme/app_theme.dart';
 import 'package:tictactoe/features/game/presentation/pages/game_page.dart';
 import 'package:tictactoe/features/game/presentation/widgets/game_board.dart';
 import 'package:tictactoe/features/game/presentation/widgets/restart_game_button.dart';
-import 'package:tictactoe/l10n/app_localizations.dart';
+
+import '../../../../helpers/pump_test_app.dart';
 
 void main() {
-  Widget wrap(Widget child) {
-    return ProviderScope(
-      child: MaterialApp(
-        theme: AppTheme.light,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: child,
-      ),
-    );
-  }
-
   Future<void> setScreenSize(WidgetTester tester, Size size) async {
     tester.view.physicalSize = size;
     tester.view.devicePixelRatio = 1.0;
@@ -30,11 +18,15 @@ void main() {
     });
   }
 
+  Future<void> pumpGamePage(WidgetTester tester) {
+    return tester.pumpTestApp(const GamePage(), wrapWithScaffold: false);
+  }
+
   group('GamePage responsive layout', () {
     testWidgets('caps content width at 420 on wide screens', (tester) async {
       await setScreenSize(tester, const Size(800, 1200));
 
-      await tester.pumpWidget(wrap(const GamePage()));
+      await pumpGamePage(tester);
 
       final buttonWidth = tester.getSize(find.byType(RestartGameButton)).width;
 
@@ -47,7 +39,7 @@ void main() {
 
       await setScreenSize(tester, const Size(screenWidth, 800));
 
-      await tester.pumpWidget(wrap(const GamePage()));
+      await pumpGamePage(tester);
 
       final buttonWidth = tester.getSize(find.byType(RestartGameButton)).width;
 
@@ -61,7 +53,7 @@ void main() {
     testWidgets('keeps the board square on compact screens', (tester) async {
       await setScreenSize(tester, const Size(320, 568));
 
-      await tester.pumpWidget(wrap(const GamePage()));
+      await pumpGamePage(tester);
 
       final boardSize = tester.getSize(find.byType(GameBoard));
 
@@ -74,7 +66,7 @@ void main() {
     ) async {
       await setScreenSize(tester, const Size(320, 568));
 
-      await tester.pumpWidget(wrap(const GamePage()));
+      await pumpGamePage(tester);
 
       final buttonFinder = find.byType(RestartGameButton);
 
@@ -101,7 +93,7 @@ void main() {
           '${size.width.toInt()}x${size.height.toInt()}', (tester) async {
         await setScreenSize(tester, size);
 
-        await tester.pumpWidget(wrap(const GamePage()));
+        await pumpGamePage(tester);
 
         expect(find.byType(GamePage), findsOneWidget);
         expect(find.byType(GameBoard), findsOneWidget);
@@ -115,7 +107,7 @@ void main() {
     testWidgets('renders the back button with the localized Back tooltip', (
       tester,
     ) async {
-      await tester.pumpWidget(wrap(const GamePage()));
+      await pumpGamePage(tester);
 
       expect(find.byTooltip('Back'), findsOneWidget);
     });

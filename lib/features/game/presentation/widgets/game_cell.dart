@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tictactoe/app/theme/extensions/game_theme_extension.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
 import 'package:tictactoe/features/game/domain/entities/cell.dart';
+import 'package:tictactoe/features/settings/presentation/controllers/settings_controller.dart';
 import 'package:tictactoe/l10n/app_localizations.dart';
 
-class GameCell extends StatefulWidget {
+class GameCell extends ConsumerStatefulWidget {
   const GameCell({
     required this.cell,
     required this.index,
@@ -21,10 +23,10 @@ class GameCell extends StatefulWidget {
   final bool isDisabled;
 
   @override
-  State<GameCell> createState() => _GameCellState();
+  ConsumerState<GameCell> createState() => _GameCellState();
 }
 
-class _GameCellState extends State<GameCell> {
+class _GameCellState extends ConsumerState<GameCell> {
   static const _borderRadius = 24.0;
   static const _shadowOffset = 8.0;
   static const _shadowBlur = 18.0;
@@ -42,7 +44,14 @@ class _GameCellState extends State<GameCell> {
   }
 
   void _handleTap() {
-    HapticFeedback.lightImpact();
+    final isHapticFeedbackEnabled = ref.read(
+      settingsControllerProvider.select((s) => s.isHapticFeedbackEnabled),
+    );
+
+    if (isHapticFeedbackEnabled) {
+      HapticFeedback.lightImpact();
+    }
+
     widget.onTap();
   }
 
@@ -85,7 +94,6 @@ class _GameCellState extends State<GameCell> {
                   ),
                 ],
               ),
-
               child: Center(
                 child: AnimatedSwitcher(
                   duration: _animationDuration,
@@ -108,6 +116,7 @@ class _GameCellState extends State<GameCell> {
                             fit: BoxFit.contain,
                             child: Text(
                               widget.cell.symbol,
+                              textScaler: TextScaler.noScaling,
                               style: context.textTheme.displaySmall?.copyWith(
                                 fontWeight: FontWeight.w800,
                                 color: widget.cell.colorFrom(gameTheme),
