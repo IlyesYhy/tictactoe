@@ -1,21 +1,22 @@
 import '../../domain/entities/board.dart';
 import '../../domain/repositories/cpu_repository.dart';
-import '../../domain/services/cpu/minimax_cpu_strategy.dart';
-import '../../domain/services/game_engine.dart';
+import '../../domain/services/cpu/cpu_strategy.dart';
 
-/// Executes CPU move calculation directly on the current isolate.
+/// Executes a [CpuStrategy] directly on the current isolate.
 ///
-/// The minimax search on a 3x3 board is small enough to run synchronously
-/// without blocking the UI, so the additional cost of spawning an isolate
-/// is avoided. The [CpuRepository] abstraction is kept so a heavier strategy
-/// can later swap this implementation for an isolate or remote variant
-/// without impacting the use cases.
+/// This implementation is intentionally agnostic to the selected strategy:
+/// the composition root decides which one to inject (random for easy,
+/// minimax for hard, etc.).
+///
+/// Keeping the execution local avoids the overhead of spawning an isolate on
+/// a 3x3 board, where the supported strategies are expected to run very fast.
 final class LocalCpuRepository implements CpuRepository {
-  const LocalCpuRepository();
+  const LocalCpuRepository(this._strategy);
+
+  final CpuStrategy _strategy;
 
   @override
-  Future<int> chooseMove(Board board) async {
-    const strategy = MinimaxCpuStrategy(GameEngine());
-    return strategy.chooseMove(board);
+  Future<int> chooseMove(Board board) {
+    return Future.sync(() => _strategy.chooseMove(board));
   }
 }

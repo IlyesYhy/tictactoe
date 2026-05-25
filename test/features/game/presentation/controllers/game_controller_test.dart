@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tictactoe/features/game/di/game_providers.dart';
 import 'package:tictactoe/features/game/domain/entities/board.dart';
 import 'package:tictactoe/features/game/domain/entities/cell.dart';
 import 'package:tictactoe/features/game/domain/entities/game_result.dart';
 import 'package:tictactoe/features/game/domain/entities/game_roles.dart';
 import 'package:tictactoe/features/game/domain/repositories/cpu_repository.dart';
 import 'package:tictactoe/features/game/presentation/controllers/game_controller.dart';
-import 'package:tictactoe/features/game/presentation/providers/game_providers.dart';
 
 void main() {
   ProviderContainer createContainer({
@@ -17,7 +17,7 @@ void main() {
   }) {
     final container = ProviderContainer(
       overrides: [
-        cpuRepositoryProvider.overrideWithValue(cpuRepository),
+        cpuRepositoryProvider.overrideWith((ref, difficulty) => cpuRepository),
         cpuThinkingDelayProvider.overrideWithValue(cpuThinkingDelay),
       ],
     );

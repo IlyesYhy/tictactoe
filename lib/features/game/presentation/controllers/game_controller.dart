@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../di/game_providers.dart';
 import '../../domain/entities/game_result.dart';
-import '../providers/game_providers.dart';
 import '../states/game_controller_state.dart';
 
 final gameControllerProvider =
@@ -11,8 +11,13 @@ final class GameController extends Notifier<GameControllerState> {
   @override
   GameControllerState build() {
     final startGame = ref.watch(startGameProvider);
+    final difficulty = ref.read(difficultyProvider);
 
-    return GameControllerState(session: startGame(), isCpuThinking: false);
+    return GameControllerState(
+      session: startGame(),
+      difficulty: difficulty,
+      isCpuThinking: false,
+    );
   }
 
   Future<void> playHumanTurn(int cellIndex) async {
@@ -25,7 +30,7 @@ final class GameController extends Notifier<GameControllerState> {
     }
 
     final playHumanTurn = ref.read(playHumanTurnProvider);
-    final playCpuTurn = ref.read(playCpuTurnProvider);
+    final playCpuTurn = ref.read(playCpuTurnProvider(state.difficulty));
 
     final humanSession = playHumanTurn(
       session: state.session,
@@ -49,7 +54,12 @@ final class GameController extends Notifier<GameControllerState> {
 
   void resetGame() {
     final startGame = ref.read(startGameProvider);
+    final difficulty = ref.read(difficultyProvider);
 
-    state = GameControllerState(session: startGame(), isCpuThinking: false);
+    state = GameControllerState(
+      session: startGame(),
+      difficulty: difficulty,
+      isCpuThinking: false,
+    );
   }
 }
