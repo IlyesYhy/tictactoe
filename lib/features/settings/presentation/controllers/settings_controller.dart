@@ -27,4 +27,11 @@ final class SettingsController extends Notifier<AppSettings> {
     state = state.copyWith(themeMode: themeMode);
     await ref.read(settingsRepositoryProvider).saveThemeMode(themeMode);
   }
+
+  Future<void> setHapticFeedback(bool enabled) async {
+    if (state.isHapticFeedbackEnabled == enabled) return;
+
+    state = state.copyWith(isHapticFeedbackEnabled: enabled);
+    await ref.read(settingsRepositoryProvider).saveHapticFeedback(enabled);
+  }
 }

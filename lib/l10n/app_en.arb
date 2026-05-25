@@ -104,5 +104,13 @@
   "settingsThemeSystem": "System",
   "@settingsThemeSystem": {
     "description": "Label for the system theme option on the settings page."
+  },
+  "settingsPreferences": "Preferences",
+  "@settingsPreferences": {
+    "description": "Section header for the user preferences on the settings page."
+  },
+  "settingsHapticFeedback": "Haptic feedback",
+  "@settingsHapticFeedback": {
+    "description": "Toggle label that enables or disables vibration feedback when tapping a board cell."
   }
 }

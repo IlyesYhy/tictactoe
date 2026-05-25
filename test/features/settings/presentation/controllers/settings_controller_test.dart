@@ -96,18 +96,50 @@ void main() {
       );
       expect(repository.savedThemeModes, isEmpty);
     });
+
+    test('setHapticFeedback updates state and persists', () async {
+      final repository = _RecordingSettingsRepository();
+      final container = createContainer(repository: repository);
+      final controller = container.read(settingsControllerProvider.notifier);
+
+      await controller.setHapticFeedback(false);
+
+      expect(
+        container.read(settingsControllerProvider).isHapticFeedbackEnabled,
+        isFalse,
+      );
+      expect(repository.savedHapticFeedback, [false]);
+    });
+
+    test('setHapticFeedback is a no-op when value is unchanged', () async {
+      final repository = _RecordingSettingsRepository();
+      final container = createContainer(repository: repository);
+      final controller = container.read(settingsControllerProvider.notifier);
+
+      await controller.setHapticFeedback(true);
+
+      expect(
+        container.read(settingsControllerProvider).isHapticFeedbackEnabled,
+        isTrue,
+      );
+      expect(repository.savedHapticFeedback, isEmpty);
+    });
   });
 }
 
 final class _RecordingSettingsRepository implements SettingsRepository {
   final savedLanguages = <AppLanguage>[];
   final savedThemeModes = <AppThemeMode>[];
+  final savedHapticFeedback = <bool>[];
 
   @override
   Future<AppLanguage?> getLanguage() async => null;
 
   @override
   Future<AppThemeMode?> getThemeMode() async => null;
+
+  @override
+  Future<bool?> getHapticFeedback() async => null;
 
   @override
   Future<void> saveLanguage(AppLanguage language) async {
@@ -117,5 +149,10 @@ final class _RecordingSettingsRepository implements SettingsRepository {
   @override
   Future<void> saveThemeMode(AppThemeMode themeMode) async {
     savedThemeModes.add(themeMode);
+  }
+
+  @override
+  Future<void> saveHapticFeedback(bool enabled) async {
+    savedHapticFeedback.add(enabled);
   }
 }

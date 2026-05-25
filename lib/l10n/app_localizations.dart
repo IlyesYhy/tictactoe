@@ -247,6 +247,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'System'**
   String get settingsThemeSystem;
+
+  /// Section header for the user preferences on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get settingsPreferences;
+
+  /// Toggle label that enables or disables vibration feedback when tapping a board cell.
+  ///
+  /// In en, this message translates to:
+  /// **'Haptic feedback'**
+  String get settingsHapticFeedback;
 }
 
 class _AppLocalizationsDelegate

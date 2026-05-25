@@ -26,6 +26,8 @@ Future<void> bootstrap() {
           final initialSettings = AppSettings(
             language: (await repository.getLanguage()) ?? AppLanguage.en,
             themeMode: (await repository.getThemeMode()) ?? AppThemeMode.system,
+            isHapticFeedbackEnabled:
+                (await repository.getHapticFeedback()) ?? true,
           );
 
           runApp(

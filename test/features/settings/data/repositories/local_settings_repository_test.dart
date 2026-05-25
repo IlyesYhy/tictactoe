@@ -16,11 +16,12 @@ void main() {
   }
 
   group('LocalSettingsRepository', () {
-    test('returns null for both settings on a fresh install', () async {
+    test('returns null for all settings on a fresh install', () async {
       final repository = await createRepository();
 
       expect(await repository.getLanguage(), isNull);
       expect(await repository.getThemeMode(), isNull);
+      expect(await repository.getHapticFeedback(), isNull);
     });
 
     test('saveLanguage persists and getLanguage reads it back', () async {
@@ -52,5 +53,15 @@ void main() {
 
       expect(await repository.getThemeMode(), isNull);
     });
+    test(
+      'saveHapticFeedback persists and getHapticFeedback reads it back',
+      () async {
+        final repository = await createRepository();
+
+        await repository.saveHapticFeedback(false);
+
+        expect(await repository.getHapticFeedback(), isFalse);
+      },
+    );
   });
 }

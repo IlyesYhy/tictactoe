@@ -24,5 +24,7 @@
   "settingsTheme": "Thème",
   "settingsThemeLight": "Clair",
   "settingsThemeDark": "Sombre",
-  "settingsThemeSystem": "Système"
+  "settingsThemeSystem": "Système",
+  "settingsPreferences": "Préférences",
+  "settingsHapticFeedback": "Vibrations"
 }

@@ -58,6 +58,15 @@ class SettingsPage extends ConsumerWidget {
               ],
             ),
           ),
+          _SectionHeader(label: context.l10n.settingsPreferences),
+          SwitchListTile(
+            key: const Key('settings_haptic_feedback'),
+            title: Text(context.l10n.settingsHapticFeedback),
+            value: settings.isHapticFeedbackEnabled,
+            onChanged: (enabled) {
+              unawaited(controller.setHapticFeedback(enabled));
+            },
+          ),
         ],
       ),
     );

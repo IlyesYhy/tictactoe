@@ -79,6 +79,10 @@ void main() {
         find.byKey(const Key('settings_theme_system')),
       );
       expect(systemTile.value, AppThemeMode.system);
+
+      expect(find.text('Preferences'), findsOneWidget);
+      expect(find.text('Haptic feedback'), findsOneWidget);
+      expect(find.byKey(const Key('settings_haptic_feedback')), findsOneWidget);
     });
 
     testWidgets('tap on French language radio updates state and persists fr', (
@@ -111,6 +115,22 @@ void main() {
       expect(repository.savedThemeModes, [AppThemeMode.dark]);
     });
 
+    testWidgets(
+      'tap on haptic feedback switch updates state and persists false',
+      (tester) async {
+        final (container, repository) = await pumpSettingsPage(tester);
+
+        await tester.tap(find.byKey(const Key('settings_haptic_feedback')));
+        await tester.pumpAndSettle();
+
+        expect(
+          container.read(settingsControllerProvider).isHapticFeedbackEnabled,
+          isFalse,
+        );
+        expect(repository.savedHapticFeedback, [false]);
+      },
+    );
+
     testWidgets('renders French labels under fr locale', (tester) async {
       await pumpSettingsPage(tester, locale: const Locale('fr'));
 
@@ -122,6 +142,8 @@ void main() {
       expect(find.text('Clair'), findsOneWidget);
       expect(find.text('Sombre'), findsOneWidget);
       expect(find.text('Système'), findsOneWidget);
+      expect(find.text('Préférences'), findsOneWidget);
+      expect(find.text('Vibrations'), findsOneWidget);
     });
   });
 }
@@ -129,12 +151,16 @@ void main() {
 final class _RecordingSettingsRepository implements SettingsRepository {
   final savedLanguages = <AppLanguage>[];
   final savedThemeModes = <AppThemeMode>[];
+  final savedHapticFeedback = <bool>[];
 
   @override
   Future<AppLanguage?> getLanguage() async => null;
 
   @override
   Future<AppThemeMode?> getThemeMode() async => null;
+
+  @override
+  Future<bool?> getHapticFeedback() async => null;
 
   @override
   Future<void> saveLanguage(AppLanguage language) async {
@@ -144,5 +170,10 @@ final class _RecordingSettingsRepository implements SettingsRepository {
   @override
   Future<void> saveThemeMode(AppThemeMode themeMode) async {
     savedThemeModes.add(themeMode);
+  }
+
+  @override
+  Future<void> saveHapticFeedback(bool enabled) async {
+    savedHapticFeedback.add(enabled);
   }
 }

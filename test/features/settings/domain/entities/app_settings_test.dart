@@ -10,11 +10,16 @@ void main() {
       themeMode: AppThemeMode.system,
     );
 
+    test('defaults isHapticFeedbackEnabled to true when not provided', () {
+      expect(initial.isHapticFeedbackEnabled, isTrue);
+    });
+
     test('copyWith updates language only', () {
       final updated = initial.copyWith(language: AppLanguage.fr);
 
       expect(updated.language, AppLanguage.fr);
       expect(updated.themeMode, AppThemeMode.system);
+      expect(updated.isHapticFeedbackEnabled, isTrue);
     });
 
     test('copyWith updates themeMode only', () {
@@ -22,16 +27,27 @@ void main() {
 
       expect(updated.language, AppLanguage.en);
       expect(updated.themeMode, AppThemeMode.dark);
+      expect(updated.isHapticFeedbackEnabled, isTrue);
+    });
+
+    test('copyWith updates isHapticFeedbackEnabled only', () {
+      final updated = initial.copyWith(isHapticFeedbackEnabled: false);
+
+      expect(updated.language, AppLanguage.en);
+      expect(updated.themeMode, AppThemeMode.system);
+      expect(updated.isHapticFeedbackEnabled, isFalse);
     });
 
     test('considers two states with same fields equal', () {
       const a = AppSettings(
         language: AppLanguage.fr,
         themeMode: AppThemeMode.dark,
+        isHapticFeedbackEnabled: false,
       );
       const b = AppSettings(
         language: AppLanguage.fr,
         themeMode: AppThemeMode.dark,
+        isHapticFeedbackEnabled: false,
       );
 
       expect(a, b);
@@ -50,9 +66,15 @@ void main() {
         language: AppLanguage.en,
         themeMode: AppThemeMode.dark,
       );
+      const differentHapticFeedback = AppSettings(
+        language: AppLanguage.en,
+        themeMode: AppThemeMode.system,
+        isHapticFeedbackEnabled: false,
+      );
 
       expect(base, isNot(differentLanguage));
       expect(base, isNot(differentThemeMode));
+      expect(base, isNot(differentHapticFeedback));
     });
   });
 }

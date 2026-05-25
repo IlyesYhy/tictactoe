@@ -84,4 +84,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsThemeSystem => 'System';
+
+  @override
+  String get settingsPreferences => 'Preferences';
+
+  @override
+  String get settingsHapticFeedback => 'Haptic feedback';
 }

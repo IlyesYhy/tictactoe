@@ -11,6 +11,7 @@ final class LocalSettingsRepository implements SettingsRepository {
 
   static const _languageKey = 'settings.language';
   static const _themeModeKey = 'settings.theme_mode';
+  static const _hapticFeedbackKey = 'settings.haptic_feedback';
 
   @override
   Future<AppLanguage?> getLanguage() async {
@@ -25,6 +26,11 @@ final class LocalSettingsRepository implements SettingsRepository {
   }
 
   @override
+  Future<bool?> getHapticFeedback() async {
+    return _preferences.getBool(_hapticFeedbackKey);
+  }
+
+  @override
   Future<void> saveLanguage(AppLanguage language) async {
     await _preferences.setString(_languageKey, language.code);
   }
@@ -32,5 +38,10 @@ final class LocalSettingsRepository implements SettingsRepository {
   @override
   Future<void> saveThemeMode(AppThemeMode themeMode) async {
     await _preferences.setString(_themeModeKey, themeMode.name);
+  }
+
+  @override
+  Future<void> saveHapticFeedback(bool enabled) async {
+    await _preferences.setBool(_hapticFeedbackKey, enabled);
   }
 }
