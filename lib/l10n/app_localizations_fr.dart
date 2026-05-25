@@ -60,4 +60,28 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get cellStateEmpty => 'vide';
+
+  @override
+  String get settingsTitle => 'Paramètres';
+
+  @override
+  String get settingsLanguage => 'Langue';
+
+  @override
+  String get settingsLanguageEnglish => 'Anglais';
+
+  @override
+  String get settingsLanguageFrench => 'Français';
+
+  @override
+  String get settingsTheme => 'Thème';
+
+  @override
+  String get settingsThemeLight => 'Clair';
+
+  @override
+  String get settingsThemeDark => 'Sombre';
+
+  @override
+  String get settingsThemeSystem => 'Système';
 }

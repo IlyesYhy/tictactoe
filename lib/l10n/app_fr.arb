@@ -16,5 +16,13 @@
   "difficultyEasy": "Facile",
   "difficultyHard": "Difficile",
   "cellSemanticLabel": "Case {position}",
-  "cellStateEmpty": "vide"
+  "cellStateEmpty": "vide",
+  "settingsTitle": "Paramètres",
+  "settingsLanguage": "Langue",
+  "settingsLanguageEnglish": "Anglais",
+  "settingsLanguageFrench": "Français",
+  "settingsTheme": "Thème",
+  "settingsThemeLight": "Clair",
+  "settingsThemeDark": "Sombre",
+  "settingsThemeSystem": "Système"
 }

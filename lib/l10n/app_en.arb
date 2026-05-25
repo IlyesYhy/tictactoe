@@ -72,5 +72,37 @@
   "cellStateEmpty": "empty",
   "@cellStateEmpty": {
     "description": "Accessibility value spoken when a board cell has not been played yet."
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "AppBar title on the settings page."
+  },
+  "settingsLanguage": "Language",
+  "@settingsLanguage": {
+    "description": "Section header for the language selector on the settings page."
+  },
+  "settingsLanguageEnglish": "English",
+  "@settingsLanguageEnglish": {
+    "description": "Label for the English language option on the settings page."
+  },
+  "settingsLanguageFrench": "French",
+  "@settingsLanguageFrench": {
+    "description": "Label for the French language option on the settings page."
+  },
+  "settingsTheme": "Theme",
+  "@settingsTheme": {
+    "description": "Section header for the theme selector on the settings page."
+  },
+  "settingsThemeLight": "Light",
+  "@settingsThemeLight": {
+    "description": "Label for the light theme option on the settings page."
+  },
+  "settingsThemeDark": "Dark",
+  "@settingsThemeDark": {
+    "description": "Label for the dark theme option on the settings page."
+  },
+  "settingsThemeSystem": "System",
+  "@settingsThemeSystem": {
+    "description": "Label for the system theme option on the settings page."
   }
 }
