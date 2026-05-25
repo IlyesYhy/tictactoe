@@ -1,69 +1,74 @@
 # TicTacToe Flutter Challenge
 
-A Flutter Tic-Tac-Toe application ready to scale.
+## Overview
 
-The goal of this project is to showcase a production-oriented Flutter architecture with a clean separation of concerns, testable business logic, and a maintainable codebase.
+TicTacToe is a Flutter technical challenge where a human player plays locally against a CPU opponent. The project focuses on Clean Architecture, testability, maintainability, and a production-oriented Flutter structure.
 
-## Technical Decisions
+## Highlights
 
-### Feature-first architecture
-
-The app is organized by feature to make the codebase scalable and easier to maintain as new functionality is added.
-
-### Clean Architecture
-
-Business logic is isolated from the presentation layer so it can be tested independently from Flutter.
-
-### Riverpod v2
-
-Riverpod is used for dependency injection and state management, aligned with modern Flutter development practices.
-
-### Bootstrap layer
-
-The app startup logic is centralized in bootstrap.dart to keep main.dart minimal and prepare the project for production concerns such as error reporting or environment configuration.
-
-### Theme system
-
-The project uses Flutter’s ThemeData and TextTheme to keep the UI consistent and aligned with the Flutter ecosystem.
-
-`AppColors` is an internal design-system palette and should only be used inside `lib/app/theme/`.
-
-Feature widgets must consume colors through `ThemeData`, `ColorScheme`, or dedicated `ThemeExtension`s.
-
-### Localization
-
-The app supports English and French using Flutter's official localization system.
-
-Translations are defined with ARB files under `lib/l10n/` and accessed through a `BuildContext` extension:
-
-```dart
-context.l10n.appTitle
-```
-
-Generated localization files are committed to the repository on purpose.
-
-For this technical test, this keeps the project immediately usable after cloning, makes localization API changes explicit in pull requests, and keeps the review process straightforward.
-
-When ARB files change, `flutter pub get` regenerates the Dart files automatically thanks to `generate: true` in `pubspec.yaml`.
+- Human vs CPU Tic-Tac-Toe
+- Easy and Hard difficulty levels
+- Clean Architecture
+- Riverpod state management
+- go_router navigation
+- English and French localization
+- Light and dark themes
+- Responsive UI
+- Automated tests
 
 ## Getting started
 
+### Prerequisites
+
+- Flutter SDK compatible with the version defined in `pubspec.yaml`
+
+### Install
+
 ```bash
 flutter pub get
+```
+
+### Run
+
+```bash
 flutter run
 ```
 
-## Quality
+### Test
 
-The project uses:
+```bash
+flutter test
+```
 
-- Flutter analysis options
-- Commitlint
-- Husky Git hooks
-
-The project follows conventional commits rules, making it compatible with automated changelog and release workflows if needed.
+### Quality checks
 
 ```bash
 flutter analyze
 dart format .
 ```
+
+## Project structure
+
+```
+lib/
+  app/          App-level configuration: theme, router, root widget
+  core/         Shared extensions and reusable helpers
+  features/     Feature-first application modules
+  l10n/         Localization files and generated delegates
+
+test/           Automated tests mirroring the production structure
+assets/         Static images used by the UI
+```
+
+## Architecture
+
+This project follows a feature-first Clean Architecture approach. Each feature separates domain logic, data implementations, presentation widgets/controllers, and dependency wiring.
+
+For a deeper technical overview, see [ARCHITECTURE.md](ARCHITECTURE.md).
+
+## Quality & conventions
+
+- Conventional commits
+- Husky and commitlint
+- flutter_lints
+- Automated tests for domain logic, controllers, widgets and navigation flows
