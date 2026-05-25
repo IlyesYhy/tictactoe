@@ -39,6 +39,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get playAgain => 'Play again';
 
   @override
+  String get newGame => 'New game';
+
+  @override
+  String get homeSubtitle => 'Play against the computer';
+
+  @override
+  String get difficultyTitle => 'Difficulty';
+
+  @override
+  String get difficultyEasy => 'Easy';
+
+  @override
+  String get difficultyHard => 'Hard';
+
+  @override
   String cellSemanticLabel(int position) {
     return 'Cell $position';
   }

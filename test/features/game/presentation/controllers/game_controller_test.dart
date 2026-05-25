@@ -2,22 +2,22 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tictactoe/features/game/di/game_providers.dart';
 import 'package:tictactoe/features/game/domain/entities/board.dart';
 import 'package:tictactoe/features/game/domain/entities/cell.dart';
 import 'package:tictactoe/features/game/domain/entities/game_result.dart';
 import 'package:tictactoe/features/game/domain/entities/game_roles.dart';
-import 'package:tictactoe/features/game/domain/repositories/ai_repository.dart';
+import 'package:tictactoe/features/game/domain/repositories/cpu_repository.dart';
 import 'package:tictactoe/features/game/presentation/controllers/game_controller.dart';
-import 'package:tictactoe/features/game/presentation/providers/game_providers.dart';
 
 void main() {
   ProviderContainer createContainer({
-    required AiRepository aiRepository,
+    required CpuRepository cpuRepository,
     Duration cpuThinkingDelay = Duration.zero,
   }) {
     final container = ProviderContainer(
       overrides: [
-        aiRepositoryProvider.overrideWithValue(aiRepository),
+        cpuRepositoryProvider.overrideWith((ref, difficulty) => cpuRepository),
         cpuThinkingDelayProvider.overrideWithValue(cpuThinkingDelay),
       ],
     );
@@ -28,7 +28,7 @@ void main() {
   group('GameController', () {
     test('starts with an empty board and the human to play', () {
       final container = createContainer(
-        aiRepository: const _SequenceAiRepository([]),
+        cpuRepository: const _SequenceCpuRepository([]),
       );
 
       final state = container.read(gameControllerProvider);
@@ -41,7 +41,7 @@ void main() {
 
     test('plays the human move and chains the CPU move', () async {
       final container = createContainer(
-        aiRepository: const _SequenceAiRepository([4]),
+        cpuRepository: const _SequenceCpuRepository([4]),
       );
       final controller = container.read(gameControllerProvider.notifier);
 
@@ -58,7 +58,7 @@ void main() {
     test('keeps the CPU thinking badge visible for at least the configured '
         'delay', () async {
       final container = createContainer(
-        aiRepository: const _SequenceAiRepository([4]),
+        cpuRepository: const _SequenceCpuRepository([4]),
         cpuThinkingDelay: const Duration(milliseconds: 100),
       );
       final controller = container.read(gameControllerProvider.notifier);
@@ -75,9 +75,9 @@ void main() {
     });
 
     test('flags isCpuThinking while the CPU turn is in flight', () async {
-      final repository = _ControlledAiRepository(4);
+      final repository = _ControlledCpuRepository(4);
       addTearDown(repository.completeIfPending);
-      final container = createContainer(aiRepository: repository);
+      final container = createContainer(cpuRepository: repository);
       final controller = container.read(gameControllerProvider.notifier);
 
       final pending = controller.playHumanTurn(0);
@@ -96,7 +96,7 @@ void main() {
 
     test('does not chain the CPU turn when the human wins', () async {
       final container = createContainer(
-        aiRepository: const _SequenceAiRepository([4, 8]),
+        cpuRepository: const _SequenceCpuRepository([4, 8]),
       );
       final controller = container.read(gameControllerProvider.notifier);
 
@@ -117,7 +117,7 @@ void main() {
     test('returns draw when the board becomes full', () async {
       // X plays 0,2,3,7,5 ; CPU plays 4,1,6,8. Board ends full without winner.
       final container = createContainer(
-        aiRepository: const _SequenceAiRepository([4, 1, 6, 8]),
+        cpuRepository: const _SequenceCpuRepository([4, 1, 6, 8]),
       );
       final controller = container.read(gameControllerProvider.notifier);
 
@@ -135,9 +135,9 @@ void main() {
     });
 
     test('ignores input while the CPU is thinking', () async {
-      final repository = _ControlledAiRepository(4);
+      final repository = _ControlledCpuRepository(4);
       addTearDown(repository.completeIfPending);
-      final container = createContainer(aiRepository: repository);
+      final container = createContainer(cpuRepository: repository);
       final controller = container.read(gameControllerProvider.notifier);
 
       final firstTurn = controller.playHumanTurn(0);
@@ -156,7 +156,7 @@ void main() {
 
     test('ignores input after the game is finished', () async {
       final container = createContainer(
-        aiRepository: const _SequenceAiRepository([4, 8]),
+        cpuRepository: const _SequenceCpuRepository([4, 8]),
       );
       final controller = container.read(gameControllerProvider.notifier);
 
@@ -172,7 +172,7 @@ void main() {
 
     test('ignores input on an already occupied cell', () async {
       final container = createContainer(
-        aiRepository: const _SequenceAiRepository([4]),
+        cpuRepository: const _SequenceCpuRepository([4]),
       );
       final controller = container.read(gameControllerProvider.notifier);
 
@@ -187,7 +187,7 @@ void main() {
 
     test('resetGame restores the initial state', () async {
       final container = createContainer(
-        aiRepository: const _SequenceAiRepository([4]),
+        cpuRepository: const _SequenceCpuRepository([4]),
       );
       final controller = container.read(gameControllerProvider.notifier);
 
@@ -204,8 +204,8 @@ void main() {
   });
 }
 
-final class _SequenceAiRepository implements AiRepository {
-  const _SequenceAiRepository(this._moves);
+final class _SequenceCpuRepository implements CpuRepository {
+  const _SequenceCpuRepository(this._moves);
 
   final List<int> _moves;
 
@@ -213,14 +213,14 @@ final class _SequenceAiRepository implements AiRepository {
   Future<int> chooseMove(Board board) async {
     final usedMoves = board.cells.where((cell) => cell == Cell.o).length;
     if (usedMoves >= _moves.length) {
-      throw StateError('No fake AI move available for this board state.');
+      throw StateError('No fake CPU move available for this board state.');
     }
     return _moves[usedMoves];
   }
 }
 
-final class _ControlledAiRepository implements AiRepository {
-  _ControlledAiRepository(this._move);
+final class _ControlledCpuRepository implements CpuRepository {
+  _ControlledCpuRepository(this._move);
 
   final int _move;
   final Completer<void> completer = Completer<void>();

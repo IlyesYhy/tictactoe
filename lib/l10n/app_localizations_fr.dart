@@ -39,6 +39,21 @@ class AppLocalizationsFr extends AppLocalizations {
   String get playAgain => 'Rejouer';
 
   @override
+  String get newGame => 'Nouvelle partie';
+
+  @override
+  String get homeSubtitle => 'Jouez contre l\'ordinateur';
+
+  @override
+  String get difficultyTitle => 'Difficulté';
+
+  @override
+  String get difficultyEasy => 'Facile';
+
+  @override
+  String get difficultyHard => 'Difficile';
+
+  @override
   String cellSemanticLabel(int position) {
     return 'Case $position';
   }
