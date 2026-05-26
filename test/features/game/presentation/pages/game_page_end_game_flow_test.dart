@@ -1,0 +1,149 @@
+import 'package:confetti/confetti.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:tictactoe/app/theme/app_theme.dart';
+import 'package:tictactoe/features/game/di/game_providers.dart';
+import 'package:tictactoe/features/game/domain/entities/board.dart';
+import 'package:tictactoe/features/game/domain/entities/cell.dart';
+import 'package:tictactoe/features/game/domain/repositories/cpu_repository.dart';
+import 'package:tictactoe/features/game/presentation/pages/game_page.dart';
+import 'package:tictactoe/features/game/presentation/widgets/game_cell.dart';
+import 'package:tictactoe/features/settings/di/settings_providers.dart';
+import 'package:tictactoe/features/settings/domain/entities/app_language.dart';
+import 'package:tictactoe/features/settings/domain/entities/app_settings.dart';
+import 'package:tictactoe/features/settings/domain/entities/app_theme_mode.dart';
+import 'package:tictactoe/l10n/app_localizations.dart';
+
+void main() {
+  const turnSettleDuration = Duration(milliseconds: 100);
+
+  ProviderContainer createContainer({required CpuRepository cpuRepository}) {
+    final container = ProviderContainer(
+      overrides: [
+        cpuRepositoryProvider.overrideWith((ref, difficulty) => cpuRepository),
+        cpuThinkingDelayProvider.overrideWithValue(Duration.zero),
+        initialSettingsProvider.overrideWithValue(
+          const AppSettings(
+            language: AppLanguage.en,
+            themeMode: AppThemeMode.system,
+          ),
+        ),
+      ],
+    );
+
+    addTearDown(container.dispose);
+
+    return container;
+  }
+
+  Future<void> pumpGamePage(
+    WidgetTester tester,
+    ProviderContainer container,
+  ) async {
+    await tester.pumpWidget(
+      UncontrolledProviderScope(
+        container: container,
+        child: MaterialApp(
+          theme: AppTheme.light,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const GamePage(),
+        ),
+      ),
+    );
+  }
+
+  Future<void> tapCell(WidgetTester tester, int index) async {
+    await tester.tap(find.byType(GameCell).at(index));
+    await tester.pump();
+    await tester.pump(turnSettleDuration);
+  }
+
+  group('GamePage end-game flow', () {
+    testWidgets('shows confetti when the human wins', (tester) async {
+      final container = createContainer(
+        cpuRepository: const _SequenceCpuRepository([3, 6]),
+      );
+
+      await pumpGamePage(tester, container);
+
+      // Human plays the diagonal 0, 4, 8. CPU fills 3 then 6.
+      await tapCell(tester, 0);
+      await tapCell(tester, 4);
+      await tapCell(tester, 8);
+
+      expect(find.byType(ConfettiWidget), findsOneWidget);
+    });
+
+    testWidgets('does not show confetti when the CPU wins', (tester) async {
+      final container = createContainer(
+        cpuRepository: const _SequenceCpuRepository([0, 1, 2]),
+      );
+
+      await pumpGamePage(tester, container);
+
+      // Human plays safe cells. CPU completes the top row 0, 1, 2.
+      await tapCell(tester, 3);
+      await tapCell(tester, 4);
+      await tapCell(tester, 8);
+
+      expect(find.byType(ConfettiWidget), findsNothing);
+    });
+
+    testWidgets('highlights winning cells after human wins', (tester) async {
+      final container = createContainer(
+        cpuRepository: const _SequenceCpuRepository([3, 6]),
+      );
+
+      await pumpGamePage(tester, container);
+
+      await tapCell(tester, 0);
+      await tapCell(tester, 4);
+      await tapCell(tester, 8);
+
+      const winningLine = [0, 4, 8];
+
+      for (var index = 0; index < Board.size; index++) {
+        final cell = tester.widget<GameCell>(find.byType(GameCell).at(index));
+
+        expect(cell.isWinning, winningLine.contains(index));
+      }
+    });
+
+    testWidgets('does not show confetti on a draw', (tester) async {
+      final container = createContainer(
+        cpuRepository: const _SequenceCpuRepository([4, 1, 6, 8]),
+      );
+
+      await pumpGamePage(tester, container);
+
+      // X plays 0, 2, 3, 7, 5. CPU plays 4, 1, 6, 8.
+      // The board fills without a winner.
+      await tapCell(tester, 0);
+      await tapCell(tester, 2);
+      await tapCell(tester, 3);
+      await tapCell(tester, 7);
+      await tapCell(tester, 5);
+
+      expect(find.byType(ConfettiWidget), findsNothing);
+    });
+  });
+}
+
+final class _SequenceCpuRepository implements CpuRepository {
+  const _SequenceCpuRepository(this._moves);
+
+  final List<int> _moves;
+
+  @override
+  Future<int> chooseMove(Board board) async {
+    final usedMoves = board.cells.where((cell) => cell == Cell.o).length;
+
+    if (usedMoves >= _moves.length) {
+      throw StateError('No fake CPU move available for this board state.');
+    }
+
+    return _moves[usedMoves];
+  }
+}
