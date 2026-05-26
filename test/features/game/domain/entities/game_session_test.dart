@@ -30,7 +30,7 @@ void main() {
       final session = GameSession(
         board: Board.empty(),
         currentPlayer: Player.x,
-        result: const GameWinner(Player.x),
+        result: GameWinner(Player.x, [0, 1, 2]),
       );
 
       expect(session.isFinished, isTrue);

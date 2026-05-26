@@ -17,7 +17,12 @@ final class GameDraw extends GameResult {
 }
 
 final class GameWinner extends GameResult {
-  const GameWinner(this.player);
+  GameWinner(this.player, List<int> winningLine)
+    : winningLine = List.unmodifiable(winningLine);
 
   final Player player;
+  final List<int> winningLine;
+
+  @override
+  List<Object?> get props => [player, winningLine];
 }

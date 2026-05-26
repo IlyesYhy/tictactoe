@@ -31,7 +31,7 @@ final class GameEngine {
       final c = board.cells[position[2]];
 
       if (a != Cell.empty && a == b && b == c) {
-        return GameWinner(_playerFromCell(a));
+        return GameWinner(_playerFromCell(a), position);
       }
     }
 

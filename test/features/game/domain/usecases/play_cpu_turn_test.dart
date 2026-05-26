@@ -62,7 +62,7 @@ void main() {
 
       final updatedSession = await playCpuTurn(session: session);
 
-      expect(updatedSession.result, const GameWinner(Player.o));
+      expect(updatedSession.result, GameWinner(Player.o, [0, 1, 2]));
       expect(updatedSession.isFinished, isTrue);
       expect(updatedSession.currentPlayer, Player.x);
     });
@@ -104,7 +104,7 @@ void main() {
       final session = GameSession(
         board: Board.empty(),
         currentPlayer: Player.o,
-        result: const GameWinner(Player.x),
+        result: GameWinner(Player.x, [0, 1, 2]),
       );
 
       await expectLater(playCpuTurn(session: session), throwsStateError);

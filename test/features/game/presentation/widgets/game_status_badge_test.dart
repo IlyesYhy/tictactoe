@@ -28,8 +28,8 @@ void main() {
 
     testWidgets('shows the you-won label when the human wins', (tester) async {
       await tester.pumpTestApp(
-        const GameStatusBadge(
-          result: GameWinner(humanPlayer),
+        GameStatusBadge(
+          result: GameWinner(humanPlayer, [0, 1, 2]),
           isCpuThinking: false,
         ),
       );
@@ -39,8 +39,8 @@ void main() {
 
     testWidgets('shows the cpu-won label when the CPU wins', (tester) async {
       await tester.pumpTestApp(
-        const GameStatusBadge(
-          result: GameWinner(cpuPlayer),
+        GameStatusBadge(
+          result: GameWinner(cpuPlayer, [0, 1, 2]),
           isCpuThinking: false,
         ),
       );
@@ -72,8 +72,8 @@ void main() {
       tester,
     ) async {
       await tester.pumpTestApp(
-        const GameStatusBadge(
-          result: GameWinner(cpuPlayer),
+        GameStatusBadge(
+          result: GameWinner(cpuPlayer, [0, 1, 2]),
           isCpuThinking: false,
         ),
         locale: const Locale('fr'),
@@ -84,11 +84,11 @@ void main() {
     });
     testWidgets('renders French CPU win label on narrow width', (tester) async {
       await tester.pumpTestApp(
-        const SizedBox(
+        SizedBox(
           width: 272,
           child: Center(
             child: GameStatusBadge(
-              result: GameWinner(cpuPlayer),
+              result: GameWinner(cpuPlayer, [0, 1, 2]),
               isCpuThinking: false,
             ),
           ),
@@ -136,8 +136,8 @@ void main() {
         final handle = tester.ensureSemantics();
 
         await tester.pumpTestApp(
-          const GameStatusBadge(
-            result: GameWinner(humanPlayer),
+          GameStatusBadge(
+            result: GameWinner(humanPlayer, [0, 1, 2]),
             isCpuThinking: false,
           ),
         );
@@ -151,8 +151,8 @@ void main() {
         final handle = tester.ensureSemantics();
 
         await tester.pumpTestApp(
-          const GameStatusBadge(
-            result: GameWinner(cpuPlayer),
+          GameStatusBadge(
+            result: GameWinner(cpuPlayer, [0, 1, 2]),
             isCpuThinking: false,
           ),
         );
