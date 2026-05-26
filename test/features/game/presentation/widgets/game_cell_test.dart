@@ -77,6 +77,27 @@ void main() {
       expect(taps, 0);
     });
 
+    testWidgets('isWinning defaults to false', (tester) async {
+      await tester.pumpTestApp(
+        sized(GameCell(cell: Cell.x, index: 0, onTap: () {})),
+      );
+
+      final cell = tester.widget<GameCell>(find.byType(GameCell));
+
+      expect(cell.isWinning, isFalse);
+    });
+
+    testWidgets('renders without exception when isWinning is true', (
+      tester,
+    ) async {
+      await tester.pumpTestApp(
+        sized(GameCell(cell: Cell.x, index: 0, isWinning: true, onTap: () {})),
+      );
+
+      expect(find.byType(GameCell), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+
     group('Semantics', () {
       testWidgets(
         'exposes the cell as an enabled button with position label and '

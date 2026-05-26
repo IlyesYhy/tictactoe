@@ -51,7 +51,7 @@ void main() {
 
       final updatedSession = playHumanTurn(session: session, cellIndex: 2);
 
-      expect(updatedSession.result, const GameWinner(Player.x));
+      expect(updatedSession.result, GameWinner(Player.x, [0, 1, 2]));
       expect(updatedSession.isFinished, isTrue);
       expect(updatedSession.currentPlayer, Player.o);
     });
@@ -83,7 +83,7 @@ void main() {
       final session = GameSession(
         board: Board.empty(),
         currentPlayer: Player.x,
-        result: const GameWinner(Player.o),
+        result: GameWinner(Player.o, [0, 1, 2]),
       );
 
       expect(

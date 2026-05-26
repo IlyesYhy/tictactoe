@@ -23,6 +23,7 @@ class GameStatusBadge extends StatelessWidget {
   static const _shadowOffset = Offset(0, 10);
   static const _shadowAlpha = 0.16;
   static const _animationDuration = Duration(milliseconds: 180);
+  static const _appearanceDuration = Duration(milliseconds: 350);
 
   final GameResult result;
   final bool isCpuThinking;
@@ -31,49 +32,63 @@ class GameStatusBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final gameTheme = context.gameTheme;
     final descriptor = _descriptorFor(context.l10n, gameTheme);
+    final animationKey = switch (result) {
+      GameInProgress() => 'in-progress',
+      GameWinner(:final player) => 'winner-${player.name}',
+      GameDraw() => 'draw',
+    };
 
     return Semantics(
       liveRegion: true,
       container: true,
       label: descriptor.label,
       excludeSemantics: true,
-      child: AnimatedContainer(
-        duration: _animationDuration,
-        padding: const EdgeInsets.symmetric(
-          horizontal: _paddingH,
-          vertical: _paddingV,
-        ),
-        decoration: BoxDecoration(
-          color: gameTheme.statusBackgroundColor,
-          borderRadius: BorderRadius.circular(_borderRadius),
-          border: Border.all(color: descriptor.color, width: _borderWidth),
-          boxShadow: [
-            BoxShadow(
-              color: gameTheme.cellDarkShadowColor.withValues(
-                alpha: _shadowAlpha,
+      child: TweenAnimationBuilder<double>(
+        key: ValueKey(animationKey),
+        tween: Tween(begin: 0.6, end: 1.0),
+        duration: _appearanceDuration,
+        curve: Curves.easeOutBack,
+        builder: (context, scale, child) {
+          return Transform.scale(scale: scale, child: child);
+        },
+        child: AnimatedContainer(
+          duration: _animationDuration,
+          padding: const EdgeInsets.symmetric(
+            horizontal: _paddingH,
+            vertical: _paddingV,
+          ),
+          decoration: BoxDecoration(
+            color: gameTheme.statusBackgroundColor,
+            borderRadius: BorderRadius.circular(_borderRadius),
+            border: Border.all(color: descriptor.color, width: _borderWidth),
+            boxShadow: [
+              BoxShadow(
+                color: gameTheme.cellDarkShadowColor.withValues(
+                  alpha: _shadowAlpha,
+                ),
+                blurRadius: _shadowBlur,
+                offset: _shadowOffset,
               ),
-              blurRadius: _shadowBlur,
-              offset: _shadowOffset,
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(descriptor.icon, color: descriptor.color, size: _iconSize),
-            const SizedBox(width: _iconGap),
-            Flexible(
-              child: Text(
-                descriptor.label,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: context.textTheme.titleMedium?.copyWith(
-                  color: descriptor.color,
-                  fontWeight: FontWeight.w700,
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(descriptor.icon, color: descriptor.color, size: _iconSize),
+              const SizedBox(width: _iconGap),
+              Flexible(
+                child: Text(
+                  descriptor.label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: context.textTheme.titleMedium?.copyWith(
+                    color: descriptor.color,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -83,7 +98,7 @@ class GameStatusBadge extends StatelessWidget {
     AppLocalizations l10n,
     GameThemeExtension gameTheme,
   ) {
-    if (isCpuThinking) {
+    if (result is GameInProgress && isCpuThinking) {
       return _StatusDescriptor(
         label: l10n.cpuThinking,
         icon: Icons.radio_button_unchecked,

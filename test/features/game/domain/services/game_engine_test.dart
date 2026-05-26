@@ -27,7 +27,7 @@ void main() {
 
       final result = gameEngine.evaluate(board);
 
-      expect(result, const GameWinner(Player.x));
+      expect(result, GameWinner(Player.x, [0, 1, 2]));
     });
 
     test('detects column winner', () {
@@ -38,7 +38,7 @@ void main() {
 
       final result = gameEngine.evaluate(board);
 
-      expect(result, const GameWinner(Player.o));
+      expect(result, GameWinner(Player.o, [0, 3, 6]));
     });
 
     test('detects diagonal winner', () {
@@ -49,7 +49,7 @@ void main() {
 
       final result = gameEngine.evaluate(board);
 
-      expect(result, const GameWinner(Player.x));
+      expect(result, GameWinner(Player.x, [0, 4, 8]));
     });
 
     test('detects anti-diagonal winner', () {
@@ -60,7 +60,7 @@ void main() {
 
       final result = gameEngine.evaluate(board);
 
-      expect(result, const GameWinner(Player.o));
+      expect(result, GameWinner(Player.o, [2, 4, 6]));
     });
 
     test('detects draw when board is full and there is no winner', () {

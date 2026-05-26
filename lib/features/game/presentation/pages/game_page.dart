@@ -5,11 +5,14 @@ import 'package:tictactoe/app/router/app_routes.dart';
 import 'package:tictactoe/app/theme/app_spacing.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
+import 'package:tictactoe/features/game/domain/entities/game_result.dart';
+import 'package:tictactoe/features/game/domain/entities/game_roles.dart';
 import 'package:tictactoe/features/game/presentation/controllers/game_controller.dart';
 import 'package:tictactoe/features/game/presentation/widgets/game_board.dart';
 import 'package:tictactoe/features/game/presentation/widgets/game_players_legend.dart';
 import 'package:tictactoe/features/game/presentation/widgets/game_status_badge.dart';
 import 'package:tictactoe/features/game/presentation/widgets/restart_game_button.dart';
+import 'package:tictactoe/features/game/presentation/widgets/victory_confetti.dart';
 
 class GamePage extends ConsumerWidget {
   const GamePage({super.key});
@@ -19,75 +22,91 @@ class GamePage extends ConsumerWidget {
     final state = ref.watch(gameControllerProvider);
     final controller = ref.read(gameControllerProvider.notifier);
     final isBoardDisabled = state.isCpuThinking || state.session.isFinished;
+    final winningLine = switch (state.session.result) {
+      GameWinner(winningLine: final line) => line,
+      _ => null,
+    };
+    final isHumanWinner = switch (state.session.result) {
+      GameWinner(:final player) => player == humanPlayer,
+      _ => false,
+    };
 
     return Scaffold(
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final layout = _GamePageLayout.fromConstraints(constraints);
+      body: Stack(
+        children: [
+          SafeArea(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final layout = _GamePageLayout.fromConstraints(constraints);
 
-            return Padding(
-              padding: AppSpacing.gamePagePadding,
-              child: Center(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxWidth: _GamePageLayout.maxContentWidth,
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
+                return Padding(
+                  padding: AppSpacing.gamePagePadding,
+                  child: Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        maxWidth: _GamePageLayout.maxContentWidth,
+                      ),
+                      child: Column(
                         children: [
-                          IconButton(
-                            tooltip: MaterialLocalizations.of(
-                              context,
-                            ).backButtonTooltip,
-                            onPressed: () => _goBack(context),
+                          Row(
+                            children: [
+                              IconButton(
+                                tooltip: MaterialLocalizations.of(
+                                  context,
+                                ).backButtonTooltip,
+                                onPressed: () => _goBack(context),
 
-                            icon: const Icon(Icons.arrow_back_rounded),
+                                icon: const Icon(Icons.arrow_back_rounded),
+                              ),
+                              const Spacer(),
+                            ],
                           ),
-                          const Spacer(),
-                        ],
-                      ),
-                      Text(
-                        context.l10n.appTitle,
-                        style: context.textTheme.headlineLarge?.copyWith(
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      layout.titleStatusGap,
-                      GameStatusBadge(
-                        result: state.session.result,
-                        isCpuThinking: state.isCpuThinking,
-                      ),
-                      layout.statusBoardGap,
-                      Expanded(
-                        child: Center(
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: GameBoard(
-                              board: state.session.board,
-                              isDisabled: isBoardDisabled,
-                              onCellTap: controller.playHumanTurn,
+                          Text(
+                            context.l10n.appTitle,
+                            style: context.textTheme.headlineLarge?.copyWith(
+                              fontWeight: FontWeight.w800,
                             ),
                           ),
-                        ),
+                          layout.titleStatusGap,
+                          GameStatusBadge(
+                            result: state.session.result,
+                            isCpuThinking: state.isCpuThinking,
+                          ),
+                          layout.statusBoardGap,
+                          Expanded(
+                            child: Center(
+                              child: AspectRatio(
+                                aspectRatio: 1,
+                                child: GameBoard(
+                                  board: state.session.board,
+                                  isDisabled: isBoardDisabled,
+                                  winningLine: winningLine,
+                                  onCellTap: controller.playHumanTurn,
+                                ),
+                              ),
+                            ),
+                          ),
+                          layout.boardLegendGap,
+                          const GamePlayersLegend(),
+                          layout.legendButtonGap,
+                          RestartGameButton(
+                            onPressed: state.isCpuThinking
+                                ? null
+                                : controller.resetGame,
+                            isGameOver: state.session.isFinished,
+                          ),
+                        ],
                       ),
-                      layout.boardLegendGap,
-                      const GamePlayersLegend(),
-                      layout.legendButtonGap,
-                      RestartGameButton(
-                        onPressed: state.isCpuThinking
-                            ? null
-                            : controller.resetGame,
-                        isGameOver: state.session.isFinished,
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            );
-          },
-        ),
+                );
+              },
+            ),
+          ),
+          Positioned.fill(
+            child: IgnorePointer(child: VictoryConfetti(active: isHumanWinner)),
+          ),
+        ],
       ),
     );
   }

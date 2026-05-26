@@ -107,7 +107,7 @@ void main() {
 
       final state = container.read(gameControllerProvider);
 
-      expect(state.session.result, GameWinner(humanPlayer));
+      expect(state.session.result, GameWinner(humanPlayer, [0, 1, 2]));
       expect(state.session.isFinished, isTrue);
       expect(state.isCpuThinking, isFalse);
       expect(state.session.board.cells[0], Cell.x);

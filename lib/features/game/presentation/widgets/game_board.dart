@@ -7,6 +7,7 @@ class GameBoard extends StatelessWidget {
     required this.board,
     required this.onCellTap,
     this.isDisabled = false,
+    this.winningLine,
     super.key,
   });
 
@@ -15,9 +16,12 @@ class GameBoard extends StatelessWidget {
   final Board board;
   final ValueChanged<int> onCellTap;
   final bool isDisabled;
+  final List<int>? winningLine;
 
   @override
   Widget build(BuildContext context) {
+    final winningCells = winningLine?.toSet() ?? const <int>{};
+
     return AspectRatio(
       aspectRatio: 1,
       child: GridView.builder(
@@ -33,6 +37,7 @@ class GameBoard extends StatelessWidget {
             cell: board.cells[index],
             index: index,
             isDisabled: isDisabled,
+            isWinning: winningCells.contains(index),
             onTap: () => onCellTap(index),
           );
         },

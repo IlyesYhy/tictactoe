@@ -14,6 +14,7 @@ class GameCell extends ConsumerStatefulWidget {
     required this.index,
     required this.onTap,
     this.isDisabled = false,
+    this.isWinning = false,
     super.key,
   });
 
@@ -21,6 +22,7 @@ class GameCell extends ConsumerStatefulWidget {
   final int index;
   final VoidCallback onTap;
   final bool isDisabled;
+  final bool isWinning;
 
   @override
   ConsumerState<GameCell> createState() => _GameCellState();
@@ -60,6 +62,10 @@ class _GameCellState extends ConsumerState<GameCell> {
     final gameTheme = context.gameTheme;
     final l10n = context.l10n;
 
+    final backgroundColor = widget.isWinning && widget.cell != Cell.empty
+        ? widget.cell.colorFrom(gameTheme).withValues(alpha: 0.18)
+        : gameTheme.cellBackgroundColor;
+
     return RepaintBoundary(
       child: Semantics(
         button: true,
@@ -79,7 +85,7 @@ class _GameCellState extends ConsumerState<GameCell> {
             curve: Curves.easeOut,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: gameTheme.cellBackgroundColor,
+                color: backgroundColor,
                 borderRadius: BorderRadius.circular(_borderRadius),
                 boxShadow: [
                   BoxShadow(
