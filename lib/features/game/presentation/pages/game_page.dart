@@ -5,6 +5,7 @@ import 'package:tictactoe/app/router/app_routes.dart';
 import 'package:tictactoe/app/theme/app_spacing.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
+import 'package:tictactoe/features/game/domain/entities/game_result.dart';
 import 'package:tictactoe/features/game/presentation/controllers/game_controller.dart';
 import 'package:tictactoe/features/game/presentation/widgets/game_board.dart';
 import 'package:tictactoe/features/game/presentation/widgets/game_players_legend.dart';
@@ -19,6 +20,10 @@ class GamePage extends ConsumerWidget {
     final state = ref.watch(gameControllerProvider);
     final controller = ref.read(gameControllerProvider.notifier);
     final isBoardDisabled = state.isCpuThinking || state.session.isFinished;
+    final winningLine = switch (state.session.result) {
+      GameWinner(winningLine: final line) => line,
+      _ => null,
+    };
 
     return Scaffold(
       body: SafeArea(
@@ -67,6 +72,7 @@ class GamePage extends ConsumerWidget {
                             child: GameBoard(
                               board: state.session.board,
                               isDisabled: isBoardDisabled,
+                              winningLine: winningLine,
                               onCellTap: controller.playHumanTurn,
                             ),
                           ),
