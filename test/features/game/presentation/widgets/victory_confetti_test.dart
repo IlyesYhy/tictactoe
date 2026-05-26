@@ -36,7 +36,7 @@ void main() {
 
       expect(find.byType(ConfettiWidget), findsNothing);
 
-      externalSetState(() => active = false);
+      externalSetState(() => active = true);
       await tester.pump();
 
       expect(find.byType(ConfettiWidget), findsOneWidget);
