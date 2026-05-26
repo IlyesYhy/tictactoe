@@ -95,6 +95,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gameRulesTitle => 'Game rules';
 
   @override
+  String get gameRulesSubtitle => 'All you need to know to play TicTacToe';
+
+  @override
   String get gameRulesObjective => 'Objective';
 
   @override
@@ -123,6 +126,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get gameRulesHard => 'Hard — the CPU plays optimally and never loses.';
+
+  @override
+  String get gameRulesPlayNow => 'Understood, play now !';
 
   @override
   String get settingsAbout => 'About';

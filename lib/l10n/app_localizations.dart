@@ -266,6 +266,12 @@ abstract class AppLocalizations {
   /// **'Game rules'**
   String get gameRulesTitle;
 
+  /// AppBar subtitle on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'All you need to know to play TicTacToe'**
+  String get gameRulesSubtitle;
+
   /// Section header introducing the goal of the game on the game rules page.
   ///
   /// In en, this message translates to:
@@ -319,6 +325,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hard — the CPU plays optimally and never loses.'**
   String get gameRulesHard;
+
+  /// Call-to-action button label on the game rules page that closes the rules screen and lets the user start playing.
+  ///
+  /// In en, this message translates to:
+  /// **'Understood, play now !'**
+  String get gameRulesPlayNow;
 
   /// Section header for the about block on the settings page.
   ///

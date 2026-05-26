@@ -95,6 +95,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get gameRulesTitle => 'Règles du jeu';
 
   @override
+  String get gameRulesSubtitle =>
+      'Tout ce que vous devez savoir pour jouer au TicTacToe';
+
+  @override
   String get gameRulesObjective => 'Objectif';
 
   @override
@@ -125,6 +129,9 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get gameRulesHard =>
       'Difficile — l\'ordinateur joue de façon optimale et ne perd jamais.';
+
+  @override
+  String get gameRulesPlayNow => 'Compris, jouer maintenant !';
 
   @override
   String get settingsAbout => 'À propos';

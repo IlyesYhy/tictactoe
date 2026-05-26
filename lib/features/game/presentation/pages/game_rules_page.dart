@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tictactoe/app/router/app_routes.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
 
@@ -6,22 +8,33 @@ class GameRulesPage extends StatelessWidget {
   const GameRulesPage({super.key});
 
   static const _horizontalPadding = 20.0;
-  static const _verticalPadding = 16.0;
+  static const _verticalPadding = 0.0;
+  static const _bottomPadding = 32.0;
   static const _sectionGap = 18.0;
+  static const _cardPadding = 18.0;
   static const _cardRadius = 22.0;
 
-  // Replace these paths with your final assets.
-  static const _assetPath = 'assets/bot-light-happy.png';
-  static const _heroImagePath = _assetPath; // 'assets/rules-hero.png';
-  static const _objectiveImagePath =
-      _assetPath; // 'assets/rules-objective.png';
-  static const _startImagePath = _assetPath; // 'assets/rules-start.png';
-  static const _winImagePath = _assetPath; // 'assets/rules-win.png';
-  static const _drawImagePath = _assetPath; // 'assets/rules-draw.png';
+  static const _headerHeight = 260.0;
+  static const _bottomImageHeight = 260.0;
+  static const _buttonBottomGap = 24.0;
+
+  static const _lightHeaderImagePath = 'assets/bot-light-rules.png';
+  static const _darkHeaderImagePath = 'assets/bot-dark-rules.png';
+  static const _lightBottomImagePath = 'assets/bot-light-rules-end.png';
+  static const _darkBottomImagePath = 'assets/bot-dark-rules-end.png';
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    final headerImagePath = isDarkMode
+        ? _darkHeaderImagePath
+        : _lightHeaderImagePath;
+
+    final bottomImagePath = isDarkMode
+        ? _darkBottomImagePath
+        : _lightBottomImagePath;
 
     return Scaffold(
       backgroundColor: context.colorScheme.surface,
@@ -41,78 +54,34 @@ class GameRulesPage extends StatelessWidget {
           _horizontalPadding,
           _verticalPadding,
           _horizontalPadding,
-          32,
+          _bottomPadding,
         ),
         children: [
-          _HeroCard(
-            title: l10n.gameRulesTitle,
-            subtitle: l10n.gameRulesObjectiveDescription,
-            imagePath: _heroImagePath,
-          ),
+          _Header(subtitle: l10n.gameRulesSubtitle, imagePath: headerImagePath),
           const SizedBox(height: _sectionGap),
-
           _RuleCard(
-            icon: Icons.flag_circle_outlined,
+            icon: Icons.flag_outlined,
             title: l10n.gameRulesObjective,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Text(
-                    l10n.gameRulesObjectiveDescription,
-                    style: context.textTheme.bodyMedium?.copyWith(height: 1.45),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                const _RuleImage(
-                  key: Key('game_rules_objective_image'),
-                  assetPath: _objectiveImagePath,
-                  size: 82,
-                ),
-              ],
+            child: Text(
+              l10n.gameRulesObjectiveDescription,
+              style: context.textTheme.bodyMedium?.copyWith(height: 1.45),
             ),
           ),
           const SizedBox(height: _sectionGap),
-
           _RuleCard(
             icon: Icons.sports_esports_outlined,
             title: l10n.gameRulesHowToPlay,
             child: Column(
               children: [
-                _StepRow(
-                  index: 1,
-                  text: l10n.gameRulesStart,
-                  trailing: const _RuleImage(
-                    key: Key('game_rules_start_image'),
-                    assetPath: _startImagePath,
-                    size: 62,
-                  ),
-                ),
+                _StepRow(index: 1, text: l10n.gameRulesStart),
                 const _RuleDivider(),
-                _StepRow(
-                  index: 2,
-                  text: l10n.gameRulesWin,
-                  trailing: const _RuleImage(
-                    key: Key('game_rules_win_image'),
-                    assetPath: _winImagePath,
-                    size: 62,
-                  ),
-                ),
+                _StepRow(index: 2, text: l10n.gameRulesWin),
                 const _RuleDivider(),
-                _StepRow(
-                  index: 3,
-                  text: l10n.gameRulesDraw,
-                  trailing: const _RuleImage(
-                    key: Key('game_rules_draw_image'),
-                    assetPath: _drawImagePath,
-                    size: 62,
-                  ),
-                ),
+                _StepRow(index: 3, text: l10n.gameRulesDraw),
               ],
             ),
           ),
           const SizedBox(height: _sectionGap),
-
           _RuleCard(
             icon: Icons.emoji_events_outlined,
             title: l10n.gameRulesDifficulty,
@@ -132,105 +101,54 @@ class GameRulesPage extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(height: _sectionGap),
+          _DecorativeImage(
+            assetPath: bottomImagePath,
+            height: _bottomImageHeight,
+          ),
+          const SizedBox(height: 20),
+          _PlayNowButton(
+            label: l10n.gameRulesPlayNow,
+            onPressed: () => context.goNamed(AppRouteNames.home),
+          ),
+          const SizedBox(height: _buttonBottomGap),
         ],
       ),
     );
   }
 }
 
-class _HeroCard extends StatelessWidget {
-  const _HeroCard({
-    required this.title,
-    required this.subtitle,
-    required this.imagePath,
-  });
+class _Header extends StatelessWidget {
+  const _Header({required this.subtitle, required this.imagePath});
 
-  final String title;
   final String subtitle;
   final String imagePath;
 
-  static const _height = 260.0;
-  static const _imageSize = 150.0;
-
   @override
   Widget build(BuildContext context) {
-    return _GlassCard(
-      child: SizedBox(
-        height: _height,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Positioned(
-              left: 22,
-              top: 54,
-              child: _DecorativeSymbol(
-                symbol: 'X',
-                color: context.colorScheme.primary,
-                size: 42,
-                rotation: -0.55,
+    return SizedBox(
+      height: GameRulesPage._headerHeight,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Text(
+              subtitle,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: context.textTheme.bodyMedium?.copyWith(
+                color: context.colorScheme.onSurfaceVariant,
+                height: 1.35,
               ),
             ),
-            Positioned(
-              right: 24,
-              top: 62,
-              child: _DecorativeSymbol(
-                symbol: 'O',
-                color: context.colorScheme.secondary,
-                size: 42,
-                rotation: 0.12,
-              ),
-            ),
-            Positioned(
-              left: 72,
-              bottom: 58,
-              child: _Sparkle(
-                color: context.colorScheme.primary.withValues(alpha: 0.22),
-              ),
-            ),
-            Positioned(
-              right: 76,
-              bottom: 62,
-              child: _Sparkle(
-                color: context.colorScheme.secondary.withValues(alpha: 0.22),
-              ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  imagePath,
-                  width: _imageSize,
-                  height: _imageSize,
-                  fit: BoxFit.contain,
-                  gaplessPlayback: true,
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: context.textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.w900,
-                    color: context.colorScheme.onSurface,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Text(
-                    subtitle,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: context.textTheme.bodyMedium?.copyWith(
-                      color: context.colorScheme.onSurfaceVariant,
-                      height: 1.35,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 12),
+          Expanded(child: _DecorativeImage(assetPath: imagePath)),
+          const SizedBox(height: 6),
+        ],
       ),
     );
   }
@@ -251,7 +169,7 @@ class _RuleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return _GlassCard(
       child: Padding(
-        padding: const EdgeInsets.all(18),
+        padding: const EdgeInsets.all(GameRulesPage._cardPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -291,15 +209,10 @@ class _CardTitle extends StatelessWidget {
 }
 
 class _StepRow extends StatelessWidget {
-  const _StepRow({
-    required this.index,
-    required this.text,
-    required this.trailing,
-  });
+  const _StepRow({required this.index, required this.text});
 
   final int index;
   final String text;
-  final Widget trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -313,8 +226,6 @@ class _StepRow extends StatelessWidget {
             style: context.textTheme.bodyMedium?.copyWith(height: 1.35),
           ),
         ),
-        const SizedBox(width: 12),
-        trailing,
       ],
     );
   }
@@ -328,7 +239,7 @@ class _StepBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: 18,
+      radius: 16,
       backgroundColor: context.colorScheme.primary.withValues(alpha: 0.12),
       child: Text(
         '$index',
@@ -400,40 +311,17 @@ class _IconBubble extends StatelessWidget {
   }
 }
 
-class _RuleImage extends StatelessWidget {
-  const _RuleImage({required this.assetPath, required this.size, super.key});
-
-  final String assetPath;
-  final double size;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(18),
-      child: Image.asset(
-        assetPath,
-        width: size,
-        height: size,
-        fit: BoxFit.contain,
-        gaplessPlayback: true,
-      ),
-    );
-  }
-}
-
 class _GlassCard extends StatelessWidget {
   const _GlassCard({required this.child});
 
   final Widget child;
-
-  static const _radius = GameRulesPage._cardRadius;
 
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: context.colorScheme.surface,
-        borderRadius: BorderRadius.circular(_radius),
+        borderRadius: BorderRadius.circular(GameRulesPage._cardRadius),
         border: Border.all(
           color: context.colorScheme.outlineVariant.withValues(alpha: 0.45),
         ),
@@ -462,44 +350,80 @@ class _RuleDivider extends StatelessWidget {
   }
 }
 
-class _DecorativeSymbol extends StatelessWidget {
-  const _DecorativeSymbol({
-    required this.symbol,
-    required this.color,
-    required this.size,
-    required this.rotation,
-  });
+class _DecorativeImage extends StatelessWidget {
+  const _DecorativeImage({required this.assetPath, this.height});
 
-  final String symbol;
-  final Color color;
-  final double size;
-  final double rotation;
+  final String assetPath;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
-    return Transform.rotate(
-      angle: rotation,
-      child: Text(
-        symbol,
-        textScaler: TextScaler.noScaling,
-        style: context.textTheme.displaySmall?.copyWith(
-          color: color,
-          fontSize: size,
-          fontWeight: FontWeight.w900,
-          height: 1,
+    return ExcludeSemantics(
+      child: SizedBox(
+        height: height,
+        child: Image.asset(
+          assetPath,
+          fit: BoxFit.contain,
+          gaplessPlayback: true,
         ),
       ),
     );
   }
 }
 
-class _Sparkle extends StatelessWidget {
-  const _Sparkle({required this.color});
+class _PlayNowButton extends StatelessWidget {
+  const _PlayNowButton({required this.label, required this.onPressed});
 
-  final Color color;
+  final String label;
+  final VoidCallback onPressed;
+
+  static const _borderRadius = 24.0;
 
   @override
   Widget build(BuildContext context) {
-    return Icon(Icons.auto_awesome_rounded, color: color, size: 18);
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(_borderRadius),
+      child: Ink(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [Color(0xFF7A00FF), Color(0xFF8F00FF)],
+          ),
+          borderRadius: BorderRadius.circular(_borderRadius),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF7A00FF).withValues(alpha: 0.28),
+              blurRadius: 18,
+              offset: const Offset(0, 8),
+            ),
+          ],
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(_borderRadius),
+          onTap: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.sports_esports, color: Colors.white, size: 28),
+                const SizedBox(width: 10),
+                Flexible(
+                  child: Text(
+                    label,
+                    textAlign: TextAlign.center,
+                    style: context.textTheme.titleMedium?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

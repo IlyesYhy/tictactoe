@@ -117,6 +117,10 @@
   "@gameRulesTitle": {
     "description": "AppBar title on the game rules page."
   },
+  "gameRulesSubtitle": "All you need to know to play TicTacToe",
+  "@gameRulesSubtitle": {
+    "description": "AppBar subtitle on the game rules page."
+  },
   "gameRulesObjective": "Objective",
   "@gameRulesObjective": {
     "description": "Section header introducing the goal of the game on the game rules page."
@@ -152,6 +156,10 @@
   "gameRulesHard": "Hard — the CPU plays optimally and never loses.",
   "@gameRulesHard": {
     "description": "Bullet describing the Hard difficulty behavior on the game rules page."
+  },
+  "gameRulesPlayNow": "Understood, play now !",
+  "@gameRulesPlayNow": {
+  "description": "Call-to-action button label on the game rules page that closes the rules screen and lets the user start playing."
   },
   "settingsAbout": "About",
   "@settingsAbout": {
