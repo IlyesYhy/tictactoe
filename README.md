@@ -72,3 +72,17 @@ For a deeper technical overview, see [ARCHITECTURE.md](ARCHITECTURE.md).
 - Husky and commitlint
 - flutter_lints
 - Automated tests for domain logic, controllers, widgets and navigation flows
+
+### Git hooks
+
+This repository uses Husky hooks to run local quality checks automatically:
+
+- `commit-msg` — validates commit messages against Conventional Commits
+- `pre-commit` — runs `dart format . --set-exit-if-changed` and `flutter analyze`
+- `pre-push` — runs `flutter test`
+
+Install hooks after cloning the repository:
+
+```bash
+npm install
+```

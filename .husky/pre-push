@@ -1,0 +1,12 @@
+#!/bin/sh
+
+echo "Running pre-push checks..."
+
+echo "Running Flutter tests..."
+flutter test
+if [ $? -ne 0 ]; then
+  echo "Flutter tests failed."
+  exit 1
+fi
+
+echo "Pre-push checks passed."
