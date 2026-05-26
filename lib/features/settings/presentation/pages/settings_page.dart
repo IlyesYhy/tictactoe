@@ -363,19 +363,20 @@ class _ThemeModeButton extends StatelessWidget {
         ? context.colorScheme.onPrimary
         : context.colorScheme.onSurfaceVariant;
 
+    final borderRadius = BorderRadius.circular(_radius);
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(_radius),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 160),
+        borderRadius: borderRadius,
+        child: Ink(
           height: _height,
           decoration: BoxDecoration(
             color: isSelected
                 ? context.colorScheme.primary
                 : Colors.transparent,
-            borderRadius: BorderRadius.circular(_radius),
+            borderRadius: borderRadius,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -416,24 +417,23 @@ class _SettingsCard extends StatelessWidget {
   final EdgeInsetsGeometry padding;
 
   static const _radius = 18.0;
+  static const _elevation = 1.0;
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: context.colorScheme.surface,
-        borderRadius: BorderRadius.circular(_radius),
-        border: Border.all(
+    final borderRadius = BorderRadius.circular(_radius);
+
+    return Material(
+      color: context.colorScheme.surface,
+      elevation: _elevation,
+      shadowColor: context.colorScheme.shadow.withValues(alpha: 0.06),
+      shape: RoundedRectangleBorder(
+        borderRadius: borderRadius,
+        side: BorderSide(
           color: context.colorScheme.outlineVariant.withValues(alpha: 0.45),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: context.colorScheme.shadow.withValues(alpha: 0.06),
-            blurRadius: 18,
-            offset: const Offset(0, 8),
-          ),
-        ],
       ),
+      clipBehavior: Clip.antiAlias,
       child: Padding(padding: padding, child: child),
     );
   }
