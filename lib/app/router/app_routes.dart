@@ -3,6 +3,8 @@
 abstract final class AppRoutes {
   static const home = '/';
   static const game = '/game';
+  static const settings = '/settings';
+  static const gameRules = '/rules';
 }
 
 /// Centralizes the application route names so callers can rely on
@@ -10,4 +12,6 @@ abstract final class AppRoutes {
 abstract final class AppRouteNames {
   static const home = 'home';
   static const game = 'game';
+  static const settings = 'settings';
+  static const gameRules = 'game-rules';
 }

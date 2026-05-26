@@ -72,5 +72,121 @@
   "cellStateEmpty": "empty",
   "@cellStateEmpty": {
     "description": "Accessibility value spoken when a board cell has not been played yet."
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "AppBar title on the settings page."
+  },
+  "settingsLanguage": "Language",
+  "@settingsLanguage": {
+    "description": "Section header for the language selector on the settings page."
+  },
+  "settingsLanguageEnglish": "English",
+  "@settingsLanguageEnglish": {
+    "description": "Label for the English language option on the settings page."
+  },
+  "settingsLanguageFrench": "French",
+  "@settingsLanguageFrench": {
+    "description": "Label for the French language option on the settings page."
+  },
+  "settingsTheme": "Theme",
+  "@settingsTheme": {
+    "description": "Section header for the theme selector on the settings page."
+  },
+  "settingsThemeLight": "Light",
+  "@settingsThemeLight": {
+    "description": "Label for the light theme option on the settings page."
+  },
+  "settingsThemeDark": "Dark",
+  "@settingsThemeDark": {
+    "description": "Label for the dark theme option on the settings page."
+  },
+  "settingsThemeSystem": "System",
+  "@settingsThemeSystem": {
+    "description": "Label for the system theme option on the settings page."
+  },
+  "settingsPreferences": "Preferences",
+  "@settingsPreferences": {
+    "description": "Section header for the user preferences on the settings page."
+  },
+  "settingsHapticFeedback": "Haptic feedback",
+  "@settingsHapticFeedback": {
+    "description": "Toggle label that enables or disables vibration feedback when tapping a board cell."
+  },
+  "gameRulesTitle": "Game rules",
+  "@gameRulesTitle": {
+    "description": "AppBar title on the game rules page."
+  },
+  "gameRulesSubtitle": "All you need to know to play TicTacToe",
+  "@gameRulesSubtitle": {
+    "description": "AppBar subtitle on the game rules page."
+  },
+  "gameRulesObjective": "Objective",
+  "@gameRulesObjective": {
+    "description": "Section header introducing the goal of the game on the game rules page."
+  },
+  "gameRulesObjectiveDescription": "Align three of your marks in a row, column, or diagonal to win.",
+  "@gameRulesObjectiveDescription": {
+    "description": "Sentence describing how to win a game on the game rules page."
+  },
+  "gameRulesHowToPlay": "How to play",
+  "@gameRulesHowToPlay": {
+    "description": "Section header listing the basic gameplay rules on the game rules page."
+  },
+  "gameRulesStart": "You play X and always start. The CPU plays O.",
+  "@gameRulesStart": {
+    "description": "Bullet describing player turn order on the game rules page."
+  },
+  "gameRulesWin": "Three marks in a row, column, or diagonal wins the match.",
+  "@gameRulesWin": {
+    "description": "Bullet describing the winning condition on the game rules page."
+  },
+  "gameRulesDraw": "If the board fills up without a winner, the match ends in a draw.",
+  "@gameRulesDraw": {
+    "description": "Bullet describing the draw condition on the game rules page."
+  },
+  "gameRulesDifficulty": "Difficulty",
+  "@gameRulesDifficulty": {
+    "description": "Section header introducing the difficulty levels on the game rules page."
+  },
+  "gameRulesEasy": "Easy — the CPU picks moves at random.",
+  "@gameRulesEasy": {
+    "description": "Bullet describing the Easy difficulty behavior on the game rules page."
+  },
+  "gameRulesHard": "Hard — the CPU plays optimally and never loses.",
+  "@gameRulesHard": {
+    "description": "Bullet describing the Hard difficulty behavior on the game rules page."
+  },
+  "gameRulesPlayNow": "Understood, play now !",
+  "@gameRulesPlayNow": {
+  "description": "Call-to-action button label on the game rules page that closes the rules screen and lets the user start playing."
+  },
+  "settingsAbout": "About",
+  "@settingsAbout": {
+    "description": "Section header for the about block on the settings page."
+  },
+  "settingsGameRules": "Game rules",
+  "@settingsGameRules": {
+    "description": "Tile title opening the game rules page from the settings page."
+  },
+  "settingsVersion": "Version",
+  "@settingsVersion": {
+    "description": "Tile title displaying the installed app version on the settings page."
+  },
+  "settingsPlayer": "Player",
+  "@settingsPlayer": {
+    "description": "Section header for the player block on the settings page."
+  },
+  "settingsPlayerSubtitle": "Customize your experience",
+  "@settingsPlayerSubtitle": {
+    "description": "Subtitle shown under the player section header inviting customization."
+  },
+  "settingsPlayerName": "Player name",
+  "@settingsPlayerName": {
+    "description": "Label for the player name row on the settings page."
+  },
+  "settingsPreferredSymbol": "Preferred symbol",
+  "@settingsPreferredSymbol": {
+    "description": "Label for the preferred symbol row on the settings page."
   }
 }

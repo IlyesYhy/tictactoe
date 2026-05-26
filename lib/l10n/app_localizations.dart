@@ -199,6 +199,180 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'empty'**
   String get cellStateEmpty;
+
+  /// AppBar title on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsTitle;
+
+  /// Section header for the language selector on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingsLanguage;
+
+  /// Label for the English language option on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get settingsLanguageEnglish;
+
+  /// Label for the French language option on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'French'**
+  String get settingsLanguageFrench;
+
+  /// Section header for the theme selector on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get settingsTheme;
+
+  /// Label for the light theme option on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get settingsThemeLight;
+
+  /// Label for the dark theme option on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get settingsThemeDark;
+
+  /// Label for the system theme option on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get settingsThemeSystem;
+
+  /// Section header for the user preferences on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get settingsPreferences;
+
+  /// Toggle label that enables or disables vibration feedback when tapping a board cell.
+  ///
+  /// In en, this message translates to:
+  /// **'Haptic feedback'**
+  String get settingsHapticFeedback;
+
+  /// AppBar title on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'Game rules'**
+  String get gameRulesTitle;
+
+  /// AppBar subtitle on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'All you need to know to play TicTacToe'**
+  String get gameRulesSubtitle;
+
+  /// Section header introducing the goal of the game on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'Objective'**
+  String get gameRulesObjective;
+
+  /// Sentence describing how to win a game on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'Align three of your marks in a row, column, or diagonal to win.'**
+  String get gameRulesObjectiveDescription;
+
+  /// Section header listing the basic gameplay rules on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'How to play'**
+  String get gameRulesHowToPlay;
+
+  /// Bullet describing player turn order on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'You play X and always start. The CPU plays O.'**
+  String get gameRulesStart;
+
+  /// Bullet describing the winning condition on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'Three marks in a row, column, or diagonal wins the match.'**
+  String get gameRulesWin;
+
+  /// Bullet describing the draw condition on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'If the board fills up without a winner, the match ends in a draw.'**
+  String get gameRulesDraw;
+
+  /// Section header introducing the difficulty levels on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'Difficulty'**
+  String get gameRulesDifficulty;
+
+  /// Bullet describing the Easy difficulty behavior on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'Easy — the CPU picks moves at random.'**
+  String get gameRulesEasy;
+
+  /// Bullet describing the Hard difficulty behavior on the game rules page.
+  ///
+  /// In en, this message translates to:
+  /// **'Hard — the CPU plays optimally and never loses.'**
+  String get gameRulesHard;
+
+  /// Call-to-action button label on the game rules page that closes the rules screen and lets the user start playing.
+  ///
+  /// In en, this message translates to:
+  /// **'Understood, play now !'**
+  String get gameRulesPlayNow;
+
+  /// Section header for the about block on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get settingsAbout;
+
+  /// Tile title opening the game rules page from the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Game rules'**
+  String get settingsGameRules;
+
+  /// Tile title displaying the installed app version on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get settingsVersion;
+
+  /// Section header for the player block on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Player'**
+  String get settingsPlayer;
+
+  /// Subtitle shown under the player section header inviting customization.
+  ///
+  /// In en, this message translates to:
+  /// **'Customize your experience'**
+  String get settingsPlayerSubtitle;
+
+  /// Label for the player name row on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Player name'**
+  String get settingsPlayerName;
+
+  /// Label for the preferred symbol row on the settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferred symbol'**
+  String get settingsPreferredSymbol;
 }
 
 class _AppLocalizationsDelegate

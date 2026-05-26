@@ -60,4 +60,94 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cellStateEmpty => 'empty';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsLanguage => 'Language';
+
+  @override
+  String get settingsLanguageEnglish => 'English';
+
+  @override
+  String get settingsLanguageFrench => 'French';
+
+  @override
+  String get settingsTheme => 'Theme';
+
+  @override
+  String get settingsThemeLight => 'Light';
+
+  @override
+  String get settingsThemeDark => 'Dark';
+
+  @override
+  String get settingsThemeSystem => 'System';
+
+  @override
+  String get settingsPreferences => 'Preferences';
+
+  @override
+  String get settingsHapticFeedback => 'Haptic feedback';
+
+  @override
+  String get gameRulesTitle => 'Game rules';
+
+  @override
+  String get gameRulesSubtitle => 'All you need to know to play TicTacToe';
+
+  @override
+  String get gameRulesObjective => 'Objective';
+
+  @override
+  String get gameRulesObjectiveDescription =>
+      'Align three of your marks in a row, column, or diagonal to win.';
+
+  @override
+  String get gameRulesHowToPlay => 'How to play';
+
+  @override
+  String get gameRulesStart => 'You play X and always start. The CPU plays O.';
+
+  @override
+  String get gameRulesWin =>
+      'Three marks in a row, column, or diagonal wins the match.';
+
+  @override
+  String get gameRulesDraw =>
+      'If the board fills up without a winner, the match ends in a draw.';
+
+  @override
+  String get gameRulesDifficulty => 'Difficulty';
+
+  @override
+  String get gameRulesEasy => 'Easy — the CPU picks moves at random.';
+
+  @override
+  String get gameRulesHard => 'Hard — the CPU plays optimally and never loses.';
+
+  @override
+  String get gameRulesPlayNow => 'Understood, play now !';
+
+  @override
+  String get settingsAbout => 'About';
+
+  @override
+  String get settingsGameRules => 'Game rules';
+
+  @override
+  String get settingsVersion => 'Version';
+
+  @override
+  String get settingsPlayer => 'Player';
+
+  @override
+  String get settingsPlayerSubtitle => 'Customize your experience';
+
+  @override
+  String get settingsPlayerName => 'Player name';
+
+  @override
+  String get settingsPreferredSymbol => 'Preferred symbol';
 }
