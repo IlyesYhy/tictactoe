@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../domain/entities/game_difficulty.dart';
+import '../../../../core/domain/entities/game_difficulty.dart';
 import '../../domain/entities/game_session.dart';
 
 final class GameControllerState extends Equatable {

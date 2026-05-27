@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tictactoe/app/router/app_routes.dart';
+import 'package:tictactoe/core/domain/entities/game_difficulty.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
 import 'package:tictactoe/features/game/di/game_providers.dart';
-import 'package:tictactoe/features/game/domain/entities/game_difficulty.dart';
 import 'package:tictactoe/features/game/presentation/controllers/game_controller.dart';
 import 'package:tictactoe/features/home/presentation/widgets/home_difficulty_selector.dart';
 

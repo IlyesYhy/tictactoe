@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/domain/entities/game_difficulty.dart';
 import '../data/repositories/local_cpu_repository.dart';
-import '../domain/entities/game_difficulty.dart';
 import '../domain/repositories/cpu_repository.dart';
 import '../domain/services/cpu/minimax_cpu_strategy.dart';
 import '../domain/services/cpu/random_cpu_strategy.dart';
