@@ -373,6 +373,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Preferred symbol'**
   String get settingsPreferredSymbol;
+
+  /// AppBar title on the statistics page.
+  ///
+  /// In en, this message translates to:
+  /// **'Statistics'**
+  String get statsTitle;
+
+  /// Counter label for matches won by the human player.
+  ///
+  /// In en, this message translates to:
+  /// **'Victories'**
+  String get statsVictories;
+
+  /// Counter label for matches won by the CPU.
+  ///
+  /// In en, this message translates to:
+  /// **'Defeats'**
+  String get statsDefeats;
+
+  /// Counter label for matches that ended in a draw.
+  ///
+  /// In en, this message translates to:
+  /// **'Draws'**
+  String get statsDraws;
+
+  /// Label for the total number of recorded matches.
+  ///
+  /// In en, this message translates to:
+  /// **'Total matches'**
+  String get statsTotalMatches;
+
+  /// Label for the percentage of matches won by the human player.
+  ///
+  /// In en, this message translates to:
+  /// **'Win rate'**
+  String get statsWinRate;
+
+  /// Empty-state message shown on the statistics page when no match has been recorded yet.
+  ///
+  /// In en, this message translates to:
+  /// **'Play your first match to see your stats here.'**
+  String get statsEmpty;
 }
 
 class _AppLocalizationsDelegate

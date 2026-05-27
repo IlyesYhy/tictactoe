@@ -45,5 +45,12 @@
   "settingsPlayer": "Joueur",
   "settingsPlayerSubtitle": "Personnalisez votre expérience",
   "settingsPlayerName": "Nom du joueur",
-  "settingsPreferredSymbol": "Symbole préféré"
+  "settingsPreferredSymbol": "Symbole préféré",
+  "statsTitle": "Statistiques",
+  "statsVictories": "Victoires",
+  "statsDefeats": "Défaites",
+  "statsDraws": "Nuls",
+  "statsTotalMatches": "Parties jouées",
+  "statsWinRate": "Taux de victoire",
+  "statsEmpty": "Jouez votre première partie pour voir vos statistiques ici."
 }

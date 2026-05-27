@@ -150,4 +150,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsPreferredSymbol => 'Preferred symbol';
+
+  @override
+  String get statsTitle => 'Statistics';
+
+  @override
+  String get statsVictories => 'Victories';
+
+  @override
+  String get statsDefeats => 'Defeats';
+
+  @override
+  String get statsDraws => 'Draws';
+
+  @override
+  String get statsTotalMatches => 'Total matches';
+
+  @override
+  String get statsWinRate => 'Win rate';
+
+  @override
+  String get statsEmpty => 'Play your first match to see your stats here.';
 }

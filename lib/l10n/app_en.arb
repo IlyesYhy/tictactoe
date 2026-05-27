@@ -188,5 +188,33 @@
   "settingsPreferredSymbol": "Preferred symbol",
   "@settingsPreferredSymbol": {
     "description": "Label for the preferred symbol row on the settings page."
+  },
+  "statsTitle": "Statistics",
+  "@statsTitle": {
+    "description": "AppBar title on the statistics page."
+  },
+  "statsVictories": "Victories",
+  "@statsVictories": {
+    "description": "Counter label for matches won by the human player."
+  },
+  "statsDefeats": "Defeats",
+  "@statsDefeats": {
+    "description": "Counter label for matches won by the CPU."
+  },
+  "statsDraws": "Draws",
+  "@statsDraws": {
+    "description": "Counter label for matches that ended in a draw."
+  },
+  "statsTotalMatches": "Total matches",
+  "@statsTotalMatches": {
+    "description": "Label for the total number of recorded matches."
+  },
+  "statsWinRate": "Win rate",
+  "@statsWinRate": {
+    "description": "Label for the percentage of matches won by the human player."
+  },
+  "statsEmpty": "Play your first match to see your stats here.",
+  "@statsEmpty": {
+    "description": "Empty-state message shown on the statistics page when no match has been recorded yet."
   }
 }
