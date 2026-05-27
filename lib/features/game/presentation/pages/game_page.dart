@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tictactoe/app/integrations/game_stats_providers.dart';
+import 'package:tictactoe/app/di/game_stats_providers.dart';
 import 'package:tictactoe/app/router/app_routes.dart';
 import 'package:tictactoe/app/theme/app_spacing.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';

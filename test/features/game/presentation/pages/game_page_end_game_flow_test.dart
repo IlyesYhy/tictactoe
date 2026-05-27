@@ -2,7 +2,7 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tictactoe/app/integrations/game_stats_providers.dart';
+import 'package:tictactoe/app/di/game_stats_providers.dart';
 import 'package:tictactoe/app/theme/app_theme.dart';
 import 'package:tictactoe/features/game/di/game_providers.dart';
 import 'package:tictactoe/features/game/domain/entities/board.dart';
@@ -42,6 +42,7 @@ void main() {
         statsRepositoryProvider.overrideWithValue(
           statsRepository ?? _NoopStatsRepository(),
         ),
+        initialMatchHistoryProvider.overrideWithValue(MatchHistory.empty()),
         currentDateTimeProvider.overrideWithValue(
           () => DateTime(2026, 5, 27, 12),
         ),

@@ -3,10 +3,10 @@ import '../../features/game/domain/entities/game_result.dart';
 import '../../features/game/domain/entities/game_roles.dart';
 import '../../features/stats/domain/entities/completed_match.dart';
 import '../../features/stats/domain/entities/match_outcome.dart';
-import '../../features/stats/domain/repositories/stats_repository.dart';
 
 /// App-layer integration that maps a finished [GameResult] to a
-/// [CompletedMatch] and forwards it to the stats repository.
+/// [CompletedMatch] and forwards it to whatever sink the app composes
+/// (typically the live stats controller).
 ///
 /// Lives in `lib/app/integrations/` on purpose: it composes the `game` and
 /// `stats` features. Putting it inside either feature would create a
@@ -14,12 +14,12 @@ import '../../features/stats/domain/repositories/stats_repository.dart';
 /// place allowed to wire features together.
 final class GameStatsRecorder {
   const GameStatsRecorder({
-    required StatsRepository repository,
+    required Future<void> Function(CompletedMatch match) addMatch,
     required DateTime Function() now,
-  }) : _repository = repository,
+  }) : _addMatch = addMatch,
        _now = now;
 
-  final StatsRepository _repository;
+  final Future<void> Function(CompletedMatch match) _addMatch;
   final DateTime Function() _now;
 
   /// Records a completed match if [result] represents a finished game.
@@ -33,7 +33,7 @@ final class GameStatsRecorder {
     final outcome = _outcomeFor(result);
     if (outcome == null) return;
 
-    await _repository.recordMatch(
+    await _addMatch(
       CompletedMatch(
         outcome: outcome,
         difficulty: difficulty,
