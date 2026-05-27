@@ -5,7 +5,7 @@ import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
 
 class GameRulesPage extends StatelessWidget {
-  const GameRulesPage({this.onPlayNow, super.key});
+  const GameRulesPage({this.onPlayNow, this.scrollController, super.key});
 
   /// Optional override for the "play now" call-to-action.
   ///
@@ -13,6 +13,12 @@ class GameRulesPage extends StatelessWidget {
   /// supplied (embedded inside the home shell), the callback switches tabs
   /// without rebuilding the shell.
   final VoidCallback? onPlayNow;
+
+  /// Optional scroll controller for the rules list.
+  ///
+  /// Supplied by the home shell so it can scroll the page back to the top
+  /// when the user reopens this tab. Standalone routes can omit it.
+  final ScrollController? scrollController;
 
   static const _horizontalPadding = 20.0;
   static const _verticalPadding = 0.0;
@@ -57,6 +63,7 @@ class GameRulesPage extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
       ),
       body: ListView(
+        controller: scrollController,
         padding: const EdgeInsets.fromLTRB(
           _horizontalPadding,
           _verticalPadding,

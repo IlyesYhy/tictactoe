@@ -7,11 +7,15 @@ import 'package:tictactoe/app/theme/app_theme.dart';
 import 'package:tictactoe/core/domain/entities/game_difficulty.dart';
 import 'package:tictactoe/features/game/di/game_providers.dart';
 import 'package:tictactoe/features/game/presentation/pages/game_page.dart';
+import 'package:tictactoe/features/game/presentation/pages/game_rules_page.dart';
 import 'package:tictactoe/features/home/presentation/pages/home_page.dart';
 import 'package:tictactoe/features/home/presentation/widgets/home_bottom_navigation.dart';
 import 'package:tictactoe/features/home/presentation/widgets/home_difficulty_selector.dart';
 import 'package:tictactoe/features/stats/di/stats_providers.dart';
+import 'package:tictactoe/features/stats/domain/entities/completed_match.dart';
 import 'package:tictactoe/features/stats/domain/entities/match_history.dart';
+import 'package:tictactoe/features/stats/domain/entities/match_outcome.dart';
+import 'package:tictactoe/features/stats/presentation/pages/stats_page.dart';
 import 'package:tictactoe/l10n/app_localizations.dart';
 
 void main() {
@@ -267,6 +271,83 @@ void main() {
       expect(find.text('Jouer'), findsOneWidget);
       expect(find.text('Règles'), findsOneWidget);
       expect(find.text('Stats'), findsOneWidget);
+    });
+
+    testWidgets('returning to the Rules tab resets its scroll position', (
+      tester,
+    ) async {
+      await pumpHome(tester);
+
+      await tester.tap(find.byKey(const Key('home_tab_rules')));
+      await tester.pumpAndSettle();
+
+      final rulesScrollable = find
+          .descendant(
+            of: find.byType(GameRulesPage),
+            matching: find.byType(Scrollable),
+          )
+          .first;
+
+      await tester.drag(rulesScrollable, const Offset(0, -200));
+      await tester.pump();
+      expect(
+        tester.state<ScrollableState>(rulesScrollable).position.pixels,
+        greaterThan(0),
+      );
+
+      await tester.tap(find.byKey(const Key('home_tab_play')));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key('home_tab_rules')));
+      await tester.pumpAndSettle();
+
+      expect(tester.state<ScrollableState>(rulesScrollable).position.pixels, 0);
+    });
+
+    testWidgets('returning to the Stats tab resets its scroll position', (
+      tester,
+    ) async {
+      tester.view.physicalSize = const Size(400, 400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      final matches = List<CompletedMatch>.generate(
+        3,
+        (_) => CompletedMatch(
+          outcome: MatchOutcome.humanWon,
+          difficulty: GameDifficulty.easy,
+          playedAt: DateTime(2026, 5, 27),
+        ),
+      );
+      await pumpHome(tester, initialHistory: MatchHistory(matches));
+
+      await tester.tap(find.byKey(const Key('home_tab_stats')));
+      await tester.pumpAndSettle();
+
+      final statsScrollable = find
+          .descendant(
+            of: find.byType(StatsPage),
+            matching: find.byType(Scrollable),
+          )
+          .first;
+
+      await tester.drag(statsScrollable, const Offset(0, -120));
+      await tester.pump();
+      expect(
+        tester.state<ScrollableState>(statsScrollable).position.pixels,
+        greaterThan(0),
+      );
+
+      await tester.tap(find.byKey(const Key('home_tab_play')));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key('home_tab_stats')));
+      await tester.pumpAndSettle();
+
+      expect(tester.state<ScrollableState>(statsScrollable).position.pixels, 0);
     });
   });
 

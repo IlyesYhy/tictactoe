@@ -7,7 +7,14 @@ import 'package:tictactoe/features/stats/presentation/widgets/stats_chart.dart';
 import 'package:tictactoe/features/stats/presentation/widgets/stats_counter_card.dart';
 
 class StatsPage extends ConsumerWidget {
-  const StatsPage({super.key});
+  const StatsPage({this.scrollController, super.key});
+
+  /// Optional scroll controller for the matches list.
+  ///
+  /// Supplied by the home shell so it can scroll the page back to the top
+  /// when the user reopens this tab. Standalone routes can omit it and let
+  /// the [ListView] manage its own controller.
+  final ScrollController? scrollController;
 
   static const _horizontalPadding = 16.0;
   static const _verticalPadding = 16.0;
@@ -29,6 +36,7 @@ class StatsPage extends ConsumerWidget {
       body: stats.totalMatches == 0
           ? const _EmptyState()
           : ListView(
+              controller: scrollController,
               padding: const EdgeInsets.fromLTRB(
                 _horizontalPadding,
                 _verticalPadding,
