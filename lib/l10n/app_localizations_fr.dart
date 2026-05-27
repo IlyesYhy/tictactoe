@@ -184,4 +184,22 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get homeTabStats => 'Stats';
+
+  @override
+  String get statsHistory => 'Historique';
+
+  @override
+  String get statsHistoryToday => 'Aujourd\'hui';
+
+  @override
+  String get statsHistoryYesterday => 'Hier';
+
+  @override
+  String get matchOutcomeVictory => 'Victoire';
+
+  @override
+  String get matchOutcomeDefeat => 'Défaite';
+
+  @override
+  String get matchOutcomeDraw => 'Match nul';
 }

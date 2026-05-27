@@ -55,5 +55,11 @@
   "statsEmpty": "Jouez votre première partie pour voir vos statistiques ici.",
   "homeTabPlay": "Jouer",
   "homeTabRules": "Règles",
-  "homeTabStats": "Stats"
+  "homeTabStats": "Stats",
+  "statsHistory": "Historique",
+  "statsHistoryToday": "Aujourd'hui",
+  "statsHistoryYesterday": "Hier",
+  "matchOutcomeVictory": "Victoire",
+  "matchOutcomeDefeat": "Défaite",
+  "matchOutcomeDraw": "Match nul"
 }

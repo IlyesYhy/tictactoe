@@ -433,6 +433,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Stats'**
   String get homeTabStats;
+
+  /// Section title above the match history list on the statistics page.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get statsHistory;
+
+  /// Date label used when a match was played on the same calendar day as now.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get statsHistoryToday;
+
+  /// Date label used when a match was played on the previous calendar day.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get statsHistoryYesterday;
+
+  /// Outcome label used for a single match won by the human player.
+  ///
+  /// In en, this message translates to:
+  /// **'Victory'**
+  String get matchOutcomeVictory;
+
+  /// Outcome label used for a single match won by the CPU.
+  ///
+  /// In en, this message translates to:
+  /// **'Defeat'**
+  String get matchOutcomeDefeat;
+
+  /// Outcome label used for a single match that ended in a draw.
+  ///
+  /// In en, this message translates to:
+  /// **'Draw'**
+  String get matchOutcomeDraw;
 }
 
 class _AppLocalizationsDelegate

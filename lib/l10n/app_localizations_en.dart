@@ -180,4 +180,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeTabStats => 'Stats';
+
+  @override
+  String get statsHistory => 'History';
+
+  @override
+  String get statsHistoryToday => 'Today';
+
+  @override
+  String get statsHistoryYesterday => 'Yesterday';
+
+  @override
+  String get matchOutcomeVictory => 'Victory';
+
+  @override
+  String get matchOutcomeDefeat => 'Defeat';
+
+  @override
+  String get matchOutcomeDraw => 'Draw';
 }

@@ -228,5 +228,29 @@
   "homeTabStats": "Stats",
   "@homeTabStats": {
     "description": "Bottom navigation label for the stats tab on the home shell."
+  },
+  "statsHistory": "History",
+  "@statsHistory": {
+    "description": "Section title above the match history list on the statistics page."
+  },
+  "statsHistoryToday": "Today",
+  "@statsHistoryToday": {
+    "description": "Date label used when a match was played on the same calendar day as now."
+  },
+  "statsHistoryYesterday": "Yesterday",
+  "@statsHistoryYesterday": {
+    "description": "Date label used when a match was played on the previous calendar day."
+  },
+  "matchOutcomeVictory": "Victory",
+  "@matchOutcomeVictory": {
+    "description": "Outcome label used for a single match won by the human player."
+  },
+  "matchOutcomeDefeat": "Defeat",
+  "@matchOutcomeDefeat": {
+    "description": "Outcome label used for a single match won by the CPU."
+  },
+  "matchOutcomeDraw": "Draw",
+  "@matchOutcomeDraw": {
+    "description": "Outcome label used for a single match that ended in a draw."
   }
 }

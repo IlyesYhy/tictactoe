@@ -8,6 +8,7 @@ import 'package:tictactoe/features/stats/domain/entities/completed_match.dart';
 import 'package:tictactoe/features/stats/domain/entities/match_history.dart';
 import 'package:tictactoe/features/stats/domain/entities/match_outcome.dart';
 import 'package:tictactoe/features/stats/presentation/pages/stats_page.dart';
+import 'package:tictactoe/features/stats/presentation/widgets/match_history_tile.dart';
 import 'package:tictactoe/features/stats/presentation/widgets/stats_chart.dart';
 import 'package:tictactoe/features/stats/presentation/widgets/stats_counter_card.dart';
 import 'package:tictactoe/l10n/app_localizations.dart';
@@ -104,6 +105,41 @@ void main() {
         ),
         findsOneWidget,
       );
+    });
+
+    testWidgets('renders the match history section when history is not empty', (
+      tester,
+    ) async {
+      await pumpStatsPage(
+        tester,
+        history: MatchHistory([buildMatch(MatchOutcome.humanWon)]),
+      );
+
+      expect(find.text('History'), findsOneWidget);
+      expect(find.byType(MatchHistoryTile), findsOneWidget);
+    });
+
+    testWidgets('renders match history tiles in most-recent-first order', (
+      tester,
+    ) async {
+      final older = CompletedMatch(
+        outcome: MatchOutcome.humanWon,
+        difficulty: GameDifficulty.easy,
+        playedAt: DateTime(2026, 5, 20),
+      );
+      final newer = CompletedMatch(
+        outcome: MatchOutcome.cpuWon,
+        difficulty: GameDifficulty.easy,
+        playedAt: DateTime(2026, 5, 28),
+      );
+
+      await pumpStatsPage(tester, history: MatchHistory([older, newer]));
+
+      expect(find.byType(MatchHistoryTile), findsNWidgets(2));
+
+      final defeatY = tester.getTopLeft(find.text('Defeat')).dy;
+      final victoryY = tester.getTopLeft(find.text('Victory')).dy;
+      expect(defeatY, lessThan(victoryY));
     });
   });
 }
