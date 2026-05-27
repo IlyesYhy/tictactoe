@@ -5,7 +5,14 @@ import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
 
 class GameRulesPage extends StatelessWidget {
-  const GameRulesPage({super.key});
+  const GameRulesPage({this.onPlayNow, super.key});
+
+  /// Optional override for the "play now" call-to-action.
+  ///
+  /// When null (standalone route), the button pops back to the home shell. When
+  /// supplied (embedded inside the home shell), the callback switches tabs
+  /// without rebuilding the shell.
+  final VoidCallback? onPlayNow;
 
   static const _horizontalPadding = 20.0;
   static const _verticalPadding = 0.0;
@@ -109,7 +116,7 @@ class GameRulesPage extends StatelessWidget {
           const SizedBox(height: 20),
           _PlayNowButton(
             label: l10n.gameRulesPlayNow,
-            onPressed: () => context.goNamed(AppRouteNames.home),
+            onPressed: onPlayNow ?? () => context.goNamed(AppRouteNames.home),
           ),
           const SizedBox(height: _buttonBottomGap),
         ],

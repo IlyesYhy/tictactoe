@@ -415,6 +415,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Play your first match to see your stats here.'**
   String get statsEmpty;
+
+  /// Bottom navigation label for the play tab on the home shell.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get homeTabPlay;
+
+  /// Bottom navigation label for the rules tab on the home shell.
+  ///
+  /// In en, this message translates to:
+  /// **'Rules'**
+  String get homeTabRules;
+
+  /// Bottom navigation label for the stats tab on the home shell.
+  ///
+  /// In en, this message translates to:
+  /// **'Stats'**
+  String get homeTabStats;
 }
 
 class _AppLocalizationsDelegate

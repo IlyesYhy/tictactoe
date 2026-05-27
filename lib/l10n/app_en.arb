@@ -216,5 +216,17 @@
   "statsEmpty": "Play your first match to see your stats here.",
   "@statsEmpty": {
     "description": "Empty-state message shown on the statistics page when no match has been recorded yet."
+  },
+  "homeTabPlay": "Play",
+  "@homeTabPlay": {
+    "description": "Bottom navigation label for the play tab on the home shell."
+  },
+  "homeTabRules": "Rules",
+  "@homeTabRules": {
+    "description": "Bottom navigation label for the rules tab on the home shell."
+  },
+  "homeTabStats": "Stats",
+  "@homeTabStats": {
+    "description": "Bottom navigation label for the stats tab on the home shell."
   }
 }

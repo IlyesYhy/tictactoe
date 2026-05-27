@@ -6,6 +6,8 @@ import 'package:tictactoe/features/settings/di/settings_providers.dart';
 import 'package:tictactoe/features/settings/domain/entities/app_language.dart';
 import 'package:tictactoe/features/settings/domain/entities/app_settings.dart';
 import 'package:tictactoe/features/settings/domain/entities/app_theme_mode.dart';
+import 'package:tictactoe/features/stats/di/stats_providers.dart';
+import 'package:tictactoe/features/stats/domain/entities/match_history.dart';
 
 void main() {
   Widget appUnderTest({
@@ -15,7 +17,10 @@ void main() {
     ),
   }) {
     return ProviderScope(
-      overrides: [initialSettingsProvider.overrideWithValue(settings)],
+      overrides: [
+        initialSettingsProvider.overrideWithValue(settings),
+        initialMatchHistoryProvider.overrideWithValue(MatchHistory.empty()),
+      ],
       child: const App(),
     );
   }

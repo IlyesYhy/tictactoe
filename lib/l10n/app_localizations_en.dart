@@ -171,4 +171,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get statsEmpty => 'Play your first match to see your stats here.';
+
+  @override
+  String get homeTabPlay => 'Play';
+
+  @override
+  String get homeTabRules => 'Rules';
+
+  @override
+  String get homeTabStats => 'Stats';
 }

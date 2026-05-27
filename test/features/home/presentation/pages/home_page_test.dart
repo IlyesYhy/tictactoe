@@ -9,6 +9,8 @@ import 'package:tictactoe/features/game/di/game_providers.dart';
 import 'package:tictactoe/features/game/presentation/pages/game_page.dart';
 import 'package:tictactoe/features/home/presentation/pages/home_page.dart';
 import 'package:tictactoe/features/home/presentation/widgets/home_difficulty_selector.dart';
+import 'package:tictactoe/features/stats/di/stats_providers.dart';
+import 'package:tictactoe/features/stats/domain/entities/match_history.dart';
 import 'package:tictactoe/l10n/app_localizations.dart';
 
 void main() {
@@ -57,8 +59,15 @@ void main() {
   Future<ProviderContainer> pumpHome(
     WidgetTester tester, {
     Locale locale = const Locale('en'),
+    MatchHistory? initialHistory,
   }) async {
-    final container = ProviderContainer();
+    final container = ProviderContainer(
+      overrides: [
+        initialMatchHistoryProvider.overrideWithValue(
+          initialHistory ?? MatchHistory.empty(),
+        ),
+      ],
+    );
     addTearDown(container.dispose);
 
     await tester.pumpWidget(
@@ -82,7 +91,11 @@ void main() {
     WidgetTester tester, {
     String initialLocation = AppRoutes.home,
   }) async {
-    final container = ProviderContainer();
+    final container = ProviderContainer(
+      overrides: [
+        initialMatchHistoryProvider.overrideWithValue(MatchHistory.empty()),
+      ],
+    );
     addTearDown(container.dispose);
 
     await tester.pumpWidget(
@@ -103,7 +116,7 @@ void main() {
     return container;
   }
 
-  group('HomePage', () {
+  group('HomePage play tab', () {
     testWidgets('renders title, subtitle, mascot, selector and CTA', (
       tester,
     ) async {
@@ -162,25 +175,97 @@ void main() {
       expect(find.text("Jouez contre l'ordinateur"), findsOneWidget);
       expect(find.text('Nouvelle partie'), findsOneWidget);
     });
+  });
 
-    testWidgets('selector still updates difficulty when in compact mode', (
+  group('HomePage bottom navigation', () {
+    int selectedTab(WidgetTester tester) {
+      return tester
+          .widget<NavigationBar>(find.byType(NavigationBar))
+          .selectedIndex;
+    }
+
+    testWidgets('renders all three tab destinations', (tester) async {
+      await pumpHome(tester);
+
+      expect(find.byKey(const Key('home_tab_play')), findsOneWidget);
+      expect(find.byKey(const Key('home_tab_rules')), findsOneWidget);
+      expect(find.byKey(const Key('home_tab_stats')), findsOneWidget);
+      expect(find.text('Play'), findsOneWidget);
+      expect(find.text('Rules'), findsOneWidget);
+      expect(find.text('Stats'), findsOneWidget);
+    });
+
+    testWidgets('selects the Play tab by default', (tester) async {
+      await pumpHome(tester);
+
+      expect(selectedTab(tester), 0);
+    });
+
+    testWidgets('selects the Rules tab when its destination is tapped', (
       tester,
     ) async {
-      tester.view.physicalSize = const Size(390, 568);
+      await pumpHome(tester);
+
+      await tester.tap(find.byKey(const Key('home_tab_rules')));
+      await tester.pumpAndSettle();
+
+      expect(selectedTab(tester), 1);
+    });
+
+    testWidgets('selects the Stats tab when its destination is tapped', (
+      tester,
+    ) async {
+      await pumpHome(tester);
+
+      await tester.tap(find.byKey(const Key('home_tab_stats')));
+      await tester.pumpAndSettle();
+
+      expect(selectedTab(tester), 2);
+    });
+
+    testWidgets('returns to the Play tab when its destination is tapped', (
+      tester,
+    ) async {
+      await pumpHome(tester);
+
+      await tester.tap(find.byKey(const Key('home_tab_stats')));
+      await tester.pumpAndSettle();
+      expect(selectedTab(tester), 2);
+
+      await tester.tap(find.byKey(const Key('home_tab_play')));
+      await tester.pumpAndSettle();
+
+      expect(selectedTab(tester), 0);
+    });
+
+    testWidgets('Play now CTA in the Rules tab switches back to the Play tab', (
+      tester,
+    ) async {
+      tester.view.physicalSize = const Size(800, 1600);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() {
         tester.view.resetPhysicalSize();
         tester.view.resetDevicePixelRatio();
       });
 
-      final container = await pumpHome(tester);
+      await pumpHome(tester);
 
-      expect(container.read(difficultyProvider), GameDifficulty.easy);
+      await tester.tap(find.byKey(const Key('home_tab_rules')));
+      await tester.pumpAndSettle();
+      expect(selectedTab(tester), 1);
 
-      await tester.tap(find.byKey(const Key('home_difficulty_hard')));
-      await tester.pump();
+      await tester.tap(find.text('Understood, play now !'));
+      await tester.pumpAndSettle();
 
-      expect(container.read(difficultyProvider), GameDifficulty.hard);
+      expect(selectedTab(tester), 0);
+    });
+
+    testWidgets('renders localized French tab labels', (tester) async {
+      await pumpHome(tester, locale: const Locale('fr'));
+
+      expect(find.text('Jouer'), findsOneWidget);
+      expect(find.text('Règles'), findsOneWidget);
+      expect(find.text('Stats'), findsOneWidget);
     });
   });
 
