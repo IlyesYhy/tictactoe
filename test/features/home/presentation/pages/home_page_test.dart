@@ -8,6 +8,7 @@ import 'package:tictactoe/core/domain/entities/game_difficulty.dart';
 import 'package:tictactoe/features/game/di/game_providers.dart';
 import 'package:tictactoe/features/game/presentation/pages/game_page.dart';
 import 'package:tictactoe/features/home/presentation/pages/home_page.dart';
+import 'package:tictactoe/features/home/presentation/widgets/home_bottom_navigation.dart';
 import 'package:tictactoe/features/home/presentation/widgets/home_difficulty_selector.dart';
 import 'package:tictactoe/features/stats/di/stats_providers.dart';
 import 'package:tictactoe/features/stats/domain/entities/match_history.dart';
@@ -180,7 +181,7 @@ void main() {
   group('HomePage bottom navigation', () {
     int selectedTab(WidgetTester tester) {
       return tester
-          .widget<NavigationBar>(find.byType(NavigationBar))
+          .widget<HomeBottomNavigation>(find.byType(HomeBottomNavigation))
           .selectedIndex;
     }
 
@@ -201,23 +202,23 @@ void main() {
       expect(selectedTab(tester), 0);
     });
 
-    testWidgets('selects the Rules tab when its destination is tapped', (
-      tester,
-    ) async {
-      await pumpHome(tester);
-
-      await tester.tap(find.byKey(const Key('home_tab_rules')));
-      await tester.pumpAndSettle();
-
-      expect(selectedTab(tester), 1);
-    });
-
     testWidgets('selects the Stats tab when its destination is tapped', (
       tester,
     ) async {
       await pumpHome(tester);
 
       await tester.tap(find.byKey(const Key('home_tab_stats')));
+      await tester.pumpAndSettle();
+
+      expect(selectedTab(tester), 1);
+    });
+
+    testWidgets('selects the Rules tab when its destination is tapped', (
+      tester,
+    ) async {
+      await pumpHome(tester);
+
+      await tester.tap(find.byKey(const Key('home_tab_rules')));
       await tester.pumpAndSettle();
 
       expect(selectedTab(tester), 2);
@@ -230,7 +231,7 @@ void main() {
 
       await tester.tap(find.byKey(const Key('home_tab_stats')));
       await tester.pumpAndSettle();
-      expect(selectedTab(tester), 2);
+      expect(selectedTab(tester), 1);
 
       await tester.tap(find.byKey(const Key('home_tab_play')));
       await tester.pumpAndSettle();
@@ -252,7 +253,7 @@ void main() {
 
       await tester.tap(find.byKey(const Key('home_tab_rules')));
       await tester.pumpAndSettle();
-      expect(selectedTab(tester), 1);
+      expect(selectedTab(tester), 2);
 
       await tester.tap(find.text('Understood, play now !'));
       await tester.pumpAndSettle();
