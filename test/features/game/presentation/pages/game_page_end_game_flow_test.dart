@@ -2,6 +2,7 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tictactoe/app/integrations/game_stats_providers.dart';
 import 'package:tictactoe/app/theme/app_theme.dart';
 import 'package:tictactoe/features/game/di/game_providers.dart';
 import 'package:tictactoe/features/game/domain/entities/board.dart';
@@ -9,16 +10,25 @@ import 'package:tictactoe/features/game/domain/entities/cell.dart';
 import 'package:tictactoe/features/game/domain/repositories/cpu_repository.dart';
 import 'package:tictactoe/features/game/presentation/pages/game_page.dart';
 import 'package:tictactoe/features/game/presentation/widgets/game_cell.dart';
+import 'package:tictactoe/features/game/presentation/widgets/restart_game_button.dart';
 import 'package:tictactoe/features/settings/di/settings_providers.dart';
 import 'package:tictactoe/features/settings/domain/entities/app_language.dart';
 import 'package:tictactoe/features/settings/domain/entities/app_settings.dart';
 import 'package:tictactoe/features/settings/domain/entities/app_theme_mode.dart';
+import 'package:tictactoe/features/stats/di/stats_providers.dart';
+import 'package:tictactoe/features/stats/domain/entities/completed_match.dart';
+import 'package:tictactoe/features/stats/domain/entities/match_history.dart';
+import 'package:tictactoe/features/stats/domain/entities/match_outcome.dart';
+import 'package:tictactoe/features/stats/domain/repositories/stats_repository.dart';
 import 'package:tictactoe/l10n/app_localizations.dart';
 
 void main() {
   const turnSettleDuration = Duration(milliseconds: 100);
 
-  ProviderContainer createContainer({required CpuRepository cpuRepository}) {
+  ProviderContainer createContainer({
+    required CpuRepository cpuRepository,
+    StatsRepository? statsRepository,
+  }) {
     final container = ProviderContainer(
       overrides: [
         cpuRepositoryProvider.overrideWith((ref, difficulty) => cpuRepository),
@@ -28,6 +38,12 @@ void main() {
             language: AppLanguage.en,
             themeMode: AppThemeMode.system,
           ),
+        ),
+        statsRepositoryProvider.overrideWithValue(
+          statsRepository ?? _NoopStatsRepository(),
+        ),
+        currentDateTimeProvider.overrideWithValue(
+          () => DateTime(2026, 5, 27, 12),
         ),
       ],
     );
@@ -128,7 +144,129 @@ void main() {
 
       expect(find.byType(ConfettiWidget), findsNothing);
     });
+
+    testWidgets('records a humanWon match when the human wins', (tester) async {
+      final statsRepository = _RecordingStatsRepository();
+      final container = createContainer(
+        cpuRepository: const _SequenceCpuRepository([3, 6]),
+        statsRepository: statsRepository,
+      );
+
+      await pumpGamePage(tester, container);
+
+      await tapCell(tester, 0);
+      await tapCell(tester, 4);
+      await tapCell(tester, 8);
+
+      expect(statsRepository.savedMatches.length, 1);
+      expect(
+        statsRepository.savedMatches.single.outcome,
+        MatchOutcome.humanWon,
+      );
+    });
+
+    testWidgets('records a cpuWon match when the CPU wins', (tester) async {
+      final statsRepository = _RecordingStatsRepository();
+      final container = createContainer(
+        cpuRepository: const _SequenceCpuRepository([0, 1, 2]),
+        statsRepository: statsRepository,
+      );
+
+      await pumpGamePage(tester, container);
+
+      await tapCell(tester, 3);
+      await tapCell(tester, 4);
+      await tapCell(tester, 8);
+
+      expect(statsRepository.savedMatches.length, 1);
+      expect(statsRepository.savedMatches.single.outcome, MatchOutcome.cpuWon);
+    });
+
+    testWidgets('records a draw match when the game ends in a draw', (
+      tester,
+    ) async {
+      final statsRepository = _RecordingStatsRepository();
+      final container = createContainer(
+        cpuRepository: const _SequenceCpuRepository([4, 1, 6, 8]),
+        statsRepository: statsRepository,
+      );
+
+      await pumpGamePage(tester, container);
+
+      await tapCell(tester, 0);
+      await tapCell(tester, 2);
+      await tapCell(tester, 3);
+      await tapCell(tester, 7);
+      await tapCell(tester, 5);
+
+      expect(statsRepository.savedMatches.length, 1);
+      expect(statsRepository.savedMatches.single.outcome, MatchOutcome.draw);
+    });
+
+    testWidgets('does not record while the game is still in progress', (
+      tester,
+    ) async {
+      final statsRepository = _RecordingStatsRepository();
+      final container = createContainer(
+        cpuRepository: const _SequenceCpuRepository([3, 6]),
+        statsRepository: statsRepository,
+      );
+
+      await pumpGamePage(tester, container);
+
+      // Only one human move + CPU reply, game stays in progress.
+      await tapCell(tester, 0);
+
+      expect(statsRepository.savedMatches, isEmpty);
+    });
+
+    testWidgets(
+      'does not record a second time after restarting a finished match',
+      (tester) async {
+        final statsRepository = _RecordingStatsRepository();
+        final container = createContainer(
+          cpuRepository: const _SequenceCpuRepository([3, 6]),
+          statsRepository: statsRepository,
+        );
+
+        await pumpGamePage(tester, container);
+
+        await tapCell(tester, 0);
+        await tapCell(tester, 4);
+        await tapCell(tester, 8);
+
+        expect(statsRepository.savedMatches.length, 1);
+
+        // Restart: result transitions from GameWinner back to GameInProgress.
+        // The listener must skip because the new state is no longer finished.
+        await tester.tap(find.byType(RestartGameButton));
+        await tester.pump();
+        await tester.pump(turnSettleDuration);
+
+        expect(statsRepository.savedMatches.length, 1);
+      },
+    );
   });
+}
+
+final class _NoopStatsRepository implements StatsRepository {
+  @override
+  Future<MatchHistory> getMatchHistory() async => MatchHistory.empty();
+
+  @override
+  Future<void> recordMatch(CompletedMatch match) async {}
+}
+
+final class _RecordingStatsRepository implements StatsRepository {
+  final savedMatches = <CompletedMatch>[];
+
+  @override
+  Future<MatchHistory> getMatchHistory() async => MatchHistory(savedMatches);
+
+  @override
+  Future<void> recordMatch(CompletedMatch match) async {
+    savedMatches.add(match);
+  }
 }
 
 final class _SequenceCpuRepository implements CpuRepository {
