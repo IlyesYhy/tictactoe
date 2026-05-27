@@ -22,30 +22,30 @@ class HomePlayTab extends ConsumerWidget {
   static const _compactBreakpoint = 700.0;
 
   static const _regularTopSpacing = 48.0;
-  static const _compactTopSpacing = 20.0;
+  static const _compactTopSpacing = 12.0;
 
   static const _titleSubtitleGap = 8.0;
 
   static const _regularSubtitleHeroGap = 24.0;
-  static const _compactSubtitleHeroGap = 14.0;
+  static const _compactSubtitleHeroGap = 8.0;
 
   static const _regularHeroHeight = 230.0;
-  static const _compactHeroHeight = 170.0;
+  static const _compactHeroHeight = 140.0;
 
   static const _regularRobotSize = 180.0;
-  static const _compactRobotSize = 140.0;
+  static const _compactRobotSize = 118.0;
 
   static const _regularSelectorGap = 28.0;
-  static const _compactSelectorGap = 20.0;
+  static const _compactSelectorGap = 14.0;
 
   static const _regularCtaGap = 32.0;
-  static const _compactCtaGap = 24.0;
+  static const _compactCtaGap = 16.0;
 
   static const _regularButtonHeight = 62.0;
   static const _compactButtonHeight = 56.0;
 
   static const _regularBottomSpacing = 32.0;
-  static const _compactBottomSpacing = 20.0;
+  static const _compactBottomSpacing = 88.0;
 
   static const _buttonRadius = 18.0;
 
