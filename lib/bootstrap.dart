@@ -6,11 +6,14 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app/app.dart';
+import 'core/di/shared_preferences_provider.dart';
 import 'features/settings/data/repositories/local_settings_repository.dart';
 import 'features/settings/di/settings_providers.dart';
 import 'features/settings/domain/entities/app_language.dart';
 import 'features/settings/domain/entities/app_settings.dart';
 import 'features/settings/domain/entities/app_theme_mode.dart';
+import 'features/stats/data/repositories/local_stats_repository.dart';
+import 'features/stats/di/stats_providers.dart';
 
 Future<void> bootstrap() {
   return runZonedGuarded(
@@ -22,14 +25,20 @@ Future<void> bootstrap() {
           };
 
           final sharedPreferences = await SharedPreferences.getInstance();
-          final repository = LocalSettingsRepository(sharedPreferences);
 
+          final settingsRepository = LocalSettingsRepository(sharedPreferences);
           final initialSettings = AppSettings(
-            language: (await repository.getLanguage()) ?? AppLanguage.en,
-            themeMode: (await repository.getThemeMode()) ?? AppThemeMode.system,
+            language:
+                (await settingsRepository.getLanguage()) ?? AppLanguage.en,
+            themeMode:
+                (await settingsRepository.getThemeMode()) ??
+                AppThemeMode.system,
             isHapticFeedbackEnabled:
-                (await repository.getHapticFeedback()) ?? true,
+                (await settingsRepository.getHapticFeedback()) ?? true,
           );
+
+          final statsRepository = LocalStatsRepository(sharedPreferences);
+          final initialMatchHistory = await statsRepository.getMatchHistory();
 
           final packageInfo = await PackageInfo.fromPlatform();
 
@@ -38,6 +47,9 @@ Future<void> bootstrap() {
               overrides: [
                 sharedPreferencesProvider.overrideWithValue(sharedPreferences),
                 initialSettingsProvider.overrideWithValue(initialSettings),
+                initialMatchHistoryProvider.overrideWithValue(
+                  initialMatchHistory,
+                ),
                 packageInfoProvider.overrideWithValue(packageInfo),
               ],
               child: const App(),
