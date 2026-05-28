@@ -8,7 +8,7 @@ import 'package:tictactoe/features/stats/domain/entities/game_statistics.dart';
 import 'package:tictactoe/features/stats/presentation/controllers/stats_controller.dart';
 import 'package:tictactoe/features/stats/presentation/widgets/difficulty_stats_card.dart';
 import 'package:tictactoe/features/stats/presentation/widgets/match_history_tile.dart';
-import 'package:tictactoe/features/stats/presentation/widgets/stats_hero_card.dart';
+import 'package:tictactoe/features/stats/presentation/widgets/stats_hero.dart';
 import 'package:tictactoe/features/stats/presentation/widgets/stats_section_title.dart';
 import 'package:tictactoe/features/stats/presentation/widgets/stats_summary_card.dart';
 
@@ -24,7 +24,7 @@ class StatsPage extends ConsumerWidget {
 
   static const _horizontalPadding = 16.0;
   static const _verticalPadding = 16.0;
-  static const _bottomPadding = 32.0;
+  static const _bottomPadding = 64.0;
   static const _sectionGap = 18.0;
   static const _headerGap = 12.0;
   static const _tileGap = 8.0;
@@ -77,7 +77,7 @@ class StatsPage extends ConsumerWidget {
                   case _heroIndex:
                     return Padding(
                       padding: const EdgeInsets.only(bottom: _sectionGap),
-                      child: StatsHeroCard(stats: stats),
+                      child: StatsHero(stats: stats),
                     );
 
                   case _summaryIndex:

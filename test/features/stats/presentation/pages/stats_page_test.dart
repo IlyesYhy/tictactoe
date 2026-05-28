@@ -10,7 +10,7 @@ import 'package:tictactoe/features/stats/domain/entities/match_outcome.dart';
 import 'package:tictactoe/features/stats/presentation/pages/stats_page.dart';
 import 'package:tictactoe/features/stats/presentation/widgets/difficulty_stats_card.dart';
 import 'package:tictactoe/features/stats/presentation/widgets/match_history_tile.dart';
-import 'package:tictactoe/features/stats/presentation/widgets/stats_hero_card.dart';
+import 'package:tictactoe/features/stats/presentation/widgets/stats_hero.dart';
 import 'package:tictactoe/features/stats/presentation/widgets/stats_summary_card.dart';
 import 'package:tictactoe/l10n/app_localizations.dart';
 
@@ -62,7 +62,7 @@ void main() {
         find.text('Play your first match to see your stats here.'),
         findsOneWidget,
       );
-      expect(find.byType(StatsHeroCard), findsNothing);
+      expect(find.byType(StatsHero), findsNothing);
       expect(find.byType(StatsSummaryCard), findsNothing);
       expect(find.byType(DifficultyStatsCard), findsNothing);
     });
@@ -80,7 +80,7 @@ void main() {
           ]),
         );
 
-        expect(find.byType(StatsHeroCard), findsOneWidget);
+        expect(find.byType(StatsHero), findsOneWidget);
         expect(find.byType(StatsSummaryCard), findsOneWidget);
         expect(find.text('Results by difficulty'), findsOneWidget);
         expect(find.byType(DifficultyStatsCard), findsNWidgets(2));
@@ -155,8 +155,9 @@ void main() {
       final secondTop = tester.getTopLeft(cards.last).dy;
 
       expect(firstTop, lessThan(secondTop));
-    });
 
+      expect(tester.takeException(), isNull);
+    });
     testWidgets('renders French copy under fr locale', (tester) async {
       await pumpStatsPage(
         tester,
