@@ -9,9 +9,14 @@ import '../../domain/entities/match_outcome.dart';
 import '../../domain/repositories/stats_repository.dart';
 
 final class LocalStatsRepository implements StatsRepository {
-  const LocalStatsRepository(this._preferences);
+  LocalStatsRepository(this._preferences);
 
   final SharedPreferences _preferences;
+
+  // Serializes writes so concurrent record calls cannot drop an entry: each
+  // recordMatch runs its read-modify-write only after the previous write has
+  // completed.
+  Future<void> _writeChain = Future<void>.value();
 
   static const _matchHistoryKey = 'stats.match_history';
 
@@ -33,7 +38,15 @@ final class LocalStatsRepository implements StatsRepository {
   }
 
   @override
-  Future<void> recordMatch(CompletedMatch match) async {
+  Future<void> recordMatch(CompletedMatch match) {
+    final write = _writeChain.then((_) => _appendMatch(match));
+    // Keep the chain healthy after a failed write, while still surfacing the
+    // error to this caller through the returned future.
+    _writeChain = write.catchError((_) {});
+    return write;
+  }
+
+  Future<void> _appendMatch(CompletedMatch match) async {
     final current = await getMatchHistory();
     final updated = [...current.matches, match];
     final encoded = jsonEncode(updated.map(_toMap).toList());

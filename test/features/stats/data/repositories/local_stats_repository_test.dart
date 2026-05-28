@@ -59,6 +59,33 @@ void main() {
       expect(history.matches, [first, second]);
     });
 
+    test(
+      'serializes concurrent recordMatch calls without dropping an entry',
+      () async {
+        final repository = await createRepository();
+        final first = CompletedMatch(
+          outcome: MatchOutcome.humanWon,
+          difficulty: GameDifficulty.easy,
+          playedAt: DateTime(2026, 5, 27, 10),
+        );
+        final second = CompletedMatch(
+          outcome: MatchOutcome.cpuWon,
+          difficulty: GameDifficulty.hard,
+          playedAt: DateTime(2026, 5, 27, 11),
+        );
+
+        // Fire both writes without awaiting the first to verify the repository
+        // serializes its read-modify-write operations.
+        await Future.wait([
+          repository.recordMatch(first),
+          repository.recordMatch(second),
+        ]);
+
+        final history = await repository.getMatchHistory();
+        expect(history.matches, [first, second]);
+      },
+    );
+
     test('returns an empty history when persisted JSON is invalid', () async {
       final repository = await createRepository({
         'stats.match_history': 'not-json',
