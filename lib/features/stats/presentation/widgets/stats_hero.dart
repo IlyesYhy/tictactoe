@@ -174,12 +174,6 @@ class _OutcomeLegend extends StatelessWidget {
 
   static const _itemGap = 8.0;
 
-  int _percentFor(int count) {
-    final total = stats.totalMatches;
-    if (total == 0) return 0;
-    return (count / total * 100).round();
-  }
-
   @override
   Widget build(BuildContext context) {
     final victory = statsOutcomeStyleOf(context, MatchOutcome.humanWon);
@@ -194,19 +188,19 @@ class _OutcomeLegend extends StatelessWidget {
         _LegendItem(
           icon: victory.icon,
           color: victory.color,
-          percent: _percentFor(stats.victories),
+          percent: stats.victoryPercentage,
         ),
         const SizedBox(height: _itemGap),
         _LegendItem(
           icon: draw.icon,
           color: draw.color,
-          percent: _percentFor(stats.draws),
+          percent: stats.drawPercentage,
         ),
         const SizedBox(height: _itemGap),
         _LegendItem(
           icon: defeat.icon,
           color: defeat.color,
-          percent: _percentFor(stats.defeats),
+          percent: stats.defeatPercentage,
         ),
       ],
     );

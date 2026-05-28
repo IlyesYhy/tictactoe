@@ -18,6 +18,15 @@ final class GameStatistics extends Equatable {
 
   double get winRate => totalMatches == 0 ? 0.0 : victories / totalMatches;
 
+  int get victoryPercentage => _percentageOf(victories);
+
+  int get drawPercentage => _percentageOf(draws);
+
+  int get defeatPercentage => _percentageOf(defeats);
+
+  int _percentageOf(int count) =>
+      totalMatches == 0 ? 0 : ((count / totalMatches) * 100).round();
+
   @override
   List<Object?> get props => [victories, defeats, draws];
 }
