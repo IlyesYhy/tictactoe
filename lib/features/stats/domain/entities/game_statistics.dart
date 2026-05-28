@@ -1,5 +1,9 @@
 import 'package:equatable/equatable.dart';
 
+/// Aggregated match counters and the percentages derived from them.
+///
+/// Percentages are exposed here, in the domain, so presentation widgets render
+/// statistics without re-deriving them, keeping the math in one tested place.
 final class GameStatistics extends Equatable {
   const GameStatistics({
     required this.victories,

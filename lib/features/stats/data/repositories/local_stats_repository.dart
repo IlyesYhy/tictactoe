@@ -8,6 +8,11 @@ import '../../domain/entities/match_history.dart';
 import '../../domain/entities/match_outcome.dart';
 import '../../domain/repositories/stats_repository.dart';
 
+/// Persists the match history (and the statistics derived from it) in local
+/// device storage via [SharedPreferences].
+///
+/// Writes are serialized so two concurrent record calls cannot interleave their
+/// read-modify-write and silently drop a match.
 final class LocalStatsRepository implements StatsRepository {
   LocalStatsRepository(this._preferences);
 

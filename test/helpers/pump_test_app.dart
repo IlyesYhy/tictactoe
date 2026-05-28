@@ -9,6 +9,9 @@ import 'package:tictactoe/features/settings/domain/entities/app_theme_mode.dart'
 import 'package:tictactoe/l10n/app_localizations.dart';
 
 extension PumpTestApp on WidgetTester {
+  /// Pumps [child] inside a production-like shell: real localization delegates,
+  /// the light [AppTheme], and a [ProviderScope]. Locale and initial settings
+  /// can be overridden per test.
   Future<void> pumpTestApp(
     Widget child, {
     Locale locale = const Locale('en'),
