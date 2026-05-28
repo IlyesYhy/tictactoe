@@ -41,25 +41,38 @@ class DonutTotalChart extends StatelessWidget {
               strokeWidth: strokeWidth,
             ),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                '${stats.totalMatches}',
-                style: context.textTheme.displaySmall?.copyWith(
-                  fontWeight: FontWeight.w900,
-                  height: 1,
+          SizedBox.square(
+            dimension: size - (strokeWidth * 2),
+            child: Center(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      '${stats.totalMatches}',
+                      textAlign: TextAlign.center,
+                      style: context.textTheme.displaySmall?.copyWith(
+                        fontWeight: FontWeight.w900,
+                        height: 0.95,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      context.l10n.statsMatchCount(stats.totalMatches),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: context.textTheme.titleSmall?.copyWith(
+                        color: context.colorScheme.primary,
+                        fontWeight: FontWeight.w800,
+                        height: 1,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 4),
-              Text(
-                context.l10n.statsMatchesLabel,
-                style: context.textTheme.titleSmall?.copyWith(
-                  color: context.colorScheme.primary,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-            ],
+            ),
           ),
         ],
       ),

@@ -380,23 +380,23 @@ abstract class AppLocalizations {
   /// **'Statistics'**
   String get statsTitle;
 
-  /// Counter label for matches won by the human player.
+  /// Pluralized counter label for matches won by the human player.
   ///
   /// In en, this message translates to:
-  /// **'Victories'**
-  String get statsVictories;
+  /// **'{count, plural, =1{Victory} other{Victories}}'**
+  String statsVictoryCount(int count);
 
-  /// Counter label for matches won by the CPU.
+  /// Pluralized counter label for matches won by the CPU.
   ///
   /// In en, this message translates to:
-  /// **'Defeats'**
-  String get statsDefeats;
+  /// **'{count, plural, =1{Defeat} other{Defeats}}'**
+  String statsDefeatCount(int count);
 
-  /// Counter label for matches that ended in a draw.
+  /// Pluralized counter label for matches that ended in a draw.
   ///
   /// In en, this message translates to:
-  /// **'Draws'**
-  String get statsDraws;
+  /// **'{count, plural, =1{Draw} other{Draws}}'**
+  String statsDrawCount(int count);
 
   /// Label for the total number of recorded matches.
   ///
@@ -476,11 +476,11 @@ abstract class AppLocalizations {
   /// **'Results by difficulty'**
   String get statsByDifficulty;
 
-  /// Short label rendered under the total match count, for example inside the donut chart.
+  /// Pluralized label rendered under the total match count, for example inside the donut chart.
   ///
   /// In en, this message translates to:
-  /// **'Matches'**
-  String get statsMatchesLabel;
+  /// **'{count, plural, =0{Matches} =1{Match} other{Matches}}'**
+  String statsMatchCount(int count);
 }
 
 class _AppLocalizationsDelegate

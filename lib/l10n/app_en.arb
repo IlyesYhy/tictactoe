@@ -193,17 +193,32 @@
   "@statsTitle": {
     "description": "AppBar title on the statistics page."
   },
-  "statsVictories": "Victories",
-  "@statsVictories": {
-    "description": "Counter label for matches won by the human player."
+  "statsVictoryCount": "{count, plural, =1{Victory} other{Victories}}",
+  "@statsVictoryCount": {
+    "description": "Pluralized counter label for matches won by the human player.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
-  "statsDefeats": "Defeats",
-  "@statsDefeats": {
-    "description": "Counter label for matches won by the CPU."
+  "statsDefeatCount": "{count, plural, =1{Defeat} other{Defeats}}",
+  "@statsDefeatCount": {
+    "description": "Pluralized counter label for matches won by the CPU.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
-  "statsDraws": "Draws",
-  "@statsDraws": {
-    "description": "Counter label for matches that ended in a draw."
+  "statsDrawCount": "{count, plural, =1{Draw} other{Draws}}",
+  "@statsDrawCount": {
+    "description": "Pluralized counter label for matches that ended in a draw.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "statsTotalMatches": "Total matches",
   "@statsTotalMatches": {
@@ -257,8 +272,13 @@
   "@statsByDifficulty": {
     "description": "Section title above the per-difficulty stats cards on the statistics page."
   },
-  "statsMatchesLabel": "Matches",
-  "@statsMatchesLabel": {
-    "description": "Short label rendered under the total match count, for example inside the donut chart."
+  "statsMatchCount": "{count, plural, =0{Matches} =1{Match} other{Matches}}",
+  "@statsMatchCount": {
+    "description": "Pluralized label rendered under the total match count, for example inside the donut chart.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

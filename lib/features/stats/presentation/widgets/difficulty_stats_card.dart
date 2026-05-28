@@ -25,9 +25,7 @@ class DifficultyStatsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isEasy = difficulty == GameDifficulty.easy;
     final l10n = context.l10n;
-    final color = isEasy
-        ? context.colorScheme.primary
-        : context.colorScheme.onSurfaceVariant;
+    final color = context.colorScheme.onSurfaceVariant;
     final label = isEasy ? l10n.difficultyEasy : l10n.difficultyHard;
     final icon = isEasy
         ? Icons.sentiment_satisfied_rounded
@@ -65,16 +63,16 @@ class DifficultyStatsCard extends StatelessWidget {
                   child: _MiniOutcomeStat(
                     icon: Icons.emoji_events_outlined,
                     value: stats.victories,
-                    label: l10n.statsVictories,
+                    label: l10n.statsVictoryCount(stats.victories),
                     color: context.colorScheme.primary,
                   ),
                 ),
                 const _VerticalSeparator(height: _separatorHeight),
                 Expanded(
                   child: _MiniOutcomeStat(
-                    icon: Icons.remove_rounded,
+                    icon: Icons.handshake_outlined,
                     value: stats.draws,
-                    label: l10n.statsDraws,
+                    label: l10n.statsDrawCount(stats.draws),
                     color: context.colorScheme.onSurfaceVariant,
                   ),
                 ),
@@ -83,7 +81,7 @@ class DifficultyStatsCard extends StatelessWidget {
                   child: _MiniOutcomeStat(
                     icon: Icons.close_rounded,
                     value: stats.defeats,
-                    label: l10n.statsDefeats,
+                    label: l10n.statsDefeatCount(stats.defeats),
                     color: context.colorScheme.error,
                   ),
                 ),

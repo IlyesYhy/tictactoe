@@ -47,9 +47,9 @@
   "settingsPlayerName": "Nom du joueur",
   "settingsPreferredSymbol": "Symbole préféré",
   "statsTitle": "Statistiques",
-  "statsVictories": "Victoires",
-  "statsDefeats": "Défaites",
-  "statsDraws": "Nuls",
+  "statsVictoryCount": "{count, plural, =1{Victoire} other{Victoires}}",
+  "statsDefeatCount": "{count, plural, =1{Défaite} other{Défaites}}",
+  "statsDrawCount": "{count, plural, =1{Nul} other{Nuls}}",
   "statsTotalMatches": "Parties jouées",
   "statsWinRate": "Taux de victoire",
   "statsEmpty": "Jouez votre première partie pour voir vos statistiques ici.",
@@ -63,5 +63,5 @@
   "matchOutcomeDefeat": "Défaite",
   "matchOutcomeDraw": "Match nul",
   "statsByDifficulty": "Résultats par difficulté",
-  "statsMatchesLabel": "Parties"
+  "statsMatchCount": "{count, plural, =0{Parties} =1{Partie} other{Parties}}"
 }

@@ -155,13 +155,37 @@ class AppLocalizationsEn extends AppLocalizations {
   String get statsTitle => 'Statistics';
 
   @override
-  String get statsVictories => 'Victories';
+  String statsVictoryCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Victories',
+      one: 'Victory',
+    );
+    return '$_temp0';
+  }
 
   @override
-  String get statsDefeats => 'Defeats';
+  String statsDefeatCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Defeats',
+      one: 'Defeat',
+    );
+    return '$_temp0';
+  }
 
   @override
-  String get statsDraws => 'Draws';
+  String statsDrawCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Draws',
+      one: 'Draw',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get statsTotalMatches => 'Total matches';
@@ -203,5 +227,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get statsByDifficulty => 'Results by difficulty';
 
   @override
-  String get statsMatchesLabel => 'Matches';
+  String statsMatchCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Matches',
+      one: 'Match',
+      zero: 'Matches',
+    );
+    return '$_temp0';
+  }
 }
