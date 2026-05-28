@@ -80,6 +80,91 @@ void main() {
     });
   });
 
+  group('MatchHistoryTile outcome label (fr)', () {
+    testWidgets('shows Victoire for human win', (tester) async {
+      await pumpTile(
+        tester,
+        locale: const Locale('fr'),
+        match: buildMatch(
+          outcome: MatchOutcome.humanWon,
+          playedAt: DateTime(2026, 5, 28, 12),
+        ),
+        now: DateTime(2026, 5, 28, 13),
+      );
+
+      expect(find.text('Victoire'), findsOneWidget);
+    });
+
+    testWidgets('shows Défaite for CPU win', (tester) async {
+      await pumpTile(
+        tester,
+        locale: const Locale('fr'),
+        match: buildMatch(
+          outcome: MatchOutcome.cpuWon,
+          playedAt: DateTime(2026, 5, 28, 12),
+        ),
+        now: DateTime(2026, 5, 28, 13),
+      );
+
+      expect(find.text('Défaite'), findsOneWidget);
+    });
+
+    testWidgets('shows Match nul for draw', (tester) async {
+      await pumpTile(
+        tester,
+        locale: const Locale('fr'),
+        match: buildMatch(
+          outcome: MatchOutcome.draw,
+          playedAt: DateTime(2026, 5, 28, 12),
+        ),
+        now: DateTime(2026, 5, 28, 13),
+      );
+
+      expect(find.text('Match nul'), findsOneWidget);
+    });
+  });
+
+  group('MatchHistoryTile outcome icon', () {
+    testWidgets('shows the trophy icon for a victory', (tester) async {
+      await pumpTile(
+        tester,
+        match: buildMatch(
+          outcome: MatchOutcome.humanWon,
+          playedAt: DateTime(2026, 5, 28, 12),
+        ),
+        now: DateTime(2026, 5, 28, 13),
+      );
+
+      expect(find.byIcon(Icons.emoji_events_outlined), findsOneWidget);
+    });
+
+    testWidgets('shows the close icon for a defeat', (tester) async {
+      await pumpTile(
+        tester,
+        match: buildMatch(
+          outcome: MatchOutcome.cpuWon,
+          playedAt: DateTime(2026, 5, 28, 12),
+        ),
+        now: DateTime(2026, 5, 28, 13),
+      );
+
+      expect(find.byIcon(Icons.close_rounded), findsOneWidget);
+    });
+
+    testWidgets('shows the handshake icon for a draw', (tester) async {
+      await pumpTile(
+        tester,
+        match: buildMatch(
+          outcome: MatchOutcome.draw,
+          playedAt: DateTime(2026, 5, 28, 12),
+        ),
+        now: DateTime(2026, 5, 28, 13),
+      );
+
+      expect(find.byIcon(Icons.handshake_outlined), findsOneWidget);
+    });
+  });
+
   group('MatchHistoryTile difficulty label', () {
     testWidgets('shows Easy label for easy difficulty', (tester) async {
       await pumpTile(
@@ -162,6 +247,45 @@ void main() {
       );
 
       expect(find.text("Aujourd'hui, 17:42"), findsOneWidget);
+    });
+
+    testWidgets('respects French locale for the Yesterday label', (
+      tester,
+    ) async {
+      await pumpTile(
+        tester,
+        locale: const Locale('fr'),
+        match: buildMatch(playedAt: DateTime(2026, 5, 27, 9, 5)),
+        now: DateTime(2026, 5, 28, 10, 0),
+      );
+
+      expect(find.text('Hier, 09:05'), findsOneWidget);
+    });
+
+    testWidgets('respects French locale for an older same-year match', (
+      tester,
+    ) async {
+      await pumpTile(
+        tester,
+        locale: const Locale('fr'),
+        match: buildMatch(playedAt: DateTime(2026, 3, 15, 9, 5)),
+        now: DateTime(2026, 5, 28, 10, 0),
+      );
+
+      expect(find.text('15 mars'), findsOneWidget);
+    });
+
+    testWidgets('respects French locale for a prior-year match', (
+      tester,
+    ) async {
+      await pumpTile(
+        tester,
+        locale: const Locale('fr'),
+        match: buildMatch(playedAt: DateTime(2024, 3, 15, 9, 5)),
+        now: DateTime(2026, 5, 28, 10, 0),
+      );
+
+      expect(find.text('15 mars 2024'), findsOneWidget);
     });
   });
 }

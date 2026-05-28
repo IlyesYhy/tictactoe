@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tictactoe/app/theme/app_theme.dart';
 import 'package:tictactoe/core/di/current_date_time_provider.dart';
+import 'package:tictactoe/core/domain/entities/game_difficulty.dart';
 import 'package:tictactoe/features/game/di/game_providers.dart';
 import 'package:tictactoe/features/game/domain/entities/board.dart';
 import 'package:tictactoe/features/game/domain/entities/cell.dart';
@@ -160,10 +161,12 @@ void main() {
       await tapCell(tester, 8);
 
       expect(statsRepository.savedMatches.length, 1);
-      expect(
-        statsRepository.savedMatches.single.outcome,
-        MatchOutcome.humanWon,
-      );
+      final recorded = statsRepository.savedMatches.single;
+      expect(recorded.outcome, MatchOutcome.humanWon);
+      // The recorded match carries the current difficulty (default easy) and
+      // the timestamp from the injected clock.
+      expect(recorded.difficulty, GameDifficulty.easy);
+      expect(recorded.playedAt, DateTime(2026, 5, 27, 12));
     });
 
     testWidgets('records a cpuWon match when the CPU wins', (tester) async {
@@ -222,7 +225,7 @@ void main() {
     });
 
     testWidgets(
-      'does not record a second time after restarting a finished match',
+      'does not record again when restarting after a finished match',
       (tester) async {
         final statsRepository = _RecordingStatsRepository();
         final container = createContainer(

@@ -116,5 +116,33 @@ void main() {
 
       expect(history.matches, isEmpty);
     });
+
+    test('skips entries that are not a JSON object', () async {
+      final repository = await createRepository({
+        'stats.match_history':
+            '["just-a-string",42,'
+            '{"outcome":"humanWon","difficulty":"easy","playedAt":"2026-05-27T10:00:00.000"}]',
+      });
+
+      final history = await repository.getMatchHistory();
+
+      expect(history.matches.length, 1);
+      expect(history.matches.single.outcome, MatchOutcome.humanWon);
+    });
+
+    test('keeps only the valid entries in a mixed list', () async {
+      final repository = await createRepository({
+        'stats.match_history':
+            '[{"outcome":"unknown","difficulty":"easy","playedAt":"2026-05-27T10:00:00.000"},'
+            '{"outcome":"humanWon","difficulty":"hard","playedAt":"bad-date"},'
+            '{"outcome":"draw","difficulty":"easy","playedAt":"2026-05-27T12:00:00.000"}]',
+      });
+
+      final history = await repository.getMatchHistory();
+
+      expect(history.matches.length, 1);
+      expect(history.matches.single.outcome, MatchOutcome.draw);
+      expect(history.matches.single.difficulty, GameDifficulty.easy);
+    });
   });
 }

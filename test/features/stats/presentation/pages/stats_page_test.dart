@@ -19,6 +19,7 @@ void main() {
     WidgetTester tester, {
     required MatchHistory history,
     Locale locale = const Locale('en'),
+    ScrollController? scrollController,
   }) async {
     await tester.pumpWidget(
       ProviderScope(
@@ -28,7 +29,7 @@ void main() {
           locale: locale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          home: const StatsPage(),
+          home: StatsPage(scrollController: scrollController),
         ),
       ),
     );
@@ -187,6 +188,74 @@ void main() {
 
       expect(find.text('Résultats par difficulté'), findsOneWidget);
       expect(find.text('Historique'), findsOneWidget);
+    });
+
+    testWidgets('renders the global counters, total and percentages', (
+      tester,
+    ) async {
+      useTallViewport(tester);
+
+      // 3 victories, 2 defeats, 1 draw -> total 6, 50% / 33% / 17%.
+      await pumpStatsPage(
+        tester,
+        history: MatchHistory([
+          buildMatch(MatchOutcome.humanWon),
+          buildMatch(MatchOutcome.humanWon),
+          buildMatch(MatchOutcome.humanWon),
+          buildMatch(MatchOutcome.cpuWon),
+          buildMatch(MatchOutcome.cpuWon),
+          buildMatch(MatchOutcome.draw),
+        ]),
+      );
+
+      final summary = find.byType(StatsSummaryCard);
+      expect(
+        find.descendant(of: summary, matching: find.text('3')),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(of: summary, matching: find.text('2')),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(of: summary, matching: find.text('1')),
+        findsOneWidget,
+      );
+
+      final hero = find.byType(StatsHero);
+      expect(
+        find.descendant(of: hero, matching: find.text('6')),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(of: hero, matching: find.text('50%')),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(of: hero, matching: find.text('33%')),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(of: hero, matching: find.text('17%')),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('accepts an optional scroll controller without breaking', (
+      tester,
+    ) async {
+      final controller = ScrollController();
+      addTearDown(controller.dispose);
+
+      await pumpStatsPage(
+        tester,
+        history: MatchHistory([buildMatch(MatchOutcome.humanWon)]),
+        scrollController: controller,
+      );
+
+      expect(tester.takeException(), isNull);
+      expect(find.byType(StatsHero), findsOneWidget);
+      expect(controller.hasClients, isTrue);
     });
   });
 }

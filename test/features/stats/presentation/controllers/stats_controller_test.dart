@@ -67,6 +67,27 @@ void main() {
     );
 
     test(
+      'addMatch appends to an existing history without overwriting',
+      () async {
+        final existing = CompletedMatch(
+          outcome: MatchOutcome.draw,
+          difficulty: GameDifficulty.hard,
+          playedAt: DateTime(2026, 5, 26, 9),
+        );
+        final container = createContainer(initial: MatchHistory([existing]));
+
+        await container
+            .read(statsControllerProvider.notifier)
+            .addMatch(sampleMatch);
+
+        expect(container.read(statsControllerProvider).matches, [
+          existing,
+          sampleMatch,
+        ]);
+      },
+    );
+
+    test(
       'addMatch leaves the state untouched when the repository throws',
       () async {
         final container = createContainer(
@@ -83,6 +104,15 @@ void main() {
         expect(container.read(statsControllerProvider).matches, isEmpty);
       },
     );
+
+    test('addMatch propagates repository errors to the caller', () async {
+      final container = createContainer(repository: _ThrowingStatsRepository());
+
+      await expectLater(
+        container.read(statsControllerProvider.notifier).addMatch(sampleMatch),
+        throwsException,
+      );
+    });
   });
 }
 

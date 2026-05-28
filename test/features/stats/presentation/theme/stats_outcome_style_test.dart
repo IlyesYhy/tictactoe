@@ -118,4 +118,14 @@ void main() {
       expect(lightDefeat.color, darkDefeat.color);
     });
   });
+
+  group('StatsOutcomeColors theme extension', () {
+    test('is registered in the light theme', () {
+      expect(AppTheme.light.extension<StatsOutcomeColors>(), isNotNull);
+    });
+
+    test('is registered in the dark theme', () {
+      expect(AppTheme.dark.extension<StatsOutcomeColors>(), isNotNull);
+    });
+  });
 }
