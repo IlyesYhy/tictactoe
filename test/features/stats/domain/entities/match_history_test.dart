@@ -66,6 +66,44 @@ void main() {
       expect(history.matches, [firstMatch, secondMatch]);
     });
 
+    test('statisticsForDifficulty filters matches by difficulty', () {
+      CompletedMatch match(MatchOutcome outcome, GameDifficulty difficulty) {
+        return CompletedMatch(
+          outcome: outcome,
+          difficulty: difficulty,
+          playedAt: DateTime(2026, 1, 1),
+        );
+      }
+
+      final history = MatchHistory([
+        match(MatchOutcome.humanWon, GameDifficulty.easy),
+        match(MatchOutcome.humanWon, GameDifficulty.easy),
+        match(MatchOutcome.draw, GameDifficulty.easy),
+        match(MatchOutcome.cpuWon, GameDifficulty.hard),
+        match(MatchOutcome.cpuWon, GameDifficulty.hard),
+        match(MatchOutcome.draw, GameDifficulty.hard),
+      ]);
+
+      final easyStats = history.statisticsForDifficulty(GameDifficulty.easy);
+      expect(easyStats.victories, 2);
+      expect(easyStats.defeats, 0);
+      expect(easyStats.draws, 1);
+
+      final hardStats = history.statisticsForDifficulty(GameDifficulty.hard);
+      expect(hardStats.victories, 0);
+      expect(hardStats.defeats, 2);
+      expect(hardStats.draws, 1);
+    });
+
+    test('statisticsForDifficulty returns zero counters for empty history', () {
+      final history = MatchHistory.empty();
+      final stats = history.statisticsForDifficulty(GameDifficulty.easy);
+
+      expect(stats.victories, 0);
+      expect(stats.defeats, 0);
+      expect(stats.draws, 0);
+    });
+
     test('supports value equality for identical matches', () {
       final playedAt = DateTime(2026, 1, 1);
       final first = MatchHistory([

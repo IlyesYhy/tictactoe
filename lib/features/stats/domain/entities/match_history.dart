@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:tictactoe/core/domain/entities/game_difficulty.dart';
 
 import 'completed_match.dart';
 import 'game_statistics.dart';
@@ -12,12 +13,19 @@ final class MatchHistory extends Equatable {
 
   final List<CompletedMatch> matches;
 
-  GameStatistics get statistics {
+  GameStatistics get statistics => _statisticsFor(matches);
+
+  /// Aggregates the outcomes of matches played at [difficulty].
+  GameStatistics statisticsForDifficulty(GameDifficulty difficulty) {
+    return _statisticsFor(matches.where((m) => m.difficulty == difficulty));
+  }
+
+  static GameStatistics _statisticsFor(Iterable<CompletedMatch> source) {
     var victories = 0;
     var defeats = 0;
     var draws = 0;
 
-    for (final match in matches) {
+    for (final match in source) {
       switch (match.outcome) {
         case MatchOutcome.humanWon:
           victories++;
