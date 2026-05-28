@@ -11,7 +11,7 @@ The project focuses on Clean Architecture, testability, maintainability, and a p
 - Human vs CPU Tic-Tac-Toe
 - Easy and Hard difficulty levels
 - Game statistics with match history
-- Home bottom navigation with Play, Rules, and Stats tabs
+- Home bottom navigation with Play, Stats and Rules tabs
 - Clean Architecture
 - Riverpod state management
 - go_router navigation
@@ -25,6 +25,7 @@ The project focuses on Clean Architecture, testability, maintainability, and a p
 ### Prerequisites
 
 - Flutter SDK compatible with the version defined in `pubspec.yaml`
+- Tested with Flutter 3.44.0 / Dart 3.12.0
 
 ### Install
 
@@ -89,7 +90,7 @@ This repository uses Husky hooks to run local quality checks automatically:
 - `pre-commit` — runs `dart format . --set-exit-if-changed` and `flutter analyze`
 - `pre-push` — runs `flutter test`
 
-Install hooks after cloning the repository:
+Install the Git hooks after cloning (npm is used only for Husky and commitlint, not for app dependencies):
 
 ```bash
 npm install
