@@ -3,9 +3,10 @@
 ## Clean Architecture layers
 
 ```text
-presentation  ──────▶  domain  ◀──────  data
-     │                    ▲               ▲
-     └────────── di / composition root ───┘
+UI / controllers ─────▶ domain contracts ◀──── data implementations
+         ▲                                                       ▲
+         └───── composition root wires them from the outside ────┘
+                 without changing the dependency direction.
 ```
 
 The domain layer contains the game rules and business logic. It does not depend on Flutter, Riverpod, go_router, or any data implementation.
@@ -14,9 +15,11 @@ The presentation layer contains pages, widgets, controllers and UI state.
 
 The data layer contains concrete implementations behind domain abstractions.
 
-The `di/` folder acts as the feature composition root and wires domain abstractions to concrete implementations.
+The `di/` folder acts as the feature-level composition root and wires domain abstractions to concrete implementations.
 
 ## Feature folder layout
+
+Example for the game feature:
 
 ```
 lib/features/game/
@@ -39,9 +42,11 @@ lib/features/game/
     game_providers.dart
 ```
 
+The stats feature owns its own domain entities, repository contract, persistence implementation, controller, and UI. Completed games are recorded through the app-level `GameStatsRecorder`, so the game feature does not need to know that statistics exist.
+
 ### `domain/`
 
-Pure Dart layer containing entities, use cases, repositories contracts, and game services.
+Pure Dart layer containing entities, use cases, repository contracts, and game services.
 
 ### `data/`
 
@@ -66,6 +71,10 @@ lib/features/game/di/game_providers.dart
 This avoids placing data-layer dependencies inside the presentation layer.
 
 `Provider.family` is used for CPU strategy wiring so the selected `GameDifficulty` is passed explicitly and captured when a game starts. This prevents the CPU strategy from changing mid-game if the user later selects another difficulty on the HomePage.
+
+### App-level wiring
+
+Cross-feature wiring lives in `lib/app/di/`. `GameStatsRecorder` (`lib/app/integrations/game_stats_recorder.dart`) listens for a finished game and records the result through the stats feature. This keeps `game` and `stats` decoupled: neither feature imports the other, and the bridge is owned by the app layer.
 
 ## State management
 
@@ -93,14 +102,26 @@ Used when the dependency must be parameterized, for example by `GameDifficulty`.
 
 ## Navigation
 
-The app uses `go_router`.
+The app uses `go_router` for screen-level routes and an in-page tab shell for the home experience.
 
 Routes are centralized through:
 
 - `AppRoutes`
 - `AppRouteNames`
 
-`pushNamed` is used from HomePage to GamePage because starting a game opens a new screen on top of the HomePage.
+### Home tab shell
+
+`HomePage` is a shell that hosts three destinations through an `IndexedStack`:
+
+- Play
+- Rules
+- Stats
+
+Rules and Stats are embedded tabs, so they have no standalone route. `IndexedStack` keeps each tab's state alive while switching.
+
+### Pushed routes
+
+Game (`/game`) and Settings (`/settings`) are pushed on top of the shell with `pushNamed`, because they open a focused screen over the home experience.
 
 The GamePage back button uses:
 
@@ -118,7 +139,7 @@ The app defines:
 
 The theme uses `ColorScheme.fromSeed` with explicit brand color overrides.
 
-Game-specific colors are stored in `GameThemeExtension`.
+Game-specific colors are stored in `GameThemeExtension`, and outcome colors (draw, defeat) in `StatsOutcomeColors`. Both are theme extensions registered on the light and dark themes.
 
 `AppColors` is internal to the app theme and should not be imported directly by feature widgets. Feature widgets should consume colors through `ThemeData`, `ColorScheme`, or `ThemeExtension`.
 

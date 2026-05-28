@@ -2,19 +2,23 @@
 
 ## Overview
 
-TicTacToe is a Flutter technical challenge where a human player plays locally against a CPU opponent. The project focuses on Clean Architecture, testability, maintainability, and a production-oriented Flutter structure.
+TicTacToe is a Flutter technical challenge where a human player plays locally against a CPU opponent.
+
+The project focuses on Clean Architecture, testability, maintainability, and a production-oriented Flutter structure.
 
 ## Highlights
 
 - Human vs CPU Tic-Tac-Toe
 - Easy and Hard difficulty levels
+- Game statistics with match history
+- Home bottom navigation with Play, Rules, and Stats tabs
 - Clean Architecture
 - Riverpod state management
 - go_router navigation
 - English and French localization
 - Light and dark themes
 - Responsive UI
-- Automated tests
+- Strong automated test coverage
 
 ## Getting started
 
@@ -44,14 +48,14 @@ flutter test
 
 ```bash
 flutter analyze
-dart format .
+dart format . --set-exit-if-changed
 ```
 
 ## Project structure
 
-```
+```txt
 lib/
-  app/          App-level configuration: theme, router, root widget
+  app/          App-level configuration, router, theme, DI and integrations
   core/         Shared extensions and reusable helpers
   features/     Feature-first application modules
   l10n/         Localization files and generated delegates
@@ -62,7 +66,11 @@ assets/         Static images used by the UI
 
 ## Architecture
 
-This project follows a feature-first Clean Architecture approach. Each feature separates domain logic, data implementations, presentation widgets/controllers, and dependency wiring.
+This project follows a feature-first Clean Architecture approach.
+
+Each feature separates domain logic, data implementations, presentation widgets/controllers, and dependency wiring.
+
+The domain layer remains pure Dart and does not depend on Flutter, Riverpod, SharedPreferences, or any infrastructure detail.
 
 For a deeper technical overview, see [ARCHITECTURE.md](ARCHITECTURE.md).
 
@@ -71,7 +79,7 @@ For a deeper technical overview, see [ARCHITECTURE.md](ARCHITECTURE.md).
 - Conventional commits
 - Husky and commitlint
 - flutter_lints
-- Automated tests for domain logic, controllers, widgets and navigation flows
+- Automated tests for domain logic, controllers, repositories, widgets, and navigation flows
 
 ### Git hooks
 
@@ -86,3 +94,11 @@ Install hooks after cloning the repository:
 ```bash
 npm install
 ```
+
+## V1 status
+
+The current version focuses on the requested local Human vs CPU Tic-Tac-Toe experience.
+
+The app includes gameplay, rules, settings, statistics, match history, localization, theming, local persistence, and automated tests.
+
+Non-essential features such as local multiplayer, custom board sizes, analytics, and crash reporting are intentionally kept out of scope for this challenge.
