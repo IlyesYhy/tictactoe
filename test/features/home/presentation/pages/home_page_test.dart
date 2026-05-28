@@ -259,7 +259,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(selectedTab(tester), 2);
 
-      await tester.tap(find.text('Understood, play now !'));
+      await tester.tap(find.text('Understood, play now!'));
       await tester.pumpAndSettle();
 
       expect(selectedTab(tester), 0);
