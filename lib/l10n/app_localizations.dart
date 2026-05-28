@@ -469,6 +469,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Draw'**
   String get matchOutcomeDraw;
+
+  /// Section title above the per-difficulty stats cards on the statistics page.
+  ///
+  /// In en, this message translates to:
+  /// **'Results by difficulty'**
+  String get statsByDifficulty;
+
+  /// Short label rendered under the total match count, for example inside the donut chart.
+  ///
+  /// In en, this message translates to:
+  /// **'Matches'**
+  String get statsMatchesLabel;
 }
 
 class _AppLocalizationsDelegate

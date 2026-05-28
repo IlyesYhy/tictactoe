@@ -198,4 +198,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get matchOutcomeDraw => 'Draw';
+
+  @override
+  String get statsByDifficulty => 'Results by difficulty';
+
+  @override
+  String get statsMatchesLabel => 'Matches';
 }

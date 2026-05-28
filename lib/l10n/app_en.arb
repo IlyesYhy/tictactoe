@@ -252,5 +252,13 @@
   "matchOutcomeDraw": "Draw",
   "@matchOutcomeDraw": {
     "description": "Outcome label used for a single match that ended in a draw."
+  },
+  "statsByDifficulty": "Results by difficulty",
+  "@statsByDifficulty": {
+    "description": "Section title above the per-difficulty stats cards on the statistics page."
+  },
+  "statsMatchesLabel": "Matches",
+  "@statsMatchesLabel": {
+    "description": "Short label rendered under the total match count, for example inside the donut chart."
   }
 }

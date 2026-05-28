@@ -8,9 +8,10 @@ import 'package:tictactoe/features/stats/domain/entities/completed_match.dart';
 import 'package:tictactoe/features/stats/domain/entities/match_history.dart';
 import 'package:tictactoe/features/stats/domain/entities/match_outcome.dart';
 import 'package:tictactoe/features/stats/presentation/pages/stats_page.dart';
+import 'package:tictactoe/features/stats/presentation/widgets/difficulty_stats_card.dart';
 import 'package:tictactoe/features/stats/presentation/widgets/match_history_tile.dart';
-import 'package:tictactoe/features/stats/presentation/widgets/stats_chart.dart';
-import 'package:tictactoe/features/stats/presentation/widgets/stats_counter_card.dart';
+import 'package:tictactoe/features/stats/presentation/widgets/stats_hero_card.dart';
+import 'package:tictactoe/features/stats/presentation/widgets/stats_summary_card.dart';
 import 'package:tictactoe/l10n/app_localizations.dart';
 
 void main() {
@@ -33,12 +34,24 @@ void main() {
     );
   }
 
-  CompletedMatch buildMatch(MatchOutcome outcome) {
+  CompletedMatch buildMatch(
+    MatchOutcome outcome, {
+    GameDifficulty difficulty = GameDifficulty.easy,
+  }) {
     return CompletedMatch(
       outcome: outcome,
-      difficulty: GameDifficulty.easy,
+      difficulty: difficulty,
       playedAt: DateTime(2026, 5, 27),
     );
+  }
+
+  void useTallViewport(WidgetTester tester) {
+    tester.view.physicalSize = const Size(800, 2400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(() {
+      tester.view.resetPhysicalSize();
+      tester.view.resetDevicePixelRatio();
+    });
   }
 
   group('StatsPage', () {
@@ -49,46 +62,99 @@ void main() {
         find.text('Play your first match to see your stats here.'),
         findsOneWidget,
       );
-      expect(find.byType(StatsCounterCard), findsNothing);
-      expect(find.byType(StatsChart), findsNothing);
+      expect(find.byType(StatsHeroCard), findsNothing);
+      expect(find.byType(StatsSummaryCard), findsNothing);
+      expect(find.byType(DifficultyStatsCard), findsNothing);
     });
 
-    testWidgets('renders counters and chart when history has matches', (
+    testWidgets(
+      'renders hero, summary and difficulty sections when history has matches',
+      (tester) async {
+        useTallViewport(tester);
+
+        await pumpStatsPage(
+          tester,
+          history: MatchHistory([
+            buildMatch(MatchOutcome.humanWon),
+            buildMatch(MatchOutcome.cpuWon),
+          ]),
+        );
+
+        expect(find.byType(StatsHeroCard), findsOneWidget);
+        expect(find.byType(StatsSummaryCard), findsOneWidget);
+        expect(find.text('Results by difficulty'), findsOneWidget);
+        expect(find.byType(DifficultyStatsCard), findsNWidgets(2));
+      },
+    );
+
+    testWidgets('renders the match history section when history is not empty', (
       tester,
     ) async {
+      useTallViewport(tester);
+
       await pumpStatsPage(
         tester,
-        history: MatchHistory([
-          buildMatch(MatchOutcome.humanWon),
-          buildMatch(MatchOutcome.cpuWon),
-        ]),
+        history: MatchHistory([buildMatch(MatchOutcome.humanWon)]),
       );
 
-      expect(find.byType(StatsCounterCard), findsOneWidget);
-      expect(find.byType(StatsChart), findsOneWidget);
+      expect(find.text('History'), findsOneWidget);
+      expect(find.byType(MatchHistoryTile), findsOneWidget);
     });
 
-    testWidgets('renders the correct percentages on the chart', (tester) async {
-      // 2 victories, 1 defeat, 1 draw → 50%, 25%, 25%
-      await pumpStatsPage(
-        tester,
-        history: MatchHistory([
-          buildMatch(MatchOutcome.humanWon),
-          buildMatch(MatchOutcome.humanWon),
-          buildMatch(MatchOutcome.cpuWon),
-          buildMatch(MatchOutcome.draw),
-        ]),
+    testWidgets('renders match history tiles in most-recent-first order', (
+      tester,
+    ) async {
+      useTallViewport(tester);
+
+      final older = CompletedMatch(
+        outcome: MatchOutcome.humanWon,
+        difficulty: GameDifficulty.easy,
+        playedAt: DateTime(2026, 5, 20),
+      );
+      final newer = CompletedMatch(
+        outcome: MatchOutcome.cpuWon,
+        difficulty: GameDifficulty.easy,
+        playedAt: DateTime(2026, 5, 28),
       );
 
-      final chartFinder = find.byType(StatsChart);
+      await pumpStatsPage(tester, history: MatchHistory([older, newer]));
+
+      final tiles = find.byType(MatchHistoryTile);
+
+      expect(tiles, findsNWidgets(2));
+
       expect(
-        find.descendant(of: chartFinder, matching: find.text('50%')),
+        find.descendant(of: tiles.at(0), matching: find.text('Defeat')),
         findsOneWidget,
       );
+
       expect(
-        find.descendant(of: chartFinder, matching: find.text('25%')),
-        findsNWidgets(2),
+        find.descendant(of: tiles.at(1), matching: find.text('Victory')),
+        findsOneWidget,
       );
+    });
+    testWidgets('stacks the per-difficulty cards on narrow viewports', (
+      tester,
+    ) async {
+      tester.view.physicalSize = const Size(320, 720);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      await pumpStatsPage(
+        tester,
+        history: MatchHistory([buildMatch(MatchOutcome.humanWon)]),
+      );
+
+      expect(find.byType(DifficultyStatsCard), findsNWidgets(2));
+
+      final cards = find.byType(DifficultyStatsCard);
+      final firstTop = tester.getTopLeft(cards.first).dy;
+      final secondTop = tester.getTopLeft(cards.last).dy;
+
+      expect(firstTop, lessThan(secondTop));
     });
 
     testWidgets('renders French copy under fr locale', (tester) async {
@@ -107,39 +173,19 @@ void main() {
       );
     });
 
-    testWidgets('renders the match history section when history is not empty', (
+    testWidgets('renders the French by-difficulty section title', (
       tester,
     ) async {
+      useTallViewport(tester);
+
       await pumpStatsPage(
         tester,
         history: MatchHistory([buildMatch(MatchOutcome.humanWon)]),
+        locale: const Locale('fr'),
       );
 
-      expect(find.text('History'), findsOneWidget);
-      expect(find.byType(MatchHistoryTile), findsOneWidget);
-    });
-
-    testWidgets('renders match history tiles in most-recent-first order', (
-      tester,
-    ) async {
-      final older = CompletedMatch(
-        outcome: MatchOutcome.humanWon,
-        difficulty: GameDifficulty.easy,
-        playedAt: DateTime(2026, 5, 20),
-      );
-      final newer = CompletedMatch(
-        outcome: MatchOutcome.cpuWon,
-        difficulty: GameDifficulty.easy,
-        playedAt: DateTime(2026, 5, 28),
-      );
-
-      await pumpStatsPage(tester, history: MatchHistory([older, newer]));
-
-      expect(find.byType(MatchHistoryTile), findsNWidgets(2));
-
-      final defeatY = tester.getTopLeft(find.text('Defeat')).dy;
-      final victoryY = tester.getTopLeft(find.text('Victory')).dy;
-      expect(defeatY, lessThan(victoryY));
+      expect(find.text('Résultats par difficulté'), findsOneWidget);
+      expect(find.text('Historique'), findsOneWidget);
     });
   });
 }

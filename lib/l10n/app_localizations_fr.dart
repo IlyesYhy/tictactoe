@@ -202,4 +202,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get matchOutcomeDraw => 'Match nul';
+
+  @override
+  String get statsByDifficulty => 'Résultats par difficulté';
+
+  @override
+  String get statsMatchesLabel => 'Parties';
 }

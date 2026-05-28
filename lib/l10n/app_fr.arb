@@ -61,5 +61,7 @@
   "statsHistoryYesterday": "Hier",
   "matchOutcomeVictory": "Victoire",
   "matchOutcomeDefeat": "Défaite",
-  "matchOutcomeDraw": "Match nul"
+  "matchOutcomeDraw": "Match nul",
+  "statsByDifficulty": "Résultats par difficulté",
+  "statsMatchesLabel": "Parties"
 }
