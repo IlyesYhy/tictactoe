@@ -203,6 +203,37 @@ void main() {
       expect(state.isCpuThinking, isFalse);
     });
 
+    test(
+      'discards the CPU result when the game is reset mid-thinking',
+      () async {
+        final repository = _ControlledCpuRepository(4);
+        addTearDown(repository.completeIfPending);
+        final container = createContainer(cpuRepository: repository);
+        final controller = container.read(gameControllerProvider.notifier);
+
+        // Human plays; the CPU turn is now in flight, awaiting the completer.
+        final pending = controller.playHumanTurn(0);
+        expect(container.read(gameControllerProvider).isCpuThinking, isTrue);
+
+        // Reset while the CPU is still thinking.
+        controller.resetGame();
+        final resetState = container.read(gameControllerProvider);
+
+        // Let the stale CPU turn finally resolve.
+        repository.completer.complete();
+        await pending;
+
+        // The guard must drop the stale result: the reset state is untouched.
+        final finalState = container.read(gameControllerProvider);
+        expect(finalState, resetState);
+        expect(
+          finalState.session.board.cells,
+          List.filled(Board.size, Cell.empty),
+        );
+        expect(finalState.isCpuThinking, isFalse);
+      },
+    );
+
     group('difficulty capture', () {
       ProviderContainer createContainerWithPerDifficultyRepositories() {
         const easyRepository = _SequenceCpuRepository([4]);
