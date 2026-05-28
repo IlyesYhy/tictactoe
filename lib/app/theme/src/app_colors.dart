@@ -26,6 +26,9 @@ abstract final class AppColors {
   static const green = Color(0xFF22C55E);
   static const red = Color(0xFFE53935);
 
+  /// Theme-stable neutral grey for the "draw" outcome (identical light/dark).
+  static const outcomeDraw = Color(0xFF94A3B8);
+
   static const disabled = Color(0xFFBDBDBD);
 
   static const lightCellShadow = Color(0xFFE2E8F0);

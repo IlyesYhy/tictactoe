@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
 import 'package:tictactoe/features/stats/domain/entities/game_statistics.dart';
+import 'package:tictactoe/features/stats/domain/entities/match_outcome.dart';
+import 'package:tictactoe/features/stats/presentation/theme/stats_outcome_style.dart';
 
 /// Donut chart that visualises the breakdown of victories, draws and defeats
 /// with the total match count rendered in the centre.
@@ -34,9 +36,15 @@ class DonutTotalChart extends StatelessWidget {
               victories: stats.victories,
               draws: stats.draws,
               defeats: stats.defeats,
-              primaryColor: context.colorScheme.primary,
-              drawColor: context.colorScheme.onSurfaceVariant,
-              defeatColor: context.colorScheme.error,
+              primaryColor: statsOutcomeStyleOf(
+                context,
+                MatchOutcome.humanWon,
+              ).color,
+              drawColor: statsOutcomeStyleOf(context, MatchOutcome.draw).color,
+              defeatColor: statsOutcomeStyleOf(
+                context,
+                MatchOutcome.cpuWon,
+              ).color,
               trackColor: context.colorScheme.outlineVariant.withValues(
                 alpha: 0.25,
               ),

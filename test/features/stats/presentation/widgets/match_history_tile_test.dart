@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tictactoe/app/theme/app_theme.dart';
 import 'package:tictactoe/core/domain/entities/game_difficulty.dart';
 import 'package:tictactoe/features/stats/domain/entities/completed_match.dart';
 import 'package:tictactoe/features/stats/domain/entities/match_outcome.dart';
@@ -15,6 +16,7 @@ void main() {
   }) async {
     await tester.pumpWidget(
       MaterialApp(
+        theme: AppTheme.light,
         locale: locale,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,

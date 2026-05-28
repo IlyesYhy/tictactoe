@@ -3,6 +3,8 @@ import 'package:tictactoe/core/domain/entities/game_difficulty.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
 import 'package:tictactoe/features/stats/domain/entities/game_statistics.dart';
+import 'package:tictactoe/features/stats/domain/entities/match_outcome.dart';
+import 'package:tictactoe/features/stats/presentation/theme/stats_outcome_style.dart';
 import 'package:tictactoe/features/stats/presentation/widgets/stats_card.dart';
 
 /// Compact card summarising the per-outcome stats for a single difficulty.
@@ -30,6 +32,10 @@ class DifficultyStatsCard extends StatelessWidget {
     final icon = isEasy
         ? Icons.sentiment_satisfied_rounded
         : Icons.local_fire_department_rounded;
+
+    final victory = statsOutcomeStyleOf(context, MatchOutcome.humanWon);
+    final draw = statsOutcomeStyleOf(context, MatchOutcome.draw);
+    final defeat = statsOutcomeStyleOf(context, MatchOutcome.cpuWon);
 
     return StatsCard(
       radius: _radius,
@@ -61,28 +67,28 @@ class DifficultyStatsCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: _MiniOutcomeStat(
-                    icon: Icons.emoji_events_outlined,
+                    icon: victory.icon,
                     value: stats.victories,
                     label: l10n.statsVictoryCount(stats.victories),
-                    color: context.colorScheme.primary,
+                    color: victory.color,
                   ),
                 ),
                 const _VerticalSeparator(height: _separatorHeight),
                 Expanded(
                   child: _MiniOutcomeStat(
-                    icon: Icons.handshake_outlined,
+                    icon: draw.icon,
                     value: stats.draws,
                     label: l10n.statsDrawCount(stats.draws),
-                    color: context.colorScheme.onSurfaceVariant,
+                    color: draw.color,
                   ),
                 ),
                 const _VerticalSeparator(height: _separatorHeight),
                 Expanded(
                   child: _MiniOutcomeStat(
-                    icon: Icons.close_rounded,
+                    icon: defeat.icon,
                     value: stats.defeats,
                     label: l10n.statsDefeatCount(stats.defeats),
-                    color: context.colorScheme.error,
+                    color: defeat.color,
                   ),
                 ),
               ],

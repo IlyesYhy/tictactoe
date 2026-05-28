@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:tictactoe/core/constants/app_assets.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
 import 'package:tictactoe/features/stats/domain/entities/game_statistics.dart';
+import 'package:tictactoe/features/stats/domain/entities/match_outcome.dart';
+import 'package:tictactoe/features/stats/presentation/theme/stats_outcome_style.dart';
 import 'package:tictactoe/features/stats/presentation/widgets/donut_total_chart.dart';
 
 /// Hero section at the top of the statistics page.
@@ -180,26 +182,30 @@ class _OutcomeLegend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final victory = statsOutcomeStyleOf(context, MatchOutcome.humanWon);
+    final draw = statsOutcomeStyleOf(context, MatchOutcome.draw);
+    final defeat = statsOutcomeStyleOf(context, MatchOutcome.cpuWon);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
         _LegendItem(
-          icon: Icons.emoji_events_outlined,
-          color: context.colorScheme.primary,
+          icon: victory.icon,
+          color: victory.color,
           percent: _percentFor(stats.victories),
         ),
         const SizedBox(height: _itemGap),
         _LegendItem(
-          icon: Icons.handshake_outlined,
-          color: context.colorScheme.onSurfaceVariant,
+          icon: draw.icon,
+          color: draw.color,
           percent: _percentFor(stats.draws),
         ),
         const SizedBox(height: _itemGap),
         _LegendItem(
-          icon: Icons.close_rounded,
-          color: context.colorScheme.error,
+          icon: defeat.icon,
+          color: defeat.color,
           percent: _percentFor(stats.defeats),
         ),
       ],

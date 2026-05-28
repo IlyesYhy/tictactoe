@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tictactoe/app/theme/app_text_theme.dart';
 import 'package:tictactoe/app/theme/extensions/game_theme_extension.dart';
+import 'package:tictactoe/app/theme/extensions/stats_outcome_colors.dart';
 import 'package:tictactoe/app/theme/src/app_colors.dart';
 
 abstract final class AppTheme {
@@ -52,6 +53,7 @@ abstract final class AppTheme {
           dangerColor: AppColors.red,
           disabledColor: AppColors.disabled,
         ),
+        StatsOutcomeColors(draw: AppColors.outcomeDraw, defeat: AppColors.red),
       ],
     );
   }
@@ -88,6 +90,7 @@ abstract final class AppTheme {
           dangerColor: AppColors.red,
           disabledColor: AppColors.disabled,
         ),
+        StatsOutcomeColors(draw: AppColors.outcomeDraw, defeat: AppColors.red),
       ],
     );
   }

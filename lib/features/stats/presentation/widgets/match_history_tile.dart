@@ -5,6 +5,7 @@ import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
 import 'package:tictactoe/features/stats/domain/entities/completed_match.dart';
 import 'package:tictactoe/features/stats/domain/entities/match_outcome.dart';
+import 'package:tictactoe/features/stats/presentation/theme/stats_outcome_style.dart';
 import 'package:tictactoe/l10n/app_localizations.dart';
 
 /// Single row of the match history list.
@@ -27,7 +28,8 @@ class MatchHistoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final color = _outcomeColor(context, match.outcome);
+    final style = statsOutcomeStyleOf(context, match.outcome);
+    final color = style.color;
     final locale = Localizations.localeOf(context).toLanguageTag();
 
     return Material(
@@ -51,11 +53,7 @@ class MatchHistoryTile extends StatelessWidget {
                   color: color.withValues(alpha: 0.12),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  _outcomeIcon(match.outcome),
-                  color: color,
-                  size: _iconSize,
-                ),
+                child: Icon(style.icon, color: color, size: _iconSize),
               ),
             ),
             const SizedBox(width: _iconLabelGap),
@@ -91,22 +89,6 @@ class MatchHistoryTile extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Color _outcomeColor(BuildContext context, MatchOutcome outcome) {
-    return switch (outcome) {
-      MatchOutcome.humanWon => context.colorScheme.primary,
-      MatchOutcome.cpuWon => context.colorScheme.error,
-      MatchOutcome.draw => context.colorScheme.onSurfaceVariant,
-    };
-  }
-
-  IconData _outcomeIcon(MatchOutcome outcome) {
-    return switch (outcome) {
-      MatchOutcome.humanWon => Icons.emoji_events_outlined,
-      MatchOutcome.cpuWon => Icons.close_rounded,
-      MatchOutcome.draw => Icons.handshake_outlined,
-    };
   }
 
   String _outcomeLabel(AppLocalizations l10n, MatchOutcome outcome) {
