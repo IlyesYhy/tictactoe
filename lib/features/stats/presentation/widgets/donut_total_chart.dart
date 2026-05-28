@@ -19,6 +19,8 @@ class DonutTotalChart extends StatelessWidget {
   final double size;
   final double strokeWidth;
 
+  static const _numberLabelGap = 4.0;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox.square(
@@ -52,18 +54,18 @@ class DonutTotalChart extends StatelessWidget {
                     Text(
                       '${stats.totalMatches}',
                       textAlign: TextAlign.center,
-                      style: context.textTheme.displaySmall?.copyWith(
+                      style: context.textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.w900,
                         height: 0.95,
                       ),
                     ),
-                    const SizedBox(height: 2),
+                    const SizedBox(height: _numberLabelGap),
                     Text(
                       context.l10n.statsMatchCount(stats.totalMatches),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
-                      style: context.textTheme.titleSmall?.copyWith(
+                      style: context.textTheme.labelMedium?.copyWith(
                         color: context.colorScheme.primary,
                         fontWeight: FontWeight.w800,
                         height: 1,

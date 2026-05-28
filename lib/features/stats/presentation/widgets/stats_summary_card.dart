@@ -10,8 +10,8 @@ class StatsSummaryCard extends StatelessWidget {
 
   final GameStatistics stats;
 
-  static const _padding = EdgeInsets.symmetric(horizontal: 18, vertical: 20);
-  static const _dividerHeight = 28.0;
+  static const _padding = EdgeInsets.symmetric(horizontal: 16, vertical: 14);
+  static const _dividerHeight = 24.0;
 
   @override
   Widget build(BuildContext context) {
@@ -73,19 +73,19 @@ class _CounterColumn extends StatelessWidget {
     return Column(
       children: [
         CircleAvatar(
-          radius: 22,
+          radius: 18,
           backgroundColor: color.withValues(alpha: 0.12),
-          child: Icon(icon, color: color, size: 24),
+          child: Icon(icon, color: color, size: 20),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 6),
         Text(
           '$value',
-          style: context.textTheme.headlineSmall?.copyWith(
+          style: context.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.w900,
             height: 1,
           ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 2),
         Text(
           label,
           maxLines: 1,

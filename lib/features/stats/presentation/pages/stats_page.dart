@@ -25,7 +25,7 @@ class StatsPage extends ConsumerWidget {
   static const _horizontalPadding = 16.0;
   static const _verticalPadding = 16.0;
   static const _bottomPadding = 64.0;
-  static const _sectionGap = 18.0;
+  static const _sectionGap = 24.0;
   static const _headerGap = 12.0;
   static const _tileGap = 8.0;
   static const _difficultyCardGap = 12.0;

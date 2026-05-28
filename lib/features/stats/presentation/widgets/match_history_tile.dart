@@ -105,7 +105,7 @@ class MatchHistoryTile extends StatelessWidget {
     return switch (outcome) {
       MatchOutcome.humanWon => Icons.emoji_events_outlined,
       MatchOutcome.cpuWon => Icons.close_rounded,
-      MatchOutcome.draw => Icons.remove_rounded,
+      MatchOutcome.draw => Icons.handshake_outlined,
     };
   }
 

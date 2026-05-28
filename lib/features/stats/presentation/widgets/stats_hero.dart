@@ -20,21 +20,21 @@ class StatsHero extends StatelessWidget {
 
   final GameStatistics stats;
 
-  static const _height = 180.0;
+  static const _height = 160.0;
   static const _zoneGap = 12.0;
   static const _compactBreakpoint = 340.0;
 
   static const _mascotArea = 120.0;
   static const _compactMascotArea = 86.0;
-  static const _mascotHeight = 150.0;
-  static const _compactMascotHeight = 118.0;
-  static const _mascotFallbackSize = 96.0;
-  static const _compactMascotFallbackSize = 76.0;
+  static const _mascotHeight = 130.0;
+  static const _compactMascotHeight = 104.0;
+  static const _mascotFallbackSize = 88.0;
+  static const _compactMascotFallbackSize = 72.0;
 
-  static const _donutSize = 110.0;
+  static const _donutSize = 108.0;
   static const _compactDonutSize = 92.0;
-  static const _donutStrokeWidth = 14.0;
-  static const _compactDonutStrokeWidth = 12.0;
+  static const _donutStrokeWidth = 10.0;
+  static const _compactDonutStrokeWidth = 9.0;
 
   @override
   Widget build(BuildContext context) {

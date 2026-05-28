@@ -17,9 +17,9 @@ class DifficultyStatsCard extends StatelessWidget {
   final GameStatistics stats;
 
   static const _radius = 18.0;
-  static const _padding = EdgeInsets.symmetric(horizontal: 12, vertical: 14);
-  static const _sectionGap = 12.0;
-  static const _separatorHeight = 36.0;
+  static const _padding = EdgeInsets.symmetric(horizontal: 12, vertical: 12);
+  static const _sectionGap = 10.0;
+  static const _separatorHeight = 32.0;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +40,8 @@ class DifficultyStatsCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, color: color, size: 24),
-                const SizedBox(width: 8),
+                Icon(icon, color: color, size: 20),
+                const SizedBox(width: 6),
                 Text(
                   label,
                   style: context.textTheme.titleSmall?.copyWith(
@@ -111,8 +111,8 @@ class _MiniOutcomeStat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Icon(icon, color: color, size: 18),
-        const SizedBox(height: 6),
+        Icon(icon, color: color, size: 16),
+        const SizedBox(height: 4),
         Text(
           '$value',
           style: context.textTheme.titleMedium?.copyWith(
@@ -120,7 +120,7 @@ class _MiniOutcomeStat extends StatelessWidget {
             height: 1,
           ),
         ),
-        const SizedBox(height: 3),
+        const SizedBox(height: 2),
         Text(
           label,
           maxLines: 1,
