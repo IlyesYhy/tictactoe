@@ -20,6 +20,14 @@ The project focuses on Clean Architecture, testability, maintainability, and a p
 - Responsive UI
 - Strong automated test coverage
 
+## Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/play.png" alt="Play screen" width="240" />
+  <img src="docs/screenshots/game.png" alt="Game screen" width="240" />
+  <img src="docs/screenshots/stats.png" alt="Statistics screen" width="240" />
+</p>
+
 ## Getting started
 
 ### Prerequisites
