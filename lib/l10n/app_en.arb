@@ -157,7 +157,7 @@
   "@gameRulesHard": {
     "description": "Bullet describing the Hard difficulty behavior on the game rules page."
   },
-  "gameRulesPlayNow": "Understood, play now !",
+  "gameRulesPlayNow": "Understood, play now!",
   "@gameRulesPlayNow": {
   "description": "Call-to-action button label on the game rules page that closes the rules screen and lets the user start playing."
   },

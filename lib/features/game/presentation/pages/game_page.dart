@@ -73,7 +73,7 @@ class GamePage extends ConsumerWidget {
                                 ).backButtonTooltip,
                                 onPressed: () => _goBack(context),
 
-                                icon: const Icon(Icons.arrow_back_rounded),
+                                icon: const Icon(Icons.arrow_back_ios),
                               ),
                               const Spacer(),
                             ],

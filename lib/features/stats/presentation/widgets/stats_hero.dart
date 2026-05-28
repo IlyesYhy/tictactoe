@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:tictactoe/core/constants/app_assets.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
+import 'package:tictactoe/core/presentation/widgets/sparkle_icon.dart';
 import 'package:tictactoe/features/stats/domain/entities/game_statistics.dart';
 import 'package:tictactoe/features/stats/domain/entities/match_outcome.dart';
 import 'package:tictactoe/features/stats/presentation/theme/stats_outcome_style.dart';
@@ -136,14 +137,14 @@ class _MascotArea extends StatelessWidget {
         Positioned(
           left: isCompact ? 6 : 16,
           top: isCompact ? 36 : 28,
-          child: _Sparkle(
+          child: SparkleIcon(
             color: context.colorScheme.primary.withValues(alpha: 0.28),
           ),
         ),
         Positioned(
           right: isCompact ? 2 : 12,
           bottom: isCompact ? 42 : 36,
-          child: _Sparkle(
+          child: SparkleIcon(
             color: context.colorScheme.secondary.withValues(alpha: 0.28),
           ),
         ),
@@ -174,12 +175,6 @@ class _OutcomeLegend extends StatelessWidget {
 
   static const _itemGap = 8.0;
 
-  int _percentFor(int count) {
-    final total = stats.totalMatches;
-    if (total == 0) return 0;
-    return (count / total * 100).round();
-  }
-
   @override
   Widget build(BuildContext context) {
     final victory = statsOutcomeStyleOf(context, MatchOutcome.humanWon);
@@ -194,19 +189,19 @@ class _OutcomeLegend extends StatelessWidget {
         _LegendItem(
           icon: victory.icon,
           color: victory.color,
-          percent: _percentFor(stats.victories),
+          percent: stats.victoryPercentage,
         ),
         const SizedBox(height: _itemGap),
         _LegendItem(
           icon: draw.icon,
           color: draw.color,
-          percent: _percentFor(stats.draws),
+          percent: stats.drawPercentage,
         ),
         const SizedBox(height: _itemGap),
         _LegendItem(
           icon: defeat.icon,
           color: defeat.color,
-          percent: _percentFor(stats.defeats),
+          percent: stats.defeatPercentage,
         ),
       ],
     );
@@ -240,16 +235,5 @@ class _LegendItem extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-class _Sparkle extends StatelessWidget {
-  const _Sparkle({required this.color});
-
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Icon(Icons.auto_awesome_rounded, color: color, size: 16);
   }
 }

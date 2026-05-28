@@ -6,6 +6,7 @@ import 'package:tictactoe/features/stats/domain/entities/game_statistics.dart';
 import 'package:tictactoe/features/stats/domain/entities/match_outcome.dart';
 import 'package:tictactoe/features/stats/presentation/theme/stats_outcome_style.dart';
 import 'package:tictactoe/features/stats/presentation/widgets/stats_card.dart';
+import 'package:tictactoe/features/stats/presentation/widgets/stats_vertical_separator.dart';
 
 /// Compact card summarising the per-outcome stats for a single difficulty.
 class DifficultyStatsCard extends StatelessWidget {
@@ -73,7 +74,7 @@ class DifficultyStatsCard extends StatelessWidget {
                     color: victory.color,
                   ),
                 ),
-                const _VerticalSeparator(height: _separatorHeight),
+                const StatsVerticalSeparator(height: _separatorHeight),
                 Expanded(
                   child: _MiniOutcomeStat(
                     icon: draw.icon,
@@ -82,7 +83,7 @@ class DifficultyStatsCard extends StatelessWidget {
                     color: draw.color,
                   ),
                 ),
-                const _VerticalSeparator(height: _separatorHeight),
+                const StatsVerticalSeparator(height: _separatorHeight),
                 Expanded(
                   child: _MiniOutcomeStat(
                     icon: defeat.icon,
@@ -136,23 +137,6 @@ class _MiniOutcomeStat extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _VerticalSeparator extends StatelessWidget {
-  const _VerticalSeparator({required this.height});
-
-  final double height;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
-      child: VerticalDivider(
-        width: 1,
-        color: context.colorScheme.outlineVariant.withValues(alpha: 0.55),
-      ),
     );
   }
 }

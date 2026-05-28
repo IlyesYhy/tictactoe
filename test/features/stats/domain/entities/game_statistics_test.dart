@@ -28,5 +28,22 @@ void main() {
 
       expect(stats.winRate, closeTo(0.6, 0.0001));
     });
+
+    test('percentages return 0 when there are no matches', () {
+      final stats = GameStatistics.empty();
+
+      expect(stats.victoryPercentage, 0);
+      expect(stats.drawPercentage, 0);
+      expect(stats.defeatPercentage, 0);
+    });
+
+    test('percentages round each outcome share of the total', () {
+      // 3 / 6 = 50%, 1 / 6 = 16.67% -> 17%, 2 / 6 = 33.33% -> 33%.
+      const stats = GameStatistics(victories: 3, defeats: 2, draws: 1);
+
+      expect(stats.victoryPercentage, 50);
+      expect(stats.drawPercentage, 17);
+      expect(stats.defeatPercentage, 33);
+    });
   });
 }

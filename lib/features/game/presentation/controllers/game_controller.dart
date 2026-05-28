@@ -48,6 +48,8 @@ final class GameController extends Notifier<GameControllerState> {
       playCpuTurn(session: humanSession),
       Future<void>.delayed(ref.read(cpuThinkingDelayProvider)),
     ).wait;
+    // Drop stale CPU results if the game changed while the CPU was thinking.
+    if (state.session != humanSession || !state.isCpuThinking) return;
 
     state = state.copyWith(session: cpuSession, isCpuThinking: false);
   }

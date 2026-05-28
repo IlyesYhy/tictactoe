@@ -329,7 +329,7 @@ abstract class AppLocalizations {
   /// Call-to-action button label on the game rules page that closes the rules screen and lets the user start playing.
   ///
   /// In en, this message translates to:
-  /// **'Understood, play now !'**
+  /// **'Understood, play now!'**
   String get gameRulesPlayNow;
 
   /// Section header for the about block on the settings page.

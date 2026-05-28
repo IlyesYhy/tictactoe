@@ -60,7 +60,7 @@ void main() {
       await tester.drag(find.byType(ListView), const Offset(0, -600));
       await tester.pumpAndSettle();
 
-      expect(find.text('Understood, play now !'), findsOneWidget);
+      expect(find.text('Understood, play now!'), findsOneWidget);
     });
 
     testWidgets('renders French copy under fr locale', (tester) async {
