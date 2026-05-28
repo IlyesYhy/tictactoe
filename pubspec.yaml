@@ -24,6 +24,7 @@ dependencies:
 dev_dependencies:
   flutter_launcher_icons: ^0.14.4
   flutter_lints: ^6.0.0
+  flutter_native_splash: ^2.4.7
   flutter_test:
     sdk: flutter
 
@@ -40,3 +41,16 @@ flutter_launcher_icons:
   ios: true
   remove_alpha_ios: true
   background_color_ios: "#FFFFFF"
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  color_dark: "#0F172A"
+  image: assets/branding/logo-light.png
+  image_dark: assets/branding/logo-dark.png
+  android: true
+  ios: true
+  android_12:
+    image: assets/branding/logo-light.png
+    image_dark: assets/branding/logo-dark.png
+    color: "#FFFFFF"
+    color_dark: "#0F172A"
