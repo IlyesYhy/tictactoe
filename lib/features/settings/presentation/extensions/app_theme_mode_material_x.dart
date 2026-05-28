@@ -1,0 +1,16 @@
+import 'package:flutter/material.dart';
+
+import '../../domain/entities/app_theme_mode.dart';
+
+/// Maps the domain [AppThemeMode] to Flutter's [ThemeMode].
+///
+/// Kept in the presentation layer so the domain entity stays Flutter-independent.
+extension AppThemeModeMaterialX on AppThemeMode {
+  ThemeMode toThemeMode() {
+    return switch (this) {
+      AppThemeMode.light => ThemeMode.light,
+      AppThemeMode.dark => ThemeMode.dark,
+      AppThemeMode.system => ThemeMode.system,
+    };
+  }
+}

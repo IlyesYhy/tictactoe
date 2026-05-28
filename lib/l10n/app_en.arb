@@ -1,0 +1,284 @@
+{
+  "@@locale": "en",
+  "appTitle": "TicTacToe",
+  "@appTitle": {
+    "description": "Application title used in the OS task bar and on the home screen."
+  },
+  "yourTurn": "Your turn",
+  "@yourTurn": {
+    "description": "Status message displayed when it is the human player's turn."
+  },
+  "cpuThinking": "CPU is thinking",
+  "@cpuThinking": {
+    "description": "Status message displayed while the CPU is computing its next move."
+  },
+  "youWon": "You won!",
+  "@youWon": {
+    "description": "Result message displayed when the human player wins the game."
+  },
+  "cpuWon": "The CPU won!",
+  "@cpuWon": {
+    "description": "Result message displayed when the CPU wins the game."
+  },
+  "draw": "Draw!",
+  "@draw": {
+    "description": "Result message displayed when the game ends without a winner."
+  },
+  "you": "You",
+  "@you": {
+    "description": "Label used to identify the human player."
+  },
+  "cpu": "CPU",
+  "@cpu": {
+    "description": "Label used to identify the computer-controlled opponent."
+  },
+  "restartGame": "Restart",
+  "@restartGame": {
+    "description": "Button label used to restart the current game while it is still in progress."
+  },
+  "playAgain": "Play again",
+  "@playAgain": {
+    "description": "Button label used to start a new game once the current one has ended."
+  },
+  "newGame": "New game",
+  "@newGame": {
+    "description": "Primary call-to-action used to start a new game from the home page."
+  },
+  "homeSubtitle": "Play against the computer",
+  "@homeSubtitle": {
+    "description": "Tagline shown on the home page below the app title."
+  },
+  "difficultyTitle": "Difficulty",
+  "@difficultyTitle": {
+    "description": "Section heading above the difficulty selector on the home page."
+  },
+  "difficultyEasy": "Easy",
+  "@difficultyEasy": {
+    "description": "Label for the easy difficulty option (random CPU strategy)."
+  },
+  "difficultyHard": "Hard",
+  "@difficultyHard": {
+    "description": "Label for the hard difficulty option (minimax CPU strategy)."
+  },
+  "cellSemanticLabel": "Cell {position}",
+  "@cellSemanticLabel": {
+    "description": "Accessibility label for a board cell, identifying its 1-based position (1 to 9).",
+    "placeholders": {
+      "position": {
+        "type": "int"
+      }
+    }
+  },
+  "cellStateEmpty": "empty",
+  "@cellStateEmpty": {
+    "description": "Accessibility value spoken when a board cell has not been played yet."
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "AppBar title on the settings page."
+  },
+  "settingsLanguage": "Language",
+  "@settingsLanguage": {
+    "description": "Section header for the language selector on the settings page."
+  },
+  "settingsLanguageEnglish": "English",
+  "@settingsLanguageEnglish": {
+    "description": "Label for the English language option on the settings page."
+  },
+  "settingsLanguageFrench": "French",
+  "@settingsLanguageFrench": {
+    "description": "Label for the French language option on the settings page."
+  },
+  "settingsTheme": "Theme",
+  "@settingsTheme": {
+    "description": "Section header for the theme selector on the settings page."
+  },
+  "settingsThemeLight": "Light",
+  "@settingsThemeLight": {
+    "description": "Label for the light theme option on the settings page."
+  },
+  "settingsThemeDark": "Dark",
+  "@settingsThemeDark": {
+    "description": "Label for the dark theme option on the settings page."
+  },
+  "settingsThemeSystem": "System",
+  "@settingsThemeSystem": {
+    "description": "Label for the system theme option on the settings page."
+  },
+  "settingsPreferences": "Preferences",
+  "@settingsPreferences": {
+    "description": "Section header for the user preferences on the settings page."
+  },
+  "settingsHapticFeedback": "Haptic feedback",
+  "@settingsHapticFeedback": {
+    "description": "Toggle label that enables or disables vibration feedback when tapping a board cell."
+  },
+  "gameRulesTitle": "Game rules",
+  "@gameRulesTitle": {
+    "description": "AppBar title on the game rules page."
+  },
+  "gameRulesSubtitle": "All you need to know to play TicTacToe",
+  "@gameRulesSubtitle": {
+    "description": "AppBar subtitle on the game rules page."
+  },
+  "gameRulesObjective": "Objective",
+  "@gameRulesObjective": {
+    "description": "Section header introducing the goal of the game on the game rules page."
+  },
+  "gameRulesObjectiveDescription": "Align three of your marks in a row, column, or diagonal to win.",
+  "@gameRulesObjectiveDescription": {
+    "description": "Sentence describing how to win a game on the game rules page."
+  },
+  "gameRulesHowToPlay": "How to play",
+  "@gameRulesHowToPlay": {
+    "description": "Section header listing the basic gameplay rules on the game rules page."
+  },
+  "gameRulesStart": "You play X and always start. The CPU plays O.",
+  "@gameRulesStart": {
+    "description": "Bullet describing player turn order on the game rules page."
+  },
+  "gameRulesWin": "Three marks in a row, column, or diagonal wins the match.",
+  "@gameRulesWin": {
+    "description": "Bullet describing the winning condition on the game rules page."
+  },
+  "gameRulesDraw": "If the board fills up without a winner, the match ends in a draw.",
+  "@gameRulesDraw": {
+    "description": "Bullet describing the draw condition on the game rules page."
+  },
+  "gameRulesDifficulty": "Difficulty",
+  "@gameRulesDifficulty": {
+    "description": "Section header introducing the difficulty levels on the game rules page."
+  },
+  "gameRulesEasy": "Easy — the CPU picks moves at random.",
+  "@gameRulesEasy": {
+    "description": "Bullet describing the Easy difficulty behavior on the game rules page."
+  },
+  "gameRulesHard": "Hard — the CPU plays optimally and never loses.",
+  "@gameRulesHard": {
+    "description": "Bullet describing the Hard difficulty behavior on the game rules page."
+  },
+  "gameRulesPlayNow": "Understood, play now!",
+  "@gameRulesPlayNow": {
+  "description": "Call-to-action button label on the game rules page that closes the rules screen and lets the user start playing."
+  },
+  "settingsAbout": "About",
+  "@settingsAbout": {
+    "description": "Section header for the about block on the settings page."
+  },
+  "settingsGameRules": "Game rules",
+  "@settingsGameRules": {
+    "description": "Tile title opening the game rules page from the settings page."
+  },
+  "settingsVersion": "Version",
+  "@settingsVersion": {
+    "description": "Tile title displaying the installed app version on the settings page."
+  },
+  "settingsPlayer": "Player",
+  "@settingsPlayer": {
+    "description": "Section header for the player block on the settings page."
+  },
+  "settingsPlayerSubtitle": "Customize your experience",
+  "@settingsPlayerSubtitle": {
+    "description": "Subtitle shown under the player section header inviting customization."
+  },
+  "settingsPlayerName": "Player name",
+  "@settingsPlayerName": {
+    "description": "Label for the player name row on the settings page."
+  },
+  "settingsPreferredSymbol": "Preferred symbol",
+  "@settingsPreferredSymbol": {
+    "description": "Label for the preferred symbol row on the settings page."
+  },
+  "statsTitle": "Statistics",
+  "@statsTitle": {
+    "description": "AppBar title on the statistics page."
+  },
+  "statsVictoryCount": "{count, plural, =1{Victory} other{Victories}}",
+  "@statsVictoryCount": {
+    "description": "Pluralized counter label for matches won by the human player.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsDefeatCount": "{count, plural, =1{Defeat} other{Defeats}}",
+  "@statsDefeatCount": {
+    "description": "Pluralized counter label for matches won by the CPU.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsDrawCount": "{count, plural, =1{Draw} other{Draws}}",
+  "@statsDrawCount": {
+    "description": "Pluralized counter label for matches that ended in a draw.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsTotalMatches": "Total matches",
+  "@statsTotalMatches": {
+    "description": "Label for the total number of recorded matches."
+  },
+  "statsWinRate": "Win rate",
+  "@statsWinRate": {
+    "description": "Label for the percentage of matches won by the human player."
+  },
+  "statsEmpty": "Play your first match to see your stats here.",
+  "@statsEmpty": {
+    "description": "Empty-state message shown on the statistics page when no match has been recorded yet."
+  },
+  "homeTabPlay": "Play",
+  "@homeTabPlay": {
+    "description": "Bottom navigation label for the play tab on the home shell."
+  },
+  "homeTabRules": "Rules",
+  "@homeTabRules": {
+    "description": "Bottom navigation label for the rules tab on the home shell."
+  },
+  "homeTabStats": "Stats",
+  "@homeTabStats": {
+    "description": "Bottom navigation label for the stats tab on the home shell."
+  },
+  "statsHistory": "History",
+  "@statsHistory": {
+    "description": "Section title above the match history list on the statistics page."
+  },
+  "statsHistoryToday": "Today",
+  "@statsHistoryToday": {
+    "description": "Date label used when a match was played on the same calendar day as now."
+  },
+  "statsHistoryYesterday": "Yesterday",
+  "@statsHistoryYesterday": {
+    "description": "Date label used when a match was played on the previous calendar day."
+  },
+  "matchOutcomeVictory": "Victory",
+  "@matchOutcomeVictory": {
+    "description": "Outcome label used for a single match won by the human player."
+  },
+  "matchOutcomeDefeat": "Defeat",
+  "@matchOutcomeDefeat": {
+    "description": "Outcome label used for a single match won by the CPU."
+  },
+  "matchOutcomeDraw": "Draw",
+  "@matchOutcomeDraw": {
+    "description": "Outcome label used for a single match that ended in a draw."
+  },
+  "statsByDifficulty": "Results by difficulty",
+  "@statsByDifficulty": {
+    "description": "Section title above the per-difficulty stats cards on the statistics page."
+  },
+  "statsMatchCount": "{count, plural, =0{Matches} =1{Match} other{Matches}}",
+  "@statsMatchCount": {
+    "description": "Pluralized label rendered under the total match count, for example inside the donut chart.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
+}

@@ -43,7 +43,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+android/build/
 
+# iOS build artifacts
+ios/build/
+
+# Node (Husky / commitlint)
 node_modules/
-build/
-.dart_tool/
