@@ -5,6 +5,7 @@ import 'package:tictactoe/features/stats/domain/entities/game_statistics.dart';
 import 'package:tictactoe/features/stats/domain/entities/match_outcome.dart';
 import 'package:tictactoe/features/stats/presentation/theme/stats_outcome_style.dart';
 import 'package:tictactoe/features/stats/presentation/widgets/stats_card.dart';
+import 'package:tictactoe/features/stats/presentation/widgets/stats_vertical_separator.dart';
 
 /// Card listing the three outcome counters (victories, draws, defeats).
 class StatsSummaryCard extends StatelessWidget {
@@ -35,7 +36,7 @@ class StatsSummaryCard extends StatelessWidget {
                 color: victory.color,
               ),
             ),
-            const _VerticalSeparator(height: _dividerHeight),
+            const StatsVerticalSeparator(height: _dividerHeight),
             Expanded(
               child: _CounterColumn(
                 icon: draw.icon,
@@ -44,7 +45,7 @@ class StatsSummaryCard extends StatelessWidget {
                 color: draw.color,
               ),
             ),
-            const _VerticalSeparator(height: _dividerHeight),
+            const StatsVerticalSeparator(height: _dividerHeight),
             Expanded(
               child: _CounterColumn(
                 icon: defeat.icon,
@@ -101,23 +102,6 @@ class _CounterColumn extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _VerticalSeparator extends StatelessWidget {
-  const _VerticalSeparator({required this.height});
-
-  final double height;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
-      child: VerticalDivider(
-        width: 1,
-        color: context.colorScheme.outlineVariant.withValues(alpha: 0.55),
-      ),
     );
   }
 }
