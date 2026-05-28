@@ -403,7 +403,7 @@ void main() {
 
       expect(find.byType(GamePage), findsOneWidget);
 
-      await tester.tap(find.byIcon(Icons.arrow_back_rounded));
+      await tester.tap(find.byTooltip('Back'));
       await tester.pumpAndSettle();
 
       expect(find.byType(HomePage), findsOneWidget);
@@ -417,7 +417,7 @@ void main() {
 
         expect(find.byType(GamePage), findsOneWidget);
 
-        await tester.tap(find.byIcon(Icons.arrow_back_rounded));
+        await tester.tap(find.byTooltip('Back'));
         await tester.pumpAndSettle();
 
         expect(find.byType(HomePage), findsOneWidget);
