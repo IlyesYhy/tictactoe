@@ -44,6 +44,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# Node (Husky / commitlint)
 node_modules/
-build/
-.dart_tool/
