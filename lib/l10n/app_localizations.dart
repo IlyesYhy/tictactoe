@@ -373,6 +373,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Preferred symbol'**
   String get settingsPreferredSymbol;
+
+  /// AppBar title on the statistics page.
+  ///
+  /// In en, this message translates to:
+  /// **'Statistics'**
+  String get statsTitle;
+
+  /// Pluralized counter label for matches won by the human player.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Victory} other{Victories}}'**
+  String statsVictoryCount(int count);
+
+  /// Pluralized counter label for matches won by the CPU.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Defeat} other{Defeats}}'**
+  String statsDefeatCount(int count);
+
+  /// Pluralized counter label for matches that ended in a draw.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Draw} other{Draws}}'**
+  String statsDrawCount(int count);
+
+  /// Label for the total number of recorded matches.
+  ///
+  /// In en, this message translates to:
+  /// **'Total matches'**
+  String get statsTotalMatches;
+
+  /// Label for the percentage of matches won by the human player.
+  ///
+  /// In en, this message translates to:
+  /// **'Win rate'**
+  String get statsWinRate;
+
+  /// Empty-state message shown on the statistics page when no match has been recorded yet.
+  ///
+  /// In en, this message translates to:
+  /// **'Play your first match to see your stats here.'**
+  String get statsEmpty;
+
+  /// Bottom navigation label for the play tab on the home shell.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get homeTabPlay;
+
+  /// Bottom navigation label for the rules tab on the home shell.
+  ///
+  /// In en, this message translates to:
+  /// **'Rules'**
+  String get homeTabRules;
+
+  /// Bottom navigation label for the stats tab on the home shell.
+  ///
+  /// In en, this message translates to:
+  /// **'Stats'**
+  String get homeTabStats;
+
+  /// Section title above the match history list on the statistics page.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get statsHistory;
+
+  /// Date label used when a match was played on the same calendar day as now.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get statsHistoryToday;
+
+  /// Date label used when a match was played on the previous calendar day.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get statsHistoryYesterday;
+
+  /// Outcome label used for a single match won by the human player.
+  ///
+  /// In en, this message translates to:
+  /// **'Victory'**
+  String get matchOutcomeVictory;
+
+  /// Outcome label used for a single match won by the CPU.
+  ///
+  /// In en, this message translates to:
+  /// **'Defeat'**
+  String get matchOutcomeDefeat;
+
+  /// Outcome label used for a single match that ended in a draw.
+  ///
+  /// In en, this message translates to:
+  /// **'Draw'**
+  String get matchOutcomeDraw;
+
+  /// Section title above the per-difficulty stats cards on the statistics page.
+  ///
+  /// In en, this message translates to:
+  /// **'Results by difficulty'**
+  String get statsByDifficulty;
+
+  /// Pluralized label rendered under the total match count, for example inside the donut chart.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Matches} =1{Match} other{Matches}}'**
+  String statsMatchCount(int count);
 }
 
 class _AppLocalizationsDelegate

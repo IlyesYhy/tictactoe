@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tictactoe/features/game/domain/entities/game_difficulty.dart';
+import 'package:tictactoe/core/domain/entities/game_difficulty.dart';
 import 'package:tictactoe/features/home/presentation/widgets/home_difficulty_selector.dart';
 
 import '../../../../helpers/pump_test_app.dart';

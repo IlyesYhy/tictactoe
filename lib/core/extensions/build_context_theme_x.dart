@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tictactoe/app/theme/extensions/game_theme_extension.dart';
+import 'package:tictactoe/app/theme/extensions/stats_outcome_colors.dart';
 
 extension BuildContextThemeX on BuildContext {
   ThemeData get theme => Theme.of(this);
@@ -17,5 +18,16 @@ extension BuildContextThemeX on BuildContext {
     );
 
     return gameTheme!;
+  }
+
+  StatsOutcomeColors get statsOutcomeColors {
+    final colors = theme.extension<StatsOutcomeColors>();
+
+    assert(
+      colors != null,
+      'StatsOutcomeColors is missing from ThemeData.extensions.',
+    );
+
+    return colors!;
   }
 }

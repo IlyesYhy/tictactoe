@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tictactoe/core/domain/entities/game_difficulty.dart';
 import 'package:tictactoe/features/game/di/game_providers.dart';
-import 'package:tictactoe/features/game/domain/entities/game_difficulty.dart';
 
 void main() {
   ProviderContainer createContainer() {

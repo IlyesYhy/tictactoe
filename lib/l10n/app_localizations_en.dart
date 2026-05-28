@@ -150,4 +150,91 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsPreferredSymbol => 'Preferred symbol';
+
+  @override
+  String get statsTitle => 'Statistics';
+
+  @override
+  String statsVictoryCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Victories',
+      one: 'Victory',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String statsDefeatCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Defeats',
+      one: 'Defeat',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String statsDrawCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Draws',
+      one: 'Draw',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get statsTotalMatches => 'Total matches';
+
+  @override
+  String get statsWinRate => 'Win rate';
+
+  @override
+  String get statsEmpty => 'Play your first match to see your stats here.';
+
+  @override
+  String get homeTabPlay => 'Play';
+
+  @override
+  String get homeTabRules => 'Rules';
+
+  @override
+  String get homeTabStats => 'Stats';
+
+  @override
+  String get statsHistory => 'History';
+
+  @override
+  String get statsHistoryToday => 'Today';
+
+  @override
+  String get statsHistoryYesterday => 'Yesterday';
+
+  @override
+  String get matchOutcomeVictory => 'Victory';
+
+  @override
+  String get matchOutcomeDefeat => 'Defeat';
+
+  @override
+  String get matchOutcomeDraw => 'Draw';
+
+  @override
+  String get statsByDifficulty => 'Results by difficulty';
+
+  @override
+  String statsMatchCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Matches',
+      one: 'Match',
+      zero: 'Matches',
+    );
+    return '$_temp0';
+  }
 }

@@ -188,5 +188,97 @@
   "settingsPreferredSymbol": "Preferred symbol",
   "@settingsPreferredSymbol": {
     "description": "Label for the preferred symbol row on the settings page."
+  },
+  "statsTitle": "Statistics",
+  "@statsTitle": {
+    "description": "AppBar title on the statistics page."
+  },
+  "statsVictoryCount": "{count, plural, =1{Victory} other{Victories}}",
+  "@statsVictoryCount": {
+    "description": "Pluralized counter label for matches won by the human player.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsDefeatCount": "{count, plural, =1{Defeat} other{Defeats}}",
+  "@statsDefeatCount": {
+    "description": "Pluralized counter label for matches won by the CPU.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsDrawCount": "{count, plural, =1{Draw} other{Draws}}",
+  "@statsDrawCount": {
+    "description": "Pluralized counter label for matches that ended in a draw.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsTotalMatches": "Total matches",
+  "@statsTotalMatches": {
+    "description": "Label for the total number of recorded matches."
+  },
+  "statsWinRate": "Win rate",
+  "@statsWinRate": {
+    "description": "Label for the percentage of matches won by the human player."
+  },
+  "statsEmpty": "Play your first match to see your stats here.",
+  "@statsEmpty": {
+    "description": "Empty-state message shown on the statistics page when no match has been recorded yet."
+  },
+  "homeTabPlay": "Play",
+  "@homeTabPlay": {
+    "description": "Bottom navigation label for the play tab on the home shell."
+  },
+  "homeTabRules": "Rules",
+  "@homeTabRules": {
+    "description": "Bottom navigation label for the rules tab on the home shell."
+  },
+  "homeTabStats": "Stats",
+  "@homeTabStats": {
+    "description": "Bottom navigation label for the stats tab on the home shell."
+  },
+  "statsHistory": "History",
+  "@statsHistory": {
+    "description": "Section title above the match history list on the statistics page."
+  },
+  "statsHistoryToday": "Today",
+  "@statsHistoryToday": {
+    "description": "Date label used when a match was played on the same calendar day as now."
+  },
+  "statsHistoryYesterday": "Yesterday",
+  "@statsHistoryYesterday": {
+    "description": "Date label used when a match was played on the previous calendar day."
+  },
+  "matchOutcomeVictory": "Victory",
+  "@matchOutcomeVictory": {
+    "description": "Outcome label used for a single match won by the human player."
+  },
+  "matchOutcomeDefeat": "Defeat",
+  "@matchOutcomeDefeat": {
+    "description": "Outcome label used for a single match won by the CPU."
+  },
+  "matchOutcomeDraw": "Draw",
+  "@matchOutcomeDraw": {
+    "description": "Outcome label used for a single match that ended in a draw."
+  },
+  "statsByDifficulty": "Results by difficulty",
+  "@statsByDifficulty": {
+    "description": "Section title above the per-difficulty stats cards on the statistics page."
+  },
+  "statsMatchCount": "{count, plural, =0{Matches} =1{Match} other{Matches}}",
+  "@statsMatchCount": {
+    "description": "Pluralized label rendered under the total match count, for example inside the donut chart.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tictactoe/app/router/app_routes.dart';
+import 'package:tictactoe/core/constants/app_assets.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
 
 class GameRulesPage extends StatelessWidget {
-  const GameRulesPage({super.key});
+  const GameRulesPage({this.onPlayNow, this.scrollController, super.key});
+
+  /// Optional override for the "play now" call-to-action.
+  ///
+  /// When null (standalone route), the button pops back to the home shell. When
+  /// supplied (embedded inside the home shell), the callback switches tabs
+  /// without rebuilding the shell.
+  final VoidCallback? onPlayNow;
+
+  /// Optional scroll controller for the rules list.
+  ///
+  /// Supplied by the home shell so it can scroll the page back to the top
+  /// when the user reopens this tab. Standalone routes can omit it.
+  final ScrollController? scrollController;
 
   static const _horizontalPadding = 20.0;
   static const _verticalPadding = 0.0;
@@ -18,23 +32,18 @@ class GameRulesPage extends StatelessWidget {
   static const _bottomImageHeight = 260.0;
   static const _buttonBottomGap = 24.0;
 
-  static const _lightHeaderImagePath = 'assets/bot-light-rules.png';
-  static const _darkHeaderImagePath = 'assets/bot-dark-rules.png';
-  static const _lightBottomImagePath = 'assets/bot-light-rules-end.png';
-  static const _darkBottomImagePath = 'assets/bot-dark-rules-end.png';
-
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     final headerImagePath = isDarkMode
-        ? _darkHeaderImagePath
-        : _lightHeaderImagePath;
+        ? AppAssets.botDarkRules
+        : AppAssets.botLightRules;
 
     final bottomImagePath = isDarkMode
-        ? _darkBottomImagePath
-        : _lightBottomImagePath;
+        ? AppAssets.botDarkRulesEnd
+        : AppAssets.botLightRulesEnd;
 
     return Scaffold(
       backgroundColor: context.colorScheme.surface,
@@ -50,6 +59,7 @@ class GameRulesPage extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
       ),
       body: ListView(
+        controller: scrollController,
         padding: const EdgeInsets.fromLTRB(
           _horizontalPadding,
           _verticalPadding,
@@ -109,7 +119,7 @@ class GameRulesPage extends StatelessWidget {
           const SizedBox(height: 20),
           _PlayNowButton(
             label: l10n.gameRulesPlayNow,
-            onPressed: () => context.goNamed(AppRouteNames.home),
+            onPressed: onPlayNow ?? () => context.goNamed(AppRouteNames.home),
           ),
           const SizedBox(height: _buttonBottomGap),
         ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tictactoe/core/domain/entities/game_difficulty.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
-import 'package:tictactoe/features/game/domain/entities/game_difficulty.dart';
 
 /// Two-card selector for the [GameDifficulty] picked on the home page.
 ///

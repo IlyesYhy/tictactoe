@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tictactoe/app/router/app_routes.dart';
+import 'package:tictactoe/core/constants/app_assets.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
 import 'package:tictactoe/features/settings/di/settings_providers.dart';
@@ -194,12 +195,10 @@ class _PlayerCard extends StatelessWidget {
   const _PlayerCard();
 
   static const _robotSize = 104.0;
-  static const _lightRobotAssetPath = 'assets/bot-light-settings.png';
-  static const _darkRobotAssetPath = 'assets/bot-dark-settings.png';
 
   String _robotAssetPath(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return isDark ? _darkRobotAssetPath : _lightRobotAssetPath;
+    return isDark ? AppAssets.botDarkSettings : AppAssets.botLightSettings;
   }
 
   @override

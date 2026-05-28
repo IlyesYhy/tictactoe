@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tictactoe/app/di/game_stats_providers.dart';
 import 'package:tictactoe/app/router/app_routes.dart';
 import 'package:tictactoe/app/theme/app_spacing.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
@@ -19,6 +22,20 @@ class GamePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(gameControllerProvider, (previous, next) {
+      final wasFinished = previous?.session.isFinished ?? false;
+      if (wasFinished || !next.session.isFinished) return;
+
+      unawaited(
+        ref
+            .read(gameStatsRecorderProvider)
+            .recordFromGameSession(
+              result: next.session.result,
+              difficulty: next.difficulty,
+            ),
+      );
+    });
+
     final state = ref.watch(gameControllerProvider);
     final controller = ref.read(gameControllerProvider.notifier);
     final isBoardDisabled = state.isCpuThinking || state.session.isFinished;
