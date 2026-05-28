@@ -6,6 +6,7 @@ import 'package:tictactoe/core/constants/app_assets.dart';
 import 'package:tictactoe/core/domain/entities/game_difficulty.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
+import 'package:tictactoe/core/presentation/widgets/sparkle_icon.dart';
 import 'package:tictactoe/features/game/di/game_providers.dart';
 import 'package:tictactoe/features/game/presentation/controllers/game_controller.dart';
 import 'package:tictactoe/features/home/presentation/widgets/home_difficulty_selector.dart';
@@ -282,13 +283,17 @@ class _HomeHero extends StatelessWidget {
           Positioned(
             left: 70,
             top: height * 0.20,
-            child: _Sparkle(color: colorScheme.primary.withValues(alpha: 0.18)),
+            child: SparkleIcon(
+              color: colorScheme.primary.withValues(alpha: 0.18),
+              size: 18,
+            ),
           ),
           Positioned(
             right: 72,
             bottom: height * 0.24,
-            child: _Sparkle(
+            child: SparkleIcon(
               color: colorScheme.secondary.withValues(alpha: 0.18),
+              size: 18,
             ),
           ),
           Image.asset(
@@ -331,16 +336,5 @@ class _DecorativeSymbol extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class _Sparkle extends StatelessWidget {
-  const _Sparkle({required this.color});
-
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Icon(Icons.auto_awesome_rounded, color: color, size: 18);
   }
 }

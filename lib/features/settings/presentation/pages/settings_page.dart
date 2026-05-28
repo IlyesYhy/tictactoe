@@ -7,6 +7,7 @@ import 'package:tictactoe/app/router/app_routes.dart';
 import 'package:tictactoe/core/constants/app_assets.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
+import 'package:tictactoe/core/presentation/widgets/sparkle_icon.dart';
 import 'package:tictactoe/features/settings/di/settings_providers.dart';
 import 'package:tictactoe/features/settings/domain/entities/app_language.dart';
 import 'package:tictactoe/features/settings/domain/entities/app_theme_mode.dart';
@@ -216,7 +217,7 @@ class _PlayerCard extends StatelessWidget {
                 Positioned(
                   left: 2,
                   top: 16,
-                  child: _Sparkle(
+                  child: SparkleIcon(
                     color: context.colorScheme.primary.withValues(alpha: 0.22),
                     size: 14,
                   ),
@@ -224,7 +225,7 @@ class _PlayerCard extends StatelessWidget {
                 Positioned(
                   right: 4,
                   bottom: 18,
-                  child: _Sparkle(
+                  child: SparkleIcon(
                     color: context.colorScheme.secondary.withValues(
                       alpha: 0.22,
                     ),
@@ -502,18 +503,6 @@ class _SectionHeader extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class _Sparkle extends StatelessWidget {
-  const _Sparkle({required this.color, required this.size});
-
-  final Color color;
-  final double size;
-
-  @override
-  Widget build(BuildContext context) {
-    return Icon(Icons.auto_awesome_rounded, color: color, size: size);
   }
 }
 
