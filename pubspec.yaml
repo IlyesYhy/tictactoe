@@ -36,7 +36,7 @@ flutter:
   uses-material-design: true
 
 flutter_launcher_icons:
-  image_path: "assets/branding/logo-light.png"
+  image_path: "assets/branding/app-icon.png"
   android: true
   ios: true
   remove_alpha_ios: true
