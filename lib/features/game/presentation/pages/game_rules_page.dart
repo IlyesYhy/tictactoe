@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tictactoe/app/router/app_routes.dart';
+import 'package:tictactoe/core/constants/app_assets.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
 
@@ -31,23 +32,18 @@ class GameRulesPage extends StatelessWidget {
   static const _bottomImageHeight = 260.0;
   static const _buttonBottomGap = 24.0;
 
-  static const _lightHeaderImagePath = 'assets/bot-light-rules.png';
-  static const _darkHeaderImagePath = 'assets/bot-dark-rules.png';
-  static const _lightBottomImagePath = 'assets/bot-light-rules-end.png';
-  static const _darkBottomImagePath = 'assets/bot-dark-rules-end.png';
-
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     final headerImagePath = isDarkMode
-        ? _darkHeaderImagePath
-        : _lightHeaderImagePath;
+        ? AppAssets.botDarkRules
+        : AppAssets.botLightRules;
 
     final bottomImagePath = isDarkMode
-        ? _darkBottomImagePath
-        : _lightBottomImagePath;
+        ? AppAssets.botDarkRulesEnd
+        : AppAssets.botLightRulesEnd;
 
     return Scaffold(
       backgroundColor: context.colorScheme.surface,

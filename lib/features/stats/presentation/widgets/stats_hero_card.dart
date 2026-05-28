@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tictactoe/core/constants/app_assets.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
 import 'package:tictactoe/features/stats/domain/entities/game_statistics.dart';
 import 'package:tictactoe/features/stats/presentation/widgets/donut_total_chart.dart';
@@ -19,13 +20,12 @@ class StatsHeroCard extends StatelessWidget {
   static const _donutSize = 130.0;
   static const _donutStrokeWidth = 18.0;
 
-  static const _lightMascotPath = 'assets/bot-light-stats.png';
-  static const _darkMascotPath = 'assets/bot-dark-stats.png';
-
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final mascotPath = isDark ? _darkMascotPath : _lightMascotPath;
+    final mascotPath = isDark
+        ? AppAssets.botDarkStats
+        : AppAssets.botLightStats;
 
     return StatsCard(
       radius: _radius,

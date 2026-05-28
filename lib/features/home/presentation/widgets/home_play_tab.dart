@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tictactoe/app/router/app_routes.dart';
+import 'package:tictactoe/core/constants/app_assets.dart';
 import 'package:tictactoe/core/domain/entities/game_difficulty.dart';
 import 'package:tictactoe/core/extensions/build_context_l10n_x.dart';
 import 'package:tictactoe/core/extensions/build_context_theme_x.dart';
@@ -236,19 +237,14 @@ class _HomeHero extends StatelessWidget {
   final double height;
   final double robotSize;
 
-  static const _lightHappyAssetPath = 'assets/bot-light-happy.png';
-  static const _darkHappyAssetPath = 'assets/bot-dark-happy.png';
-  static const _lightAngryAssetPath = 'assets/bot-light-angry.png';
-  static const _darkAngryAssetPath = 'assets/bot-dark-angry.png';
-
   String _robotAssetPath(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return switch ((difficulty, isDark)) {
-      (GameDifficulty.easy, false) => _lightHappyAssetPath,
-      (GameDifficulty.easy, true) => _darkHappyAssetPath,
-      (GameDifficulty.hard, false) => _lightAngryAssetPath,
-      (GameDifficulty.hard, true) => _darkAngryAssetPath,
+      (GameDifficulty.easy, false) => AppAssets.botLightHappy,
+      (GameDifficulty.easy, true) => AppAssets.botDarkHappy,
+      (GameDifficulty.hard, false) => AppAssets.botLightAngry,
+      (GameDifficulty.hard, true) => AppAssets.botDarkAngry,
     };
   }
 
